@@ -2,7 +2,8 @@ angular.module( 'ngBoilerplate', [
   'templates-app',
   'templates-common',
   'ngBoilerplate.home',
-  'ui.router'
+  'ui.router',
+  'calc'
 ])
 
 .config( function myAppConfig ( $stateProvider, $urlRouterProvider ) {

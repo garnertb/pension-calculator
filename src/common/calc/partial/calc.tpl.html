@@ -1,32 +1,33 @@
-<div class="section">
+<div  ng-app="calc">
+<div class="section" ng-controller="CalcController" >
     <div id="input-collapse-toggle" class="section-header collapse-toggle">Input</div>
     <div>
         <div class="field-label">Age at Hire</div>
-        <input id="age-at-hire" class="form-control" value="25">
+        <input ng-model="ageAtHire" id="age-at-hire" class="form-control" >
     </div>
     <div>
         <div class="field-label">Age at Retirement</div>
-        <input id="age-at-retirement" class="form-control" value="55">
+        <input ng-model="ageAtRetire" id="age-at-retirement" class="form-control" >
     </div>
     <div>
         <div class="field-label">Annual Wage at Hire</div>
-        <input id="annual-wage-at-hire" class="form-control" value="20,000">
+        <input ng-model="wageAtHire" id="annual-wage-at-hire" class="form-control" >
     </div>
     <div>
         <div class="field-label">Annual Wage at Retirement</div>
-        <input id="annual-wage-at-retirement" class="form-control" value="62,374">
+        <input ng-model="wageAtRetire" id="annual-wage-at-retirement" class="form-control" >
     </div>
     <div>
         <div class="field-label">Years of Which Final Average Salary Based</div>
-        <input id="years-of-which-final-average-salary-based" class="form-control" value="3">
+        <input ng-model="finalSalaryYears" id="years-of-which-final-average-salary-based" class="form-control" >
     </div>
     <div>
         <div class="field-label">Retiree Cost of Living Adjustment (COLA)</div>
-        <input id="retiree-cost-of-living-adjustment" class="form-control" value="2">
+        <input ng-model="COLAAdjustment" id="retiree-cost-of-living-adjustment" class="form-control" >
     </div>
     <div>
         <div class="field-label">Defied Contribution (% of payroll)</div>
-        <input id="defied-contribution" class="form-control" value="33.62">
+        <input ng-model="definedContribution" id="defied-contribution" class="form-control" >
     </div>
 </div>
 
@@ -62,19 +63,19 @@
     <div id="debug-collapse-toggle" class="section-header collapse-toggle" href="#">Temporary Debug Section</div>
     <div>
         <div class="field-label">X Value</div>
-        <input id="x-value" class="form-control">
+        <input ng-model="xValue" id="x-value" class="form-control">
     </div>
     <div>
         <div class="field-label">Y Value</div>
-        <input id="y-value" class="form-control">
+        <input ng-model="yValue" id="y-value" class="form-control">
     </div>
     <div>
         <div class="field-label">Z Value</div>
-        <input id="z-value" class="form-control">
+        <input ng-model="zValue" id="z-value" class="form-control">
     </div>
     <div>
         <div class="field-label">Final Value</div>
         <input id="final-value" class="form-control">
     </div>
 </div>
-
+</div>

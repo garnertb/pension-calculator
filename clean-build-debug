@@ -26,7 +26,7 @@ echo
 echo ========== Running grunt ==========
 echo ===================================
 echo   
-grunt $*
+grunt watch
 rc=$?
 if [ $rc != 0 ] ; then
     exit $rc

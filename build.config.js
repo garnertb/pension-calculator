@@ -65,11 +65,16 @@ module.exports = {
       'vendor/angular/angular.js',
       'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
       'vendor/angular-ui-router/release/angular-ui-router.js',
-      'vendor/angular-ui-utils/modules/route/route.js'
+      'vendor/angular-ui-utils/modules/route/route.js',
+      'vendor/jquery/jquery.min.js'
     ],
     css: [
     ],
     assets: [
+    ],
+    fonts: [
+      'vendor/bootstrap/fonts/*',
+      'vendor/font-awesome/fonts/*'
     ]
-  },
+  }
 };

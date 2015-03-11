@@ -1,29 +1,28 @@
 (function() {
   var module = angular.module('calc_service', []);
 
-  //var service_ = null;
+  var service_ = null;
   var q_ = null;
 
   module.provider('calcService', function() {
     this.$get = function($rootScope, $q) {
+      service_ = this;
       q_ = $q;
-      return this;
+      return service_;
     };
-    
+
     this.ComputeXValue = function(ageAtHire,ageAtRetire,wageAtHire,definedContribution,investReturn,wageIncrease) {
-        var xValue;
-        xValue = ((wageAtHire * definedContribution) / (investReturn - wageIncrease)) * (pow(1 - ((1 + wageIncrease)/(1 + investReturn)),ageAtRetire-ageAtHire));
-        return xValue;
+      var xValue;
+      xValue = ((wageAtHire * definedContribution) / (investReturn - wageIncrease)) * (pow(1 - ((1 + wageIncrease)/(1 + investReturn)),ageAtRetire-ageAtHire));
+      return xValue;
     };
-    
+
     this.ComputeYValue = function(ageAtHire,ageAtRetire,wageAtHire,definedContribution,investReturn) {
-        var yValue;
-        yValue = (pow((1 + investReturn),ageAtRetire - ageAtHire) * (1 + (investReturn*11/24)));
-        return yValue;
+      var yValue;
+      yValue = (pow((1 + investReturn),ageAtRetire - ageAtHire) * (1 + (investReturn*11/24)));
+      return yValue;
     };
-    
-    
-    
+
     this.ComputeZValue = function(rates, rateStructure, mortName, mortTable, mortProjection, age, ARA, sex, certainPeriod, tempPeriod, spouseAge, pctEE, pctBoth, pctSpouse, COLApct, COLAStartAge) {
       var zValue = 0;
       var x,y,z = 0;    //counters for something
@@ -74,24 +73,24 @@
       var EndAge;       //'for mortality table
       var v = [];       //'interest discount for forward rates
       var COLAincrease = [];
-      
+
       //Input validation
       if(ARA < age) {
         certainPeriod = max(certainPeriod - age + ARA, 0);
         tempPeriod = max(tempPeriod - age + ARA, 0);
         ARA = age;
       }
-      
+
       //Set mortality table start age and end age
       if(mortName == "ownstatic" || mortName == "owngenerational") {
         Startage = mortTable[1][1];
         EndAge = min(mortTable.length + Startage - 1, 120);
-      } 
+      }
       else {
         Startage = 1;
         EndAge = 120;
       }
-      
+
       //Setup spouse information
       if(spouseAge < 1) {
         spouseAge = age;
@@ -99,32 +98,32 @@
         pctEE = 1;
         pctBoth = 1;
         pctSpouse = 0;
-      } 
+      }
       else {
         spouseARA = ARA - age + spouseAge;
       }
       p_sp[spouseAge] = 1;
-      
+
       //Set up interest array
       for(x = 1; x < age - 1; x++) {
         interest[x] = 0;
       }
-      
+
       if(rateStructure == "spot") {
         numRates = rates.length;
         if(numRates < 3) {
           for(x = age; x < age + 4; x++) {
             interest[x] = rates[1];
           }
-          
+
           for(x = age + 5; x < age + 19; x++) {
             interest[x] = rates[2];
           }
-          
+
           for(x = age + 20; x < 200; x++) {
             interest[x] = rates[3];
           }
-        } 
+        }
         else {
           for(x = age; x < age + numRates - 1; x++) {
             interest[x] = rates[x - age + 1];
@@ -133,29 +132,29 @@
             interest[x] = rates[numRates];
           }
         }
-     }
-     var invalidRates = false;
+      }
+      var invalidRates = false;
       if(rateStructure == "forward") {
         //Check typename of rates
         if(rates.length > 1) {
           z = 0;
           for(y = 1; y < rates.length; y++) {
             for(x = age + z; x < age + rates[y][1] - 1; x++) {
-                interest[x] = rates[y][2];
+              interest[x] = rates[y][2];
             }
             z = rates[y][1];
           }
         }
         if(invalidRates) {
-            z = 0;
-            for(y = 1; y < rates.length; y+=2) {
-                for(x = age + z; x < age + rates[y] - 1; x++) {
-                    interest[x] = rates[y+1];
-                }
-                z = rates[y];
+          z = 0;
+          for(y = 1; y < rates.length; y+=2) {
+            for(x = age + z; x < age + rates[y] - 1; x++) {
+              interest[x] = rates[y+1];
             }
+            z = rates[y];
+          }
         }
-    }
-};
+      }
+    };
   });
 }());

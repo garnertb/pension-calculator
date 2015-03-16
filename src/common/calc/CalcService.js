@@ -12,19 +12,20 @@
     };
 
     this.ComputeXValue = function(ageAtHire,ageAtRetire,wageAtHire,definedContribution,investReturn,wageIncrease) {
-      var xValue;
-      xValue = ((wageAtHire * definedContribution) / (investReturn - wageIncrease)) * (pow(1 - ((1 + wageIncrease)/(1 + investReturn)),ageAtRetire-ageAtHire));
+      var xValue = -1;
+      //xValue = ((wageAtHire * definedContribution) / (investReturn - wageIncrease)) * (pow(1 - ((1 + wageIncrease)/(1 + investReturn)),ageAtRetire-ageAtHire));
       return xValue;
     };
 
     this.ComputeYValue = function(ageAtHire,ageAtRetire,wageAtHire,definedContribution,investReturn) {
-      var yValue;
-      yValue = (pow((1 + investReturn),ageAtRetire - ageAtHire) * (1 + (investReturn*11/24)));
+      var yValue = -1;
+      //yValue = (pow((1 + investReturn),ageAtRetire - ageAtHire) * (1 + (investReturn*11/24)));
       return yValue;
     };
 
     this.ComputeZValue = function(rates, rateStructure, mortName, mortTable, mortProjection, age, ARA, sex, certainPeriod, tempPeriod, spouseAge, pctEE, pctBoth, pctSpouse, COLApct, COLAStartAge) {
-      var zValue = 0;
+      var zValue = -1;
+      /*
       var x,y,z = 0;    //counters for something
       var spouseARA = 0;
       var minJSq, maxJSq; //joint mortality table min and max
@@ -155,6 +156,7 @@
           }
         }
       }
+      */
     };
   });
 }());

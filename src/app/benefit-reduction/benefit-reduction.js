@@ -12,7 +12,7 @@
  * The dependencies block here is also where component dependencies should be
  * specified, as shown below.
  */
-angular.module( 'ngBoilerplate.home', [
+angular.module( 'ngBoilerplate.benefit-reduction', [
   'ui.router'
 ])
 
@@ -22,23 +22,22 @@ angular.module( 'ngBoilerplate.home', [
  * this way makes each module more "self-contained".
  */
 .config(function config( $stateProvider ) {
-  $stateProvider.state( 'home', {
-    url: '/home',
+  $stateProvider.state( 'benefit-reduction', {
+    url: '/benefit-reduction',
     views: {
       "main": {
-        controller: 'HomeCtrl',
-        templateUrl: 'home/home.tpl.html'
+        controller: 'DefinedBenefitCtrl',
+        templateUrl: 'benefit-reduction/benefit-reduction.tpl.html'
       }
     },
-    data:{ pageTitle: 'Home' }
+    data:{ pageTitle: 'BenefitReduction' }
   });
 })
 
 /**
  * And of course we define a controller for our route.
  */
-.controller( 'HomeCtrl', function HomeController( $scope, calcService ) {
-    console.log('---- HomeCtrl');
-    calcService.ComputeXValue();
+.controller( 'BenefitReductionCtrl', function BenefitReductionController( $scope, calcService ) {
+    console.log('---- BenefitReductionCtrl');
 });
 

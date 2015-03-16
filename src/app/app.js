@@ -2,6 +2,8 @@ angular.module( 'ngBoilerplate', [
   'templates-app',
   'templates-common',
   'ngBoilerplate.home',
+  'ngBoilerplate.defined-benefit',
+  'ngBoilerplate.benefit-reduction',
   'ui.router',
   'calc'
 ])

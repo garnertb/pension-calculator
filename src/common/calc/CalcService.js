@@ -602,6 +602,236 @@
       }; //END SWITCH STATEMENT
     //END INDIVIDUAL MORT WORK  
       
+      //Joint table
+      minJSq = Math.max(0, 1 - spouseAge + age);
+      maxJSq = Math.min(120, 120 - spouseAge + age);
+      
+      for(x = minJSq; x < maxJSq; x++)
+      {
+        q_eesp[x] = 1 - (1 - q_ee[x]) * (1 - q_sp[x - age + spouseAge]);
+      }
+      
+      //PV Calculation
+      for(x = age + 1; x < 121; x++)
+      {
+        p_ee[x] = p_ee[x - 1] * (1 - q_ee[x - 1]);
+      }
+      
+      for(x = spouseAge + 1; x < 121; x++)
+      {
+        p_sp[x] = p_sp[x - 1] * (1 - q_sp[x - 1]);
+      }
+      
+      for(x = age + 1; x < 121; x++)
+      {
+        p_eesp[x] = p_eesp[x - 1] * (1 - q_eesp[x - 1]);
+      }
+      
+      switch(rateStructure)
+      {
+        case "spot":
+            
+            //Discount Values
+            for(x = age; x < EndAge; x++)
+            {
+                if(x < ARA)
+                {
+                    DiscountValue_ee[x] = 0;
+                }
+                else
+                {
+                    DiscountValue_ee[x] = p_ee[x] * Math.pow(1 + interest[x], -(x - age));
+                }
+            }
+            
+            for(x = spouseAge; x < EndAge; x++)
+            {
+                if(x < spouseARA)
+                {
+                    DiscountValue_sp[x] = 0;
+                }
+                else
+                {
+                    DiscountValue_sp[x] = p_sp[x] * Math.pow(1 + interest[x - spouseAge + age], -(x - spouseAge));
+                }
+            }
+            
+            for(x = age; x < EndAge; x++)
+            {
+                if(x < ARA)
+                {
+                    DiscountValue_eesp[x] = 0;
+                }
+                else
+                {
+                    DiscountValue_eesp[x] = p_eesp[x] * Math.pow(1 + interest[x], -(x - age));
+                }
+            }
+            
+            //Adj Discount Values
+            for(x = age; x < EndAge; x++)
+            {
+                if(x < ARA)
+                {
+                    AdjDiscountValue_ee[x] = 0;
+                }
+                else
+                {
+                    //TODO Possible Integer division issue
+                    AdjDiscountValue_ee[x] = (DiscountValue_ee[x] - ((11/24 * p_ee[x] * Math.pow((1 + interest[x]), -(x - age))) - (11/24 * p_ee[x + 1] * Math.pow((1 + interest[x]), -(x - age + 1))))) * COLAincrease[x];
+                }
+            }
+            
+            for(x = spouseAge; x < EndAge; x++)
+            {
+                if(x < spouseARA)
+                {
+                    AdjDiscountValue_sp[x] = 0;
+                }
+                else
+                {
+                    //TODO Possible Integer division issue
+                    AdjDiscountValue_sp[x] = (DiscountValue_sp[x] - ((11/24 * p_sp[x] * Math.pow((1 + interest[x - spouseAge + age]), -(x - spouseAge))) - (11/24 * p_sp[x + 1] * Math.pow((1 + interest[x - spouseAge + age]), -(x - spouseAge + 1))))) * COLAincrease[x];
+                }
+            }
+            
+            for(x = age; x < EndAge; x++)
+            {
+                if(x < ARA)
+                {
+                    AdjDiscountValue_eesp[x] = 0;
+                }
+                else
+                {
+                    //TODO Possible Integer division issue
+                    AdjDiscountValue_eesp[x] = (DiscountValue_eesp[x] - ((11/24 * p_eesp[x] * Math.pow((1 + interest[x]), -(x - age))) - (11/24 * p_eesp[x + 1] * Math.pow((1 + interest[x]), -(x - age + 1))))) * COLAincrease[x];
+                }
+            }
+            
+            //Adjust for certain Period
+            for( x = ARA; x < ARA + certainPeriod - 1; x++)
+            {
+                monthlyRate = Math.pow((1 + interest[x]),1/12) - 1;
+                pvCertainPeriod = pvCertainPeriod + (Math.pow((1 + interest[x]),(age - x)) * ((( 1 - 1 / Math.pow(1+monthlyRate,12)) / monthlyRate / 12) * ( 1 + monthlyRate)) * p_ee[ARA] * COLAincrease[x];
+            }
+            
+        break;
+        case "forward":
+        case "pbgcls":
+            for(x = 0; x < age; x++)
+            {
+                v[x] = 1;
+            }
+            for(x = age; x < 200; x++)
+            {
+                v[x] = v[x - 1] / (1 + interest[x - 1]);
+            }
+            
+            for(x = age; x < EndAge; x++)
+            {
+                if(x < ARA)
+                {
+                    DiscountValue_ee[x] = 0;
+                }
+                else
+                {
+                    DiscountValue_ee[x] = p_ee[x] * v[x];
+                }
+            }
+            
+            for(x = spouseAge; x < EndAge; x++)
+            {
+                if(x < spouseARA)
+                {
+                    DiscountValue_sp[x] = 0;
+                }
+                else
+                {
+                    DiscountValue_sp[x] = p_sp[x] * v[x - spouseAge + age];
+                }
+            }
+            
+            for(x = age; x < EndAge; x++)
+            {
+                if(x < ARA)
+                {
+                    DiscountValue_eesp[x] = 0;
+                }
+                else
+                {
+                    DiscountValue_eesp[x] = p_eesp[x] * v[x];
+                }
+            }
+            
+            for(x = age; x < EndAge; x++)
+            {
+                if(x < ARA)
+                {
+                    AdjDiscountValue_ee[x] = 0;
+                }
+                else
+                {
+                    //TODO Possible Integer division issue
+                    AdjDiscountValue_ee[x] = (DiscountValue_ee[x] - ((11/24 * p_ee[x] * v[x]) - (11/24 * p_ee[x + 1] * v[x]))) * COLAincrease[x];
+                }
+            }
+            
+            for(x = spouseAge; x < EndAge; x++)
+            {
+                if(x < spouseARA)
+                {
+                    AdjDiscountValue_sp[x] = 0;
+                }
+                else
+                {
+                    //TODO Possible Integer division issue
+                    AdjDiscountValue_sp[x] = (DiscountValue_sp[x] - (((11/24 * p_sp[x] * v[x - spouseAge + age])) - (11/24 * p_sp[x + 1] * v[x - spouseAge + age]))) * COLAincrease[x];
+                }
+            }
+            
+            for(x = age; x < EndAge; x++)
+            {
+                if(x < ARA)
+                {
+                    AdjDiscountValue_eesp[x] = 0;
+                }
+                else
+                {
+                    //TODO Possible Integer division issue
+                    AdjDiscountValue_eesp[x] = (DiscountValue_eesp[x] - ((11/24 * p_eesp[x] * v[x]) - (11/24 * p_eesp[x + 1] * v[x]))) * COLAincrease[x];
+                }
+            }
+            
+            //Adjust for certain Period
+            for( x = ARA; x < ARA + certainPeriod - 1; x++)
+            {
+                monthlyRate = Math.pow((1 + interest[x]),1/12) - 1;
+                pvCertainPeriod = pvCertainPeriod + (v[x] * ((( 1 - 1 / Math.pow(1+monthlyRate,12)) / monthlyRate / 12) * ( 1 + monthlyRate)) * p_ee[ARA] * COLAincrease[x];
+            }
+        break;
+      }; //DISCOUNT ADJUST SWITCH END
+    
+      var endSum = Math.min(ARA + tempPeriod - 1,EndAge);
+      for(x = ARA + certainPeriod; x < endSum; x++)
+      {
+        a_ee = a_ee + AdjDiscountValue_ee[x];
+      }
+      
+      endSum = Math.min(spouseARA + tempPeriod - 1,EndAge);
+      for(x = spouseARA + certainPeriod; x < endSum; x++)
+      {
+        a_sp = a_sp + AdjDiscountValue_sp[x];
+      }
+      
+      endSum = Math.min(ARA + tempPeriod - 1,EndAge);
+      for(x = ARA + certainPeriod; x < endSum; x++)
+      {
+        a_eesp = a_eesp + AdjDiscountValue_eesp[x];
+      }
+      
+      //Final value calculation
+      zValue = pctEE * a_ee + pctSpouse * a_sp - (pctEE + pctSpouse - pctBoth) * a_eesp + pvCertainPeriod;
+      return zValue;
     };//Function END
   });
 }());

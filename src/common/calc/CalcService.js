@@ -24,7 +24,7 @@
     };
 
     this.FillOwnStaticTable = function(employee_array,spouse_array,mortProjection,mortTable,mortTableLength,ARA,spouseARA,Startage,EndAge) {
-      for(var x = Startage; x < EndAge; x++)
+      for(x = Startage; x < EndAge; x++)
         {
             var tableIndex = x - Startage + 1;
             if(mortTableLength == 2)
@@ -61,7 +61,7 @@
     };
     
     this.FillOwnGenerationalTable = function(employee_array,spouse_array,mortProjection,mortTable,mortTableLength,ARA,spouseARA,age,spouseAge,Startage,EndAge) {
-        for(var x = Startage; x < EndAge; x++)
+        for(x = Startage; x < EndAge; x++)
         {
             var tableIndex = x - Startage + 1;
             var raisePower = mortProjection;
@@ -101,35 +101,35 @@
     };
     
     this.FillPPATable = function(non_annuiant_array,annuitant_array,annuitant_age,annuitant_divisor,AA_Scale,Weight_Scale,mortProjection,output_NAnnuitant,output_Annuitant,output_Combined) {
-        for(var x = 0; x < 70; x++)
+        for(x = 0; x < 70; x++)
         {
             output_NAnnuitant[x] = non_annuiant_array[x] * Math.pow(1 - AA_Scale[x],mortProjection - 2000 + 15);
         }
-        for(var x = 79; x < 120; x++)
+        for(x = 79; x < 120; x++)
         {
             output_NAnnuitant[x] = annuitant_array[x] * Math.pow(1 - AA_Scale[x],mortProjection - 2000 + 7);
         }
-        for(var x = 70; x < 78; x++)
+        for(x = 70; x < 78; x++)
         {
             //TODO Possible Integer Division Issues
             output_NAnnuitant[x] = output_NAnnuitant[x - 1] + (output_NAnnuitant[79] - output_NAnnuitant[69]) * ((x - 70) / 55); 
         }
         
-        for(var x = 0; x < annuitant_age; x++)
+        for(x = 0; x < annuitant_age; x++)
         {
             output_Annuitant[x] = output_NAnnuitant[x];
         }
-        for(var x = 49; x < 120; x++)
+        for(x = 49; x < 120; x++)
         {
             output_Annuitant[x] = annuitant_array[x] * Math.pow((1 - AA_Scale[x]),mortProjection - 2000 + 7);
         }
-        for(var x = annuitant_age; x < 49; x++)
+        for(x = annuitant_age; x < 49; x++)
         {
             //TODO Possible Integer Division Issues
             output_Annuitant[x] = output_Annuitant[x - 1] + (output_Annuitant[50] - output_Annuitant[annuitant_age]) * ((x - annuitant_age) / annuitant_divisor);
         }
         
-        for(var x = 0; x < 120; x++)
+        for(x = 0; x < 120; x++)
         {
             output_Combined[x] = output_NAnnuitant[x] * (1 - Weight_Scale[x]) + output_Annuitant[x] * Weight_Scale[x];
         }
@@ -137,7 +137,7 @@
     };
 
     this.FillPPALS = function(combined_employee,combined_spouse,combined417_array,ARA,spouseARA,output_employee,output_spouse) {
-        for(var x = 0; x < 120; x++)
+        for( x = 0; x < 120; x++)
         {
             if(x < ARA)
             {
@@ -159,7 +159,7 @@
     };
     
     this.FillPPA = function(combined_employee,combined_spouse,output_employee,output_spouse) {
-        for(var x = 0; x < 120; x++)
+        for(x = 0; x < 120; x++)
         {
             output_employee[x] = combined_employee[x];
             ouput_spouse[x] = combined_spouse[x];
@@ -167,7 +167,7 @@
     };
     
     this.FillPPAGenerationalLS = function(NAnnuitant_array,combined417_array,AA_employee,AA_spouse,mortProjection,ARA,spouseARA,age,spouseAge,output_employee,output_spouse) {
-        for(var x = 0; x < 120; x++)
+        for(x = 0; x < 120; x++)
         {
             if(x < ARA)
             {
@@ -196,7 +196,7 @@
                 0.080486, 0.089718, 0.099779, 0.110757, 0.122797, 0.136043, 0.15059, 0.16642, 0.183408, 0.199769, 0.216605, 0.233662, 0.250693, 0.267491, 0.283905, 0.299852, 0.315296, 0.330207, 0.344556, 0.358628, 0.371685, 0.38304, 0.392003, 0.397886,
                 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 1];
     
-        qa_m = [0.000637, 0.00043:, 0.000357, 0.000278, 0.000255, 0.000244, 0.000234, 0.000216, 0.000209, 0.000212, 0.000219, 0.000228, 0.00024:, 0.000254, 0.000269, 0.000284, 0.000301, 0.000316, 0.000331, 0.000345, 0.000357, 0.000366, 0.000373, 0.000376, 0.000376, 0.000378, 0.000382, 0.000393, 0.000412, 0.000444, 0.000499, 0.000562, 0.000631, 0.000702, 0.000773, 0.000841, 0.000904, 0.000964, 0.001021,
+        qa_m = [0.000637, 0.00043, 0.000357, 0.000278, 0.000255, 0.000244, 0.000234, 0.000216, 0.000209, 0.000212, 0.000219, 0.000228, 0.00024, 0.000254, 0.000269, 0.000284, 0.000301, 0.000316, 0.000331, 0.000345, 0.000357, 0.000366, 0.000373, 0.000376, 0.000376, 0.000378, 0.000382, 0.000393, 0.000412, 0.000444, 0.000499, 0.000562, 0.000631, 0.000702, 0.000773, 0.000841, 0.000904, 0.000964, 0.001021,
                 0.001079, 0.001157, 0.001312, 0.001545, 0.001855, 0.002243, 0.002709, 0.003252, 0.003873, 0.004571, 0.005347, 0.005528, 0.005644, 0.005722, 0.005797, 0.005905, 0.006124, 0.006444, 0.006895, 0.007485, 0.008196, 0.009001, 0.009915, 0.010951, 0.012117, 0.013419, 0.014868, 0.01646, 0.0182,  0.020105, 0.022206, 0.02457, 0.027281, 0.030387, 0.0339,  0.037834, 0.042169, 0.046906, 0.052123, 0.057927, 0.064368, 0.072041, 0.080486, 0.089718, 0.099779, 0.110757, 0.122797, 0.136043, 0.15059, 
                 0.16642, 0.183408, 0.199769, 0.216605, 0.233662, 0.250693, 0.267491, 0.283905, 0.299852, 0.315296, 0.330207, 0.344556, 0.358628, 0.371685, 0.38304, 0.392003, 0.397886, 0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,1];
         
@@ -250,7 +250,7 @@
     };
     
     this.FillPPAGenerational = function(NAnnuitant_employee,Annuitant_employee,NAnnuitant_spouse,Annuitant_spouse,AA_employee,AA_spouse,mortProjection,ARA,spouseARA,age,spouseAge,output_employee,output_spouse) {
-        for(var x = 0; x < 120; x++)
+        for(x = 0; x < 120; x++)
         {
             if(x < ARA)
             {
@@ -326,42 +326,48 @@
 
       //Input validation
       
-      if(rateStructure.localeCompare("spot",{ignorePunctuation:true}) == 0) {
+      if(rateStructure.localeCompare("spot",{ignorePunctuation:true}) === 0) 
+      {
         rateStructure = "spot";
-        }
-      else if(rateStructure.localeCompare("forward",{ignorePunctuation:true}) == 0) {
+      }
+      else if(rateStructure.localeCompare("forward",{ignorePunctuation:true}) === 0) 
+      {
         rateStructure = "forward";
-        }
-       else if(rateStructure.localeCompare("pbgcls",{ignorePunctuation:true}) == 0) {
+      }
+      else if(rateStructure.localeCompare("pbgcls",{ignorePunctuation:true}) === 0) 
+      {
         rateStructure = "pbgcls";
-        }
-        else
-        {
-            console.log("incorrect rateStructure");
-            return zValue;
-        }
+      }
+      else
+      {
+         console.log("incorrect rateStructure");
+         return zValue;
+      }
         
-        if(sex.localeCompare("m",{ignorePunctuation:true}) || sex.localeCompare("male",{ignorePunctuation:true}))
-        {
-            sex = "m";
-        }
-        else
-        {
-            sex = "f";
-        }
+      if(sex.localeCompare("m",{ignorePunctuation:true}) === 0 || sex.localeCompare("male",{ignorePunctuation:true}) === 0)
+      {
+          sex = "m";
+      }
+      else
+      {
+          sex = "f";
+      }
         
-      if(ARA < age) {
-        certainPeriod = max(certainPeriod - age + ARA, 0);
-        tempPeriod = max(tempPeriod - age + ARA, 0);
+      if(ARA < age) 
+      {
+        certainPeriod = Math.max(certainPeriod - age + ARA, 0);
+        tempPeriod = Math.max(tempPeriod - age + ARA, 0);
         ARA = age;
       }
 
       //Set mortality table start age and end age
-      if(mortName == "ownstatic" || mortName == "owngenerational") {
+      if(mortName == "ownstatic" || mortName == "owngenerational") 
+      {
         Startage = mortTable[0][0];
-        EndAge = min(mortTable.length + Startage - 1, 120);
+        EndAge = Math.min(mortTable.length + Startage - 1, 120);
       }
-      else {
+      else 
+      {
         Startage = 0;
         EndAge = 120;
       }
@@ -375,20 +381,23 @@
       mortTableLength = mortTable[0].length;
       
       //Setup spouse information
-      if(spouseAge < 1) {
+      if(spouseAge < 1) 
+      {
         spouseAge = age;
         spouseARA = ARA;
         pctEE = 1;
         pctBoth = 1;
         pctSpouse = 0;
       }
-      else {
+      else 
+      {
         spouseARA = ARA - age + spouseAge;
       }
       p_sp[spouseAge] = 1;
 
       //Set up interest array
-      for(x = 0; x < age - 1; x++) {
+      for(x = 0; x < age - 1; x++) 
+      {
         interest[x] = 0;
       }
 
@@ -408,46 +417,61 @@
       console.log("COLApct = ", COLApct);
       console.log("COLAStartAge = ", COLAStartAge);
       console.log("----zValue Params End---------");
-      switch(rateStructure) {
+      
+      switch(rateStructure) 
+      {
       case "spot":
         numRates = rates.length;
-        if(numRates < 3) {
-          for(x = age; x < age + 4; x++) {
+        if(numRates < 3) 
+        {
+          for(x = age; x < age + 4; x++) 
+          {
             interest[x] = rates[0];
           }
 
-          for(x = age + 5; x < age + 19; x++) {
+          for(x = age + 5; x < age + 19; x++)
+          {
             interest[x] = rates[1];
           }
 
-          for(x = age + 20; x < 200; x++) {
+          for(x = age + 20; x < 200; x++)
+          {
             interest[x] = rates[2];
           }
         }
-        else {
-          for(x = age; x < age + numRates - 1; x++) {
+        else 
+        {
+          for(x = age; x < age + numRates - 1; x++) 
+          {
             interest[x] = rates[x - age + 1];
           }
-          for(x = age + numRates - 1; x < 200; x++) {
+          for(x = age + numRates - 1; x < 200; x++) 
+          {
             interest[x] = rates[numRates - 1];
           }
         }
       break;
       case "forward":
       var invalidRates = false;
-        if(rates.length > 1) {
+        if(rates.length > 1) 
+        {
           z = 0;
-          for(y = 0; y < rates.length; y++) {
-            for(x = age + z; x < age + rates[y][0] - 1; x++) {
+          for(y = 0; y < rates.length; y++) 
+          {
+            for(x = age + z; x < age + rates[y][0] - 1; x++) 
+            {
               interest[x] = rates[y][1];
             }
             z = rates[y][0];
           }
         }
-        if(invalidRates) {
+        if(invalidRates) 
+        {
           z = 0;
-          for(y = 0; y < rates.length; y+=2) {
-            for(x = age + z; x < age + rates[y] - 1; x++) {
+          for(y = 0; y < rates.length; y+=2) 
+          {
+            for(x = age + z; x < age + rates[y] - 1; x++) 
+            {
               interest[x] = rates[y+1];
             }
             z = rates[y];
@@ -455,25 +479,31 @@
         }
       break;
       case "pbgcls":
-      for(x = ARA; x < 200; x++) {
+      for(x = ARA; x < 200; x++) 
+      {
         interest[x] = rates[0];
-        }
-      for(x = ARA - 1; x > Math.max(ARA-7,age); x--) {
+      }
+      for(x = ARA - 1; x > Math.max(ARA-7,age); x--)
+      {
         interest[x] = rates[1];
-        }
-      for(x= ARA - 8; x > Math.max(ARA - 15,age); x--) {
+      }
+      for(x= ARA - 8; x > Math.max(ARA - 15,age); x--) 
+      {
         interest[x] = rates[2];
-        }
-      for(x = ARA - 16; x > Math.max(ARA - 120,age); x--) {
+      }
+      for(x = ARA - 16; x > Math.max(ARA - 120,age); x--) 
+      {
         interest[x] = rates[3];
-        }
+      }
       break;
-      };//END INTEREST ARRAY WORK
+      }//END INTEREST ARRAY WORK
       
       //Check for COLAWork
       var doCOLAWork = true;
-      if(COLAStartAge < 1) { 
-        for(x = 0; x < 500; x++) {
+      if(COLAStartAge < 1) 
+      { 
+        for(x = 0; x < 500; x++) 
+        {
             COLAincrease[x] = 1;
         }
         doCOLAWork = false;
@@ -485,7 +515,7 @@
         {
             COLAincrease[x] = 1;
         }
-        if(COLApct == 0) 
+        if(COLApct === 0) 
         {
             for(x = COLAStartAge + 1; x < 500; x++)
             {
@@ -519,6 +549,7 @@
         if(sex == "m")
         {
             service_.FillOwnStaticTable(q_ee,q_sp,mortProjection,mortTable,mortTableLength,ARA,spouseARA,Startage,EndAge);
+        }
         else
         {
             service_.FillOwnStaticTable(q_sp,q_ee,mortProjection,mortTable,mortTableLength,ARA,spouseARA,Startage,EndAge);
@@ -661,7 +692,7 @@
                 }
             }
         break;
-      }; //END SWITCH STATEMENT
+      }  //END SWITCH STATEMENT
     //END INDIVIDUAL MORT WORK  
       
       //Joint table
@@ -774,7 +805,7 @@
             for( x = ARA; x < ARA + certainPeriod - 1; x++)
             {
                 monthlyRate = Math.pow((1 + interest[x]),1/12) - 1;
-                pvCertainPeriod = pvCertainPeriod + (Math.pow((1 + interest[x]),(age - x)) * ((( 1 - 1 / Math.pow(1+monthlyRate,12)) / monthlyRate / 12) * ( 1 + monthlyRate)) * p_ee[ARA] * COLAincrease[x];
+                pvCertainPeriod = pvCertainPeriod + (Math.pow((1 + interest[x]),(age - x)) * ((( 1 - 1 / Math.pow(1+monthlyRate,12)) / monthlyRate / 12) * ( 1 + monthlyRate))) * p_ee[ARA] * COLAincrease[x];
             }
             
         break;
@@ -868,10 +899,10 @@
             for( x = ARA; x < ARA + certainPeriod - 1; x++)
             {
                 monthlyRate = Math.pow((1 + interest[x]),1/12) - 1;
-                pvCertainPeriod = pvCertainPeriod + (v[x] * ((( 1 - 1 / Math.pow(1+monthlyRate,12)) / monthlyRate / 12) * ( 1 + monthlyRate)) * p_ee[ARA] * COLAincrease[x];
+                pvCertainPeriod = pvCertainPeriod + (v[x] * ((( 1 - 1 / Math.pow(1+monthlyRate,12)) / monthlyRate / 12) * ( 1 + monthlyRate))) * p_ee[ARA] * COLAincrease[x];
             }
         break;
-      }; //DISCOUNT ADJUST SWITCH END
+      } //DISCOUNT ADJUST SWITCH END
     
       var endSum = Math.min(ARA + tempPeriod - 1,EndAge);
       for(x = ARA + certainPeriod; x < endSum; x++)
@@ -895,5 +926,6 @@
       zValue = pctEE * a_ee + pctSpouse * a_sp - (pctEE + pctSpouse - pctBoth) * a_eesp + pvCertainPeriod;
       return zValue;
     };//Function END
+  
   });
 }());

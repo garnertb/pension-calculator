@@ -1,6 +1,8 @@
 (function() {
   angular.module('calc', [
     'calc_service',
-    'calc_directive'
+    'calc_directive',
+    'defined_benefit_directive',
+    'benefit_reduction_directive'
   ]);
 }());

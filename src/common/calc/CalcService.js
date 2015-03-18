@@ -11,6 +11,12 @@
       return service_;
     };
 
+    this.ComputeFinalValue = function(wageAtRetire,finalSalaryYears,wageIncrease,xValue,yValue,zValue) {
+      var finalValue = 0;
+      finalValue = (xValue*yValue/zValue)/Math.pow(wageAtRetire/(1+wageIncrease),(finalSalaryYears/2-0.5));
+      return finalValue;
+    };
+    
     this.ComputeXValue = function(ageAtHire,ageAtRetire,wageAtHire,definedContribution,investReturn,wageIncrease) {
       var xValue;
       xValue = ((wageAtHire * definedContribution) / (investReturn - wageIncrease)) * (1 - Math.pow(((1 + wageIncrease)/(1 + investReturn)),ageAtRetire-ageAtHire));
@@ -23,10 +29,12 @@
       return yValue;
     };
 
-    this.FillOwnStaticTable = function(employee_array,spouse_array,mortProjection,mortTable,mortTableLength,ARA,spouseARA,Startage,EndAge) {
-      for(x = Startage; x < EndAge; x++)
+    this.FillOwnStaticTable = function(employee_array,spouse_array,mortProjection,mortTable,mortTableLength,ARA,spouseARA,StartAge,EndAge) {
+      StartAge = Math.trunc(StartAge);
+      EndAge = Math.trunc(EndAge);
+      for(x = StartAge; x < EndAge; x++)
         {
-            var tableIndex = x - Startage + 1;
+            var tableIndex = Math.trunc(x - StartAge + 1);
             if(mortTableLength == 2)
             {
                 employee_array[x] = mortTable[tableIndex][0];
@@ -61,9 +69,11 @@
     };
     
     this.FillOwnGenerationalTable = function(employee_array,spouse_array,mortProjection,mortTable,mortTableLength,ARA,spouseARA,age,spouseAge,Startage,EndAge) {
+        StartAge = Math.trunc(StartAge);
+        EndAge = Math.trunc(EndAge);
         for(x = Startage; x < EndAge; x++)
         {
-            var tableIndex = x - Startage + 1;
+            var tableIndex = Math.trunc(x - Startage + 1);
             var raisePower = mortProjection;
             if(mortTableLength == 4)
             {
@@ -275,10 +285,10 @@
     this.ComputeZValue = function(rates, rateStructure, mortName, mortTable, mortProjection, age, ARA, sex, certainPeriod, tempPeriod, spouseAge, pctEE, pctBoth, pctSpouse, COLApct, COLAStartAge) {
       var zValue = 0;
       var mortTableLength = 0;
-      var x,y,z = 0;    //counters for something
+      var x = 0,y = 0,z = 0;    //counters for something
       var spouseARA = 0;
       var minJSq, maxJSq; //joint mortality table min and max
-      var a_ee, a_sp, a_eesp = 0;
+      var a_ee = 0, a_sp = 0, a_eesp = 0;
       var p_ee = [];
       p_ee[age] = 1;
       var p_sp = [];
@@ -315,9 +325,9 @@
       var AdjDiscountValue_ee = [];
       var AdjDiscountValue_sp = [];
       var AdjDiscountValue_eesp = [];
-      var Interest = [];
+      var interest = [];
       var pvCertainPeriod = 0;
-      var MonthlyRate = 0;
+      var monthlyRate = 0;
       var CountRates = 0;
       var Startage = 0; //'for mortality table
       var EndAge;       //'for mortality table
@@ -363,8 +373,9 @@
       //Set mortality table start age and end age
       if(mortName == "ownstatic" || mortName == "owngenerational") 
       {
-        Startage = mortTable[0][0];
-        EndAge = Math.min(mortTable.length + Startage - 1, 120);
+        //TODO may need to make this a parameter now.
+        Startage = Math.trunc(mortTable[0][0]);
+        EndAge = Math.trunc(Math.min(mortTable.length + Startage - 1, 120));
       }
       else 
       {
@@ -380,6 +391,11 @@
       //Figure out size of mortTable
       mortTableLength = mortTable[0].length;
       
+      if(tempPeriod < 0.1)
+      {
+            //Calculates up to EndAge
+            tempPeriod = 500;
+      }
       //Setup spouse information
       if(spouseAge < 1) 
       {
@@ -422,7 +438,7 @@
       {
       case "spot":
         numRates = rates.length;
-        if(numRates < 3) 
+        if(numRates == 3) 
         {
           for(x = age; x < age + 4; x++) 
           {
@@ -517,7 +533,7 @@
         }
         if(COLApct === 0) 
         {
-            for(x = COLAStartAge + 1; x < 500; x++)
+            for(x = COLAStartAge; x < 500; x++)
             {
                 COLAincrease[x] = 1;
             }
@@ -526,7 +542,7 @@
         {
             if(!Array.isArray(COLApct))
             {
-                for(x = COLAStartAge + 1; x < 500; x++)
+                for(x = COLAStartAge; x < 500; x++)
                 {
                     COLAincrease[x] = COLAincrease[x - 1] * (1 + COLApct);
                 }
@@ -539,7 +555,6 @@
         }
       } //END COLAWork
       
-      //TODO call built-in populate functions
       service_.PopulateMortalityTableMale(qn_m,qa_m,AA_m,Weight_m,qUP94_m,qGar94,qGam83_m);
       service_.PopulateMortalityTableFemale(qn_f,qa_f,AA_f,Weight_f,qUP94_f,qGam83_f);
       //MORTALITY TABLE WORK
@@ -569,7 +584,10 @@
       //DO NOT CHANGE ORDER OF CASE STATEMENTS BELOW//////////
       case "ppa417e":
       case "ppasmallls":
+      case "ppasmall":
       case "ppastaticls":
+      case "ppastatic":
+      case "ppagenerational":
       case "ppagenerationalls":
         sevice_.FillPPATable(qn_m,qa_m,40,55,AA_m,Weight_m,mortProjection,q417n_m,q417a_m,q417_m);
         
@@ -590,9 +608,7 @@
             //INTENTIONAL////////////
             break;
         }
-        //INTENTIONAL CASE FALLTHROUGH//
-        case "ppasmall":
-        case "ppastatic":
+
         if(mortName == "ppasmallls" || mortName == "ppastaticls" || mortName == "ppasmall" || mortName == "ppastatic")
         {
             sevice_.FillPPATable(qn_m,qa_m,40,55,AA_m,Weight_m,mortProjection,qn_m,qa_m,q_m);
@@ -625,7 +641,6 @@
             //INTENTIONAL////////////
             break;
         }
-        case "ppagenerational":
         if(mortName == "ppagenerationalls")
         {
             if(sex == "m")

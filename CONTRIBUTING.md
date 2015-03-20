@@ -1,4 +1,4 @@
-# Contributing to `ngbp`
+# Contributing to the `Pension Calculator`
 
 ## Getting Started
 

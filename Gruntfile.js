@@ -18,6 +18,7 @@ module.exports = function ( grunt ) {
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-ng-annotate');
   grunt.loadNpmTasks('grunt-html2js');
+  grunt.loadNpmTasks('grunt-gjslint');
 
   /**
    * Load in our build configuration file.
@@ -49,6 +50,23 @@ module.exports = function ( grunt ) {
         ' * Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>\n' +
         ' * Licensed <%= pkg.licenses.type %> <<%= pkg.licenses.url %>>\n' +
         ' */\n'
+    },
+
+    /**
+     * Runs the Google closure linter.
+     */
+    gjslint: {
+      options: {
+        flags: [
+          '--flagfile gjslint_config.conf'
+        ],
+        reporter: {
+          name: 'console'
+        }
+      },
+      all: {
+        src: '<%= app_files.js %>'
+      }
     },
 
     /**
@@ -486,7 +504,7 @@ module.exports = function ( grunt ) {
         files: [ 
           '<%= app_files.js %>'
         ],
-        tasks: [ 'jshint:src', 'karma:unit:run', 'copy:build_appjs' ]
+        tasks: [ 'jshint:src', 'gjslint', 'karma:unit:run', 'copy:build_appjs' ]
       },
 
       /**
@@ -589,7 +607,7 @@ module.exports = function ( grunt ) {
    * The `build` task gets your app ready to run for development and testing.
    */
   grunt.registerTask( 'build', [
-    'clean', 'html2js', 'jshint', 'coffeelint', 'coffee', 'less:build',
+    'clean', 'html2js', 'gjslint', 'jshint', 'coffeelint', 'coffee', 'less:build',
     'concat:build_css', 'copy:build_app_assets', 'copy:build_vendor_assets', 'copy:build_vendor_fonts',
     'copy:build_appjs', 'copy:build_vendorjs', 'copy:build_vendorcss', 'index:build'
   ]);

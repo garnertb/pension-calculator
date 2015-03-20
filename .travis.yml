@@ -3,5 +3,5 @@ node_js:
   - "0.10"
 
 script: 
-  - clean_build
+  - ./clean_build
 

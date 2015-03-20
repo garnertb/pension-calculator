@@ -11,3 +11,5 @@ before_script:
 
 script: grunt
 
+notifications:
+  slack: prominentedge:9VnNQcaSr6mHKSC2XHwEjkam

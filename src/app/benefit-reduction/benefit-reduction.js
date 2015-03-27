@@ -12,32 +12,30 @@
  * The dependencies block here is also where component dependencies should be
  * specified, as shown below.
  */
-angular.module( 'ngBoilerplate.benefit-reduction', [
-  'ui.router'
-])
 
+
+angular.module('ngBoilerplate.benefit-reduction', ['ui.router'])
 /**
  * Each section or module of the site can also have its own routes. AngularJS
  * will handle ensuring they are all available at run-time, but splitting it
  * this way makes each module more "self-contained".
  */
-.config(function config( $stateProvider ) {
-  $stateProvider.state( 'benefit-reduction', {
-    url: '/benefit-reduction',
-    views: {
-      "main": {
-        controller: 'DefinedBenefitCtrl',
-        templateUrl: 'benefit-reduction/benefit-reduction.tpl.html'
-      }
-    },
-    data:{ pageTitle: 'BenefitReduction' }
-  });
-})
-
-/**
+ .config(function config($stateProvider) {
+      $stateProvider.state('benefit-reduction', {
+        url: '/benefit-reduction',
+        views: {
+          'main': {
+            controller: 'DefinedBenefitCtrl',
+            templateUrl: 'benefit-reduction/benefit-reduction.tpl.html'
+          }
+        },
+        data: { pageTitle: 'BenefitReduction' }
+      });
+    })
+    /**
  * And of course we define a controller for our route.
  */
-.controller( 'BenefitReductionCtrl', function BenefitReductionController( $scope, calcService ) {
-    console.log('---- BenefitReductionCtrl');
-});
 
+ .controller('BenefitReductionCtrl', function BenefitReductionController($scope, calcService) {
+      console.log('---- BenefitReductionCtrl');
+    });

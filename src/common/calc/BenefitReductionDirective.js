@@ -8,7 +8,7 @@
       templateUrl: 'calc/partial/benefit-reduction.tpl.html',
 
       // The linking function will add behavior to the template
-      link: function (scope, element) {
+      link: function(scope, element) {
         scope.ageAtHire = 25;
         scope.ageAtRetire = 55;
         scope.wageAtHire = 20000;

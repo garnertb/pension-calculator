@@ -2229,8 +2229,8 @@
     
     //Defined benefit functions begin here
     this.ComputeEmployeeContrib = function(ageAtHire,ageAtRetire,startSalary,investReturn,wageIncrease,adjustedTotalWages) {
-    
-      return 0.0;
+      var employeeContrib = adjustedTotalWages / ((Math.pow(1 + investReturn,ageAtRetire - ageAtHire) - Math.pow(1 + wageIncrease,ageAtRetire - ageAtHire)) / (investReturn - wageIncrease)) / (startSalary *(1 + (investReturn * 11/24)));
+      return employeeContrib;
     };
     
     this.GenerateTotalWages = function(ageAtRetire,spouseAge,wageAtRetire,finalSalaryYears,incomeReplacement,wageIncrease,survivorPct) {

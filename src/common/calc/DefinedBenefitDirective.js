@@ -15,7 +15,7 @@
         scope.wageAtRetire = 62374;
         scope.finalSalaryYears = 3;
         scope.COLAAdjustment = 2;
-        scope.definedContribution = 33.62;
+        scope.incomeReplacement = 75.00;
         scope.wageIncrease = 0.04;
         scope.investReturn = 0.06;
         scope.xValue = 0;

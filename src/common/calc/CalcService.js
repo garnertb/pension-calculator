@@ -2226,5 +2226,31 @@
       zValue = pctEE * a_ee + pctSpouse * a_sp - (pctEE + pctSpouse - pctBoth) * a_eesp + pvCertainPeriod;
       return zValue;
     };  //Function END
+    
+    //Defined benefit functions begin here
+    this.ComputeEmployeeContrib = function(ageAtHire,ageAtRetire,startSalary,investReturn,wageIncrease,adjustedTotalWages) {
+    
+      return 0.0;
+    };
+    
+    this.GenerateTotalWages = function(ageAtRetire,spouseAge,wageAtRetire,finalSalaryYears,incomeReplacement,wageIncrease,survivorPct) {
+      var outputIncomeTable = [{}];
+      var grossWages = 0;
+      var adjustedWages = 0;
+      spouseAge = ageAtRetire - spouseAge;
+      for(var iAge = ageAtRetire; iAge < 120; iAge++,spouseAge++) {
+        outputIncomeTable[iAge].age = iAge;
+        outputIncomeTable[iAge].spouseAge = spouseAge;
+        outputIncomeTable[iAge].cashFlow = wageAtRetire / Math.pow(1+wageIncrease,finalSalaryYears/2-0.5) * incomeReplacement;
+        //The Zeros in this equation are where the table lookup values need to be.
+        outputIncomeTable[iAge].mortalityReduction = 0 * outputIncomeTable[iAge].cashFlow + (1 - 0) * 0 * outputIncomeTable[iAge].cashFlow * survivorPct; //Super long look up equation.
+        outputIncomeTable[iAge].cashFlowReduced = outputIncomeTable[iAge].mortalityReduction / Math.pow(1+annuityIncrease,iAge-ageAtRetire);
+        grossWages += outputIncomeTable[iAge].cashFlowReduced;
+      }
+      adjustedWages = (grossWages/outputIncomeTable[ageAtRetire].mortalityReduction - 13/24)*outputIncomeTable[ageAtRetire].mortalityReduction;
+      console.log("Adjusted Wages = ",adjustedWages);
+      return adjustedWages;
+    };
+    
   });
 }());

@@ -1,11 +1,11 @@
 (function() {
-  var module = angular.module('defined_benefit_directive', []);
+  var module = angular.module('defined_contribution_directive', []);
 
-  module.directive('definedBenefit', function(calcService, $rootScope) {
+  module.directive('definedContribution', function(calcService, $rootScope) {
     return {
       restrict: 'C',
       replace: false,
-      templateUrl: 'calc/partial/defined-benefit.tpl.html',
+      templateUrl: 'calc/partial/defined-contribution.tpl.html',
 
       // The linking function will add behavior to the template
       link: function(scope, element) {

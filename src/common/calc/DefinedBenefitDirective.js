@@ -23,8 +23,8 @@
         scope.doStuff = function() {
           console.log('----- yoyo: ', scope.ageAtHire, scope.ageAtRetire, scope.wageAtHire, scope.xValue);
           //scope.xValue = calcService.ComputeXValue(scope.ageAtHire,scope.ageAtRetire,scope.wageAtHire,scope.definedContribution,scope.investReturn,scope.wageIncrease);        };
-          var adjustedGrossWages = this.GenerateTotalWages(scope.ageAtRetire,scope.spouseAge,scope.wageAtRetire,scope.finalSalaryYears,scope.incomeReplacement,scope.wageIncrease,0);
-          var employeeContrib = this.ComputeEmployeeContrib(scope.ageAtHire,scope.ageAtRetire,scope.wageAtHire,scope.investReturn,scope.wageIncrease,adjustedGrossWages);
+          var adjustedGrossWages = this.GenerateTotalWages(scope.ageAtRetire, scope.spouseAge, scope.wageAtRetire, scope.finalSalaryYears, scope.incomeReplacement, scope.wageIncrease, 0);
+          var employeeContrib = this.ComputeEmployeeContrib(scope.ageAtHire, scope.ageAtRetire, scope.wageAtHire, scope.investReturn, scope.wageIncrease, adjustedGrossWages);
           return employeeContrib;
         };
       }

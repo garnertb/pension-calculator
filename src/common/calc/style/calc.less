@@ -16,6 +16,13 @@
 .section {
   margin-top: 20px;
   margin-bottom: 20px;
+  border-right-width: 1px;
+  border-color: grey;
+  border-style: dotted;
+  border-bottom: 0px;
+  border-left: 0px;
+  border-top: 0px;
+  padding-right: 20px;
 }
 
 .section-header {
@@ -25,8 +32,54 @@
   cursor: pointer;
 }
 
+.advanced-header {
+  color: #0074e4;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 12px;
+}
+
+.input-panel {
+  width: 300px;
+  overflow: hidden;
+  float: left;
+}
+
+.output-panel {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 320px;
+  width: auto;
+  //background-color: #00b3ee;
+  width: calc(~"100% - 320px");
+  height: 600px;
+}
+
 .title {
   color: #0074e4;
   font-weight: 800;
   border-bottom: 4px solid #0074e4;
+}
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.no-select {
+  no-select: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+#calcMode {
+  min-width: 200px;
+  width: 50%;
+  margin-top: 10px;
+  border-radius: 0px;
 }

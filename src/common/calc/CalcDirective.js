@@ -7,6 +7,14 @@
       templateUrl: 'calc/partial/calc.tpl.html',
       // The linking function will add behavior to the template
       link: function(scope, element, window) {
+        scope.showAssumptions = false;
+        scope.modes = [
+          {key: '1', value: 'Pension to 401k Equivalent'},
+          {key: '2', value: '401k to Pension Equivalent'},
+          {key: '3', value: 'Pension vs 401k'}
+        ];
+        scope.modeSelected = scope.modes[1];
+
         scope.ageAtHire = 25;
         scope.ageAtRetire = 55;
         scope.wageAtHire = 20000;

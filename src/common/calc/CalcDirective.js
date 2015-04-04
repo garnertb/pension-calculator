@@ -7,14 +7,17 @@
       templateUrl: 'calc/partial/calc.tpl.html',
       // The linking function will add behavior to the template
       link: function(scope, element, window) {
+        scope.definedContributionPercent = null;
+        scope.definedBenefitPercent = null;
         scope.showInput = false;
         scope.showAssumptions = false;
         scope.modes = [
+          {key: 'none', value: '( None Selected )'},
           {key: 'db', value: 'Pension to 401k Equivalent'},
           {key: 'dc', value: '401k to Pension Equivalent'},
           {key: 'reduction', value: 'Pension vs 401k'}
         ];
-        scope.modeSelected = scope.modes[1];
+        scope.modeSelected = scope.modes[0];
 
         var computesDivSizes = function() {
           var calcPanel = jQuery('.calc');
@@ -34,13 +37,47 @@
           }
         };
 
+        computesDivSizes();
+
+        scope.isInputsValid = function() {
+
+          if (scope.modeSelected.key === 'dc') {
+            if (scope.definedBenefitPercent != null && !isNaN(scope.definedBenefitPercent)) {
+              // temp
+              //scope.toggleInput(true);
+              return true;
+            }
+          } else if (scope.modeSelected.key === 'db') {
+            if (scope.definedContributionPercent != null && !isNaN(scope.definedContributionPercent)) {
+              // temp
+              //scope.toggleInput(true);
+              return true;
+            }
+          } else if (scope.modeSelected.key === 'reduction') {
+            if (scope.definedBenefitPercent != null &&
+                scope.definedContributionPercent != null && !isNaN(scope.definedBenefitPercent) && !isNaN(scope.definedContributionPercent)) {
+              // temp
+              //scope.toggleInput(true);
+              return true;
+            }
+          }
+
+          return false;
+        };
+
         var w = angular.element($window);
         w.bind('resize', function() {
           computesDivSizes();
         });
 
-        scope.toggleInput = function() {
-          scope.showInput = !scope.showInput;
+        scope.toggleInput = function(state) {
+          if (state === true) {
+            scope.showInput = true;
+          } else if (state === false) {
+            scope.showInput = false;
+          } else {
+            scope.showInput = !scope.showInput;
+          }
           console.log('----- toggleInput: ', scope.showInput);
           computesDivSizes();
         };

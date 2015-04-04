@@ -67,8 +67,10 @@ module.exports = {
       'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
       'vendor/angular-ui-router/release/angular-ui-router.js',
       'vendor/angular-ui-utils/modules/route/route.js'
+      //'vendor/closure-library/closure/goog/base.js',
     ],
     css: [
+      'vendor/animate.css/animate.min.css'
     ],
     assets: [
     ],

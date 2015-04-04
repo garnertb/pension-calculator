@@ -4,6 +4,8 @@
   padding-left: 2px;
   line-height: 1.5;
   font-weight: 200;
+  min-width: 279px;
+  max-width: 279px;
 }
 
 .field {
@@ -11,18 +13,25 @@
   padding: 0px 6px 0px 6px;
   font-weight: 200;
   border-radius: 2px;
+  min-width: 279px;
+  max-width: 279px;
+}
+
+.field-fixed-width {
+  min-width: 279px;
+  max-width: 279px;
 }
 
 .section {
   margin-top: 20px;
   margin-bottom: 20px;
-  border-right-width: 1px;
+  border-right: 0px;
   border-color: grey;
   border-style: dotted;
   border-bottom: 0px;
-  border-left: 0px;
+  border-left-width: 1px;
   border-top: 0px;
-  padding-right: 20px;
+  padding-left: 20px;
 }
 
 .section-header {
@@ -42,16 +51,33 @@
 .input-panel {
   width: 300px;
   overflow: hidden;
-  float: left;
+  margin-left: calc(~"100% - 320px - 5px");
+}
+
+.input-toggle {
+  float:  left;
+  //background-color: #00b3ee;
+  height: 600px;
+  width: 5px;
+  cursor: pointer;
+}
+
+.input-toggle-button {
+  padding: 6px 8px 6px 4px;
+  position: relative;
+  left: -8px;
+  top: 4px;
+  width: 0px;
+  border-radius: 2px 0px 0px 2px;
 }
 
 .output-panel {
+  float: left;
   margin-top: 20px;
   margin-bottom: 20px;
-  margin-left: 320px;
   width: auto;
   //background-color: #00b3ee;
-  width: calc(~"100% - 320px");
+  width: calc(~"100% - 5px"); //calc(~"100% - 320px - 5px");
   height: 600px;
 }
 

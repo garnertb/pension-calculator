@@ -1,19 +1,50 @@
 (function() {
   var module = angular.module('calc_directive', []);
-  module.directive('calc', function(calcService, $rootScope) {
+  module.directive('calc', function(calcService, $rootScope, $window) {
     return {
       restrict: 'C',
       replace: false,
       templateUrl: 'calc/partial/calc.tpl.html',
       // The linking function will add behavior to the template
       link: function(scope, element, window) {
+        scope.showInput = false;
         scope.showAssumptions = false;
         scope.modes = [
-          {key: '1', value: 'Pension to 401k Equivalent'},
-          {key: '2', value: '401k to Pension Equivalent'},
-          {key: '3', value: 'Pension vs 401k'}
+          {key: 'db', value: 'Pension to 401k Equivalent'},
+          {key: 'dc', value: '401k to Pension Equivalent'},
+          {key: 'reduction', value: 'Pension vs 401k'}
         ];
         scope.modeSelected = scope.modes[1];
+
+        var computesDivSizes = function() {
+          var calcPanel = jQuery('.calc');
+          //var inputPanel = jQuery('.input-panel');
+          var outputPanel = jQuery('.output-panel');
+
+          if (scope.showInput) {
+            console.log('____ size1: ', (calcPanel.width() - 5 - 320));
+            outputPanel.css({
+              width: (calcPanel.width() - 5 - 320).toString().concat('px')
+            });
+          } else {
+            console.log('____ size2: ', (calcPanel.width() - 5));
+            outputPanel.css({
+              width: (calcPanel.width() - 5).toString().concat('px')
+            });
+          }
+        };
+
+        var w = angular.element($window);
+        w.bind('resize', function() {
+          computesDivSizes();
+        });
+
+        scope.toggleInput = function() {
+          scope.showInput = !scope.showInput;
+          console.log('----- toggleInput: ', scope.showInput);
+          computesDivSizes();
+        };
+
 
         scope.ageAtHire = 25;
         scope.ageAtRetire = 55;

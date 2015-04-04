@@ -1,4 +1,4 @@
-<div style="width: 100%; overflow: hidden;">
+<div style="width: 100%; overflow: hidden; min-width: 700px">
     <div class="output-panel">
         <div class="charts-panel field-fixed-width">
             <div class="field-label">Select A Benefit Computation</div>
@@ -11,10 +11,7 @@
                 <div class="field-label animated fadeInDown">Specify 401k Contribution as % of Payroll</div>
                 <input id="defined-benefit"  ng-model="definedBenefitPercent" class="form-control field animated fadeInDown">
             </div>
-        </div>
-
-        <div class="animated fadeInUp" ng-show="isInputsValid()">
-            <div style="margin: auto;width: 40%;">
+            <div class="animated fadeInUp" style="margin-top: 40px" ng-show="isInputsValid()">
                 <div ng-show="modeSelected.key == 'db' || modeSelected.key == 'reduction'">
                     <div class="field-label" style="max-width: 100px;">401k</div>
                     <div class="progress">
@@ -90,5 +87,4 @@
             </div>
         </div>
     </div>
-
 </div>

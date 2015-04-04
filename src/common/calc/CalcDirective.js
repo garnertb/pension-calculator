@@ -27,10 +27,15 @@
 
           var outputPanelVal = null;
           var inputPanelVal = null;
+          var calcPanelWidth = 700;
+
+          if (calcPanel.width() > 700) {
+            calcPanelWidth = calcPanel.width();
+          }
 
           if (scope.showInput) {
             outputPanelVal = {
-              width: (calcPanel.width() - 334).toString().concat('px')
+              width: (calcPanelWidth - 334).toString().concat('px')
             };
 
             inputPanelVal = {
@@ -38,7 +43,7 @@
             };
           } else {
             outputPanelVal = {
-              width: (calcPanel.width() - 14).toString().concat('px')
+              width: (calcPanelWidth - 14).toString().concat('px')
             };
 
             inputPanelVal = {

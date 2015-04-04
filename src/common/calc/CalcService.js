@@ -27,7 +27,7 @@
       StartAge = Math.trunc(StartAge);
       EndAge = Math.trunc(EndAge);
       for (x = StartAge; x < EndAge; x++) {
-        var tableIndex = Math.trunc(x - StartAge + 1);
+        var tableIndex = Math.trunc(x - StartAge);
         if (mortTableLength == 2) {
           employee_array[x] = mortTable[tableIndex][0];
           spouse_array[x] = mortTable[tableIndex][1];
@@ -52,7 +52,7 @@
       StartAge = Math.trunc(StartAge);
       EndAge = Math.trunc(EndAge);
       for (x = Startage; x < EndAge; x++) {
-        var tableIndex = Math.trunc(x - Startage + 1);
+        var tableIndex = Math.trunc(x - Startage);
         var raisePower = mortProjection;
         if (mortTableLength == 4) {
           raisePower = mortProjection + x - age;
@@ -1837,7 +1837,7 @@
       //Set mortality table start age and end age
       if (mortName == 'ownstatic' || mortName == 'owngenerational') {
         //TODO may need to make this a parameter now.
-        Startage = Math.trunc(mortTable[0][0]);
+        Startage = 0;
         EndAge = Math.trunc(Math.min(mortTable.length + Startage - 1, 120));
       } else {
         Startage = 0;

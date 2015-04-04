@@ -1,6 +1,3 @@
-<!--
-<div calss="title">Single Page All In One Approach</div>
--->
 <div style="width: 100%; overflow: hidden;">
     <div class="output-panel">
         <div class="charts-panel">
@@ -45,14 +42,13 @@
             </div>
         </div>
     </div>
-    <div class="input-toggle animated fadeInRight" ng-click="toggleInput()">
-        <label class="input-toggle-button">
-            <i class="fa" ng-class="{'fa-angle-left': !showInput, 'fa-angle-right': showInput}"></i>
-        </label>
-    </div>
-    <div class="input-panel animated fadeInRight" ng-show="showInput">
-        <div class="section">
-
+    <div class="input-panel">
+        <div class="input-toggle" ng-click="toggleInputByUser()">
+            <label class="input-toggle-button">
+                <i class="fa" ng-class="{'fa-angle-left': !showInput, 'fa-angle-right': showInput}"></i>
+            </label>
+        </div>
+        <div id="input-panel-content" class="section">
             <div>
                 <div class="field-label">Age at Hire</div>
                 <input ng-model="ageAtHire" id="age-at-hire" class="form-control field" >

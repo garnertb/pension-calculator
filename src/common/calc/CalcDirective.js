@@ -11,6 +11,7 @@
         scope.definedBenefitPercent = null;
         scope.showInput = false;
         scope.showAssumptions = false;
+        scope.showInputChangedByUser = false;
         scope.modes = [
           {key: 'none', value: '( None Selected )'},
           {key: 'db', value: 'Pension to 401k Equivalent'},
@@ -19,69 +20,96 @@
         ];
         scope.modeSelected = scope.modes[0];
 
-        var computesDivSizes = function() {
+        var computeDivSizes = function() {
           var calcPanel = jQuery('.calc');
-          //var inputPanel = jQuery('.input-panel');
+          var inputPanel = jQuery('.input-panel');
+          //var inputPanelContent = jQuery('#input-panel-content');
           var outputPanel = jQuery('.output-panel');
 
           if (scope.showInput) {
-            console.log('____ size1: ', (calcPanel.width() - 5 - 320));
-            outputPanel.css({
-              width: (calcPanel.width() - 5 - 320).toString().concat('px')
+            console.log('____ size1: ', (calcPanel.width() - 334));
+            outputPanel.animate({
+              width: (calcPanel.width() - 334).toString().concat('px')
+            });
+            inputPanel.animate({
+              width: (334).toString().concat('px')
             });
           } else {
-            console.log('____ size2: ', (calcPanel.width() - 5));
-            outputPanel.css({
-              width: (calcPanel.width() - 5).toString().concat('px')
+            console.log('____ size2: ', (calcPanel.width() - 14));
+            outputPanel.animate({
+              width: (calcPanel.width() - 14).toString().concat('px')
+            });
+            inputPanel.animate({
+              width: (14).toString().concat('px')
             });
           }
         };
 
-        computesDivSizes();
-
-        scope.isInputsValid = function() {
-
-          if (scope.modeSelected.key === 'dc') {
-            if (scope.definedBenefitPercent != null && !isNaN(scope.definedBenefitPercent)) {
-              // temp
-              //scope.toggleInput(true);
-              return true;
-            }
-          } else if (scope.modeSelected.key === 'db') {
-            if (scope.definedContributionPercent != null && !isNaN(scope.definedContributionPercent)) {
-              // temp
-              //scope.toggleInput(true);
-              return true;
-            }
-          } else if (scope.modeSelected.key === 'reduction') {
-            if (scope.definedBenefitPercent != null &&
-                scope.definedContributionPercent != null && !isNaN(scope.definedBenefitPercent) && !isNaN(scope.definedContributionPercent)) {
-              // temp
-              //scope.toggleInput(true);
-              return true;
-            }
-          }
-
-          return false;
-        };
+        computeDivSizes();
 
         var w = angular.element($window);
         w.bind('resize', function() {
           computesDivSizes();
         });
 
-        scope.toggleInput = function(state) {
-          if (state === true) {
+        scope.toggleInput = function(show) {
+          if (scope.showInput === show) {
+            return;
+          }
+
+          if (show === true) {
             scope.showInput = true;
-          } else if (state === false) {
+          } else if (show === false) {
             scope.showInput = false;
           } else {
             scope.showInput = !scope.showInput;
           }
           console.log('----- toggleInput: ', scope.showInput);
-          computesDivSizes();
+          computeDivSizes();
+          /*
+          if (scope.showInput) {
+            inputPanelContent.addClass('animated fadeInRight').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+              $(this).removeClass('animated fadeInRight');
+            });
+          }
+          */
         };
 
+        scope.toggleInputByUser = function(show) {
+          scope.showInputChangedByUser = true;
+          scope.toggleInput(show);
+        };
+
+        scope.toggleInput(false);
+
+        scope.isInputsValid = function() {
+
+          if (scope.modeSelected.key === 'dc') {
+            if (scope.definedBenefitPercent != null && !isNaN(scope.definedBenefitPercent)) {
+              if (scope.showInputChangedByUser === false) {
+                scope.toggleInput(true);
+              }
+              return true;
+            }
+          } else if (scope.modeSelected.key === 'db') {
+            if (scope.definedContributionPercent != null && !isNaN(scope.definedContributionPercent)) {
+              if (scope.showInputChangedByUser === false) {
+                scope.toggleInput(true);
+              }
+              return true;
+            }
+          } else if (scope.modeSelected.key === 'reduction') {
+            if (scope.definedBenefitPercent != null &&
+                scope.definedContributionPercent != null && !isNaN(scope.definedBenefitPercent) && !isNaN(scope.definedContributionPercent)) {
+              if (scope.showInputChangedByUser === false) {
+                scope.toggleInput(true);
+              }
+              return true;
+            }
+          }
+
+          return false;
+        };
 
         scope.ageAtHire = 25;
         scope.ageAtRetire = 55;

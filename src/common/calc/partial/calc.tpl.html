@@ -12,6 +12,23 @@
                 <input id="defined-benefit"  ng-model="definedBenefitPercent" class="form-control field animated fadeInDown">
             </div>
             <div class="animated fadeInUp" style="margin-top: 40px" ng-show="isInputsValid()">
+                <button class="btn primary" ng-click="calculateOutput()">Calculate Output</button>
+                
+                <div class="field-label">Life Only</div>
+                <input class="form-control field" ng-disabled="true" ng-model="finalValue"></input>
+                
+                <div class="field-label">Joint & 50% survivor</div>
+                <input class="form-control field" ng-disabled="true" ng-model="finalValueJoint50"></input>
+                
+                <div class="field-label">Joint & 66.7% survivor</div>
+                <input class="form-control field" ng-disabled="true" ng-model="finalValueJoint67"></input>
+                
+                <div class="field-label">Joint & 75% survivor</div>
+                <input class="form-control field" ng-disabled="true" ng-model="finalValueJoint75"></input>
+                
+                <div class="field-label">Joint & 100% survivor</div>
+                <input class="form-control field" ng-disabled="true" ng-model="finalValueJoint100"></input>
+                
                 <div ng-show="modeSelected.key == 'db' || modeSelected.key == 'reduction'">
                     <div class="field-label" style="max-width: 100px;">401k</div>
                     <div class="progress">

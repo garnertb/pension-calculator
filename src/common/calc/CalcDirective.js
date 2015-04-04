@@ -567,7 +567,7 @@
             0.424782
           ]
         ];
-        scope.doStuff = function() {
+        scope.calculateOutput = function() {
           console.log('----- yoyo: ', scope.ageAtHire, scope.ageAtRetire, scope.wageAtHire, scope.xValue);
           scope.xValue = calcService.ComputeXValue(scope.ageAtHire, scope.ageAtRetire, scope.wageAtHire, scope.definedContribution, scope.investReturn, scope.wageIncrease);
           scope.yValue = calcService.ComputeYValue(scope.ageAtHire, scope.ageAtRetire, scope.wageAtHire, scope.definedContribution, scope.investReturn);

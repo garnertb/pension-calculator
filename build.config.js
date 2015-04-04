@@ -70,6 +70,9 @@ module.exports = {
       //'vendor/closure-library/closure/goog/base.js',
     ],
     css: [
+      // Note: these get added to index.html as vendor/... which don't resolve. had to 'concat:build_css' to build
+      //       so that they get it concat/collapsed in app's -*.css. seems like a ng-boiler plate bug.
+      //       at this point only get a benign 404 for these files from index.html.
       'vendor/animate.css/animate.min.css'
     ],
     assets: [

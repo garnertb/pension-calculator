@@ -20,36 +20,48 @@
         ];
         scope.modeSelected = scope.modes[0];
 
-        var computeDivSizes = function() {
+        var computeDivSizes = function(animate) {
           var calcPanel = jQuery('.calc');
           var inputPanel = jQuery('.input-panel');
-          //var inputPanelContent = jQuery('#input-panel-content');
           var outputPanel = jQuery('.output-panel');
 
+          var outputPanelVal = null;
+          var inputPanelVal = null;
+
           if (scope.showInput) {
-            console.log('____ size1: ', (calcPanel.width() - 334));
-            outputPanel.animate({
+            outputPanelVal = {
               width: (calcPanel.width() - 334).toString().concat('px')
-            });
-            inputPanel.animate({
+            };
+
+            inputPanelVal = {
               width: (334).toString().concat('px')
-            });
+            };
           } else {
-            console.log('____ size2: ', (calcPanel.width() - 14));
-            outputPanel.animate({
+            outputPanelVal = {
               width: (calcPanel.width() - 14).toString().concat('px')
-            });
-            inputPanel.animate({
+            };
+
+            inputPanelVal = {
               width: (14).toString().concat('px')
-            });
+            };
+          }
+
+          console.log('computeDivSizes: ', inputPanelVal, outputPanelVal);
+
+          if (animate) {
+            outputPanel.animate(outputPanelVal);
+            inputPanel.animate(inputPanelVal);
+          } else {
+            outputPanel.css(outputPanelVal);
+            inputPanel.css(inputPanelVal);
           }
         };
 
-        computeDivSizes();
+        computeDivSizes(false);
 
         var w = angular.element($window);
         w.bind('resize', function() {
-          computesDivSizes();
+          computeDivSizes(false);
         });
 
         scope.toggleInput = function(show) {
@@ -65,7 +77,7 @@
             scope.showInput = !scope.showInput;
           }
           console.log('----- toggleInput: ', scope.showInput);
-          computeDivSizes();
+          computeDivSizes(true);
           /*
           if (scope.showInput) {
             inputPanelContent.addClass('animated fadeInRight').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {

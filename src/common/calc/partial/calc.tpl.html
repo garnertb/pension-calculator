@@ -1,6 +1,6 @@
 <div style="width: 100%; overflow: hidden;">
     <div class="output-panel">
-        <div class="charts-panel">
+        <div class="charts-panel field-fixed-width">
             <div class="field-label">Select A Benefit Computation</div>
             <select class="animated fadeIn form-control field" id="caclMode" ng-model="modeSelected" ng-options="mode.value for mode in modes" required=""></select>
             <div class="animated fadeInUp" ng-show="modeSelected.key == 'db' || modeSelected.key =='reduction'">
@@ -17,7 +17,7 @@
             <div style="margin: auto;width: 40%;">
                 <div ng-show="modeSelected.key == 'db' || modeSelected.key == 'reduction'">
                     <div class="field-label" style="max-width: 100px;">401k</div>
-                    <div class="progress field-fixed-width">
+                    <div class="progress">
                         <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
                             60%
                         </div>
@@ -25,7 +25,7 @@
                 </div>
                 <div ng-show="modeSelected.key == 'dc' || modeSelected.key == 'reduction'">
                     <div class="field-label" style="max-width: 100px;">Pension</div>
-                    <div class="progress field-fixed-width">
+                    <div class="progress">
                         <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 39%;">
                             39%
                         </div>
@@ -33,7 +33,7 @@
                 </div>
                 <div ng-show="modeSelected.key == 'reduction'">
                     <div class="field-label" style="max-width: 100px;">Difference</div>
-                    <div class="progress field-fixed-width">
+                    <div class="progress">
                         <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 21%;">
                             21%
                         </div>

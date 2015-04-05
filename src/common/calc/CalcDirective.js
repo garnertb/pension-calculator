@@ -138,7 +138,7 @@
         scope.wageIncrease = 4;
         scope.interestRate = 4;
         scope.investReturn = 6;
-        scope.survivor = 50;
+        scope.survivor = 0;
         scope.xValue = 0;
         scope.yValue = 0;
         scope.zValue = 0;
@@ -570,9 +570,12 @@
           ]
         ];
 
+        //TODO: Looks like when input field type is number, we end up needing this? fine as just input field
+        /*
         $('#survivor-slider-dc').on('input', function() {
           $('#survivor-input-dc').val($('#survivor-slider-dc').val());
         });
+        */
 
         scope.calculateOutput = function() {
           console.log('----- yoyo: ', scope.ageAtHire, scope.ageAtRetire, scope.wageAtHire, scope.xValue);

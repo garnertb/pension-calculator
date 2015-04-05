@@ -13,7 +13,7 @@
             </div>
             <div class="animated fadeInUp" style="margin-top: 40px" ng-show="isInputsValid()">
                 <div ng-show="modeSelected.key == 'db' || modeSelected.key == 'reduction'">
-                    <div class="field-label" style="max-width: 100px;">Required 401k Contribution %</div>
+                    <div class="field-label">Required 401k Contribution %</div>
                     <div class="progress">
                         <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
                             60%
@@ -21,26 +21,21 @@
                     </div>
                 </div>
                 <div ng-show="modeSelected.key == 'dc' || modeSelected.key == 'reduction'">
-                    <div class="field-label" style="max-width: 100px;">Pension Income Replacement %</div>
+                    <div class="field-label">Pension Income Replacement %</div>
                     <div class="progress">
                         <div class="progress-bar" role="progressbar"  aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{lifeOnly}}%;">
                         {{lifeOnly}}%
                         </div>
                     </div>
-                    
-                    <div class="field-label" style="max-width: 100px;">Survivor %</div>
-                    <input id="survivor-slider-dc" type="range" max="100" ng-model="survivor" ng-change="calculateOutput()"></input>
-                    <input id="survivor-input-dc" type="number" ng-model="survivor" ng-change="calculateOutput()"></input>
-                    
-                    <div class="field-label" style="max-width: 100px;">Pension Income Replacement w/ Survivor %</div>
-                    <div class="progress">
+                    <div class="field-label  animated fadeInDown" ng-show="survivor > 0">Pension Income Replacement w/ Survivor %</div>
+                    <div class="progress  animated fadeInDown" ng-show="survivor > 0">
                         <div class="progress-bar" role="progressbar"  aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{jointOutput}}%;">
                         {{jointOutput}}%
                         </div>
                     </div>
                 </div>
                 <div ng-show="modeSelected.key == 'reduction'">
-                    <div class="field-label" style="max-width: 100px;">Difference %</div>
+                    <div class="field-label">Difference %</div>
                     <div class="progress">
                         <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 21%;">
                             21%
@@ -99,6 +94,11 @@
                 <div>
                     <div class="field-label">Wage Increase %</div>
                     <input ng-change="calculateOutput()" id="wage-increase" class="form-control field" ng-model="wageIncrease">
+                </div>
+                <div>
+                    <div class="field-label">Survivor %</div>
+                    <input id="survivor-input-dc" class="form-control field" ng-model="survivor" ng-change="calculateOutput()">
+                    <input id="survivor-slider-dc" class="field-slider" type="range" max="100" ng-model="survivor" ng-change="calculateOutput()">
                 </div>
             </div>
             <div class="advanced-header no-select" ng-click="showAssumptions = !showAssumptions" tooltip="{{showAssumptions?'Show ':'Hide '}} assumptions.">

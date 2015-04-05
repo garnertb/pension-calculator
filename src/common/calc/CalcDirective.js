@@ -128,6 +128,17 @@
           return false;
         };
 
+        // TODO: put all variables in a single object and do a deep watch on the object to trigger calculateOutput
+        //       to perform a deep watch, the parameter to the $watch function needs to be boolean 'true'
+        //       scope.data = {
+        //           survivor: 0,
+        //           ageAtHire: 25
+        //       }
+        scope.$watch('survivor', function(newValue, oldValue) {
+          console.log('---- trigger');
+          scope.calculateOutput();
+        });
+
         scope.ageAtHire = 25;
         scope.ageAtRetire = 55;
         scope.wageAtHire = 20000;
@@ -138,7 +149,7 @@
         scope.wageIncrease = 4;
         scope.interestRate = 4;
         scope.investReturn = 6;
-        scope.survivor = 50;
+        scope.survivor = 0;
         scope.xValue = 0;
         scope.yValue = 0;
         scope.zValue = 0;
@@ -570,9 +581,12 @@
           ]
         ];
 
+        //TODO: Looks like when input field type is number, we end up needing this? fine as just input field
+        /*
         $('#survivor-slider-dc').on('input', function() {
           $('#survivor-input-dc').val($('#survivor-slider-dc').val());
         });
+        */
 
         scope.calculateOutput = function() {
           console.log('----- yoyo: ', scope.ageAtHire, scope.ageAtRetire, scope.wageAtHire, scope.xValue);

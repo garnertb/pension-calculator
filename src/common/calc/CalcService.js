@@ -10,16 +10,20 @@
     };
     this.ComputeFinalValue = function(wageAtRetire, finalSalaryYears, wageIncrease, xValue, yValue, zValue) {
       var finalValue = 0;
+      wageIncrease = wageIncrease / 100;
       finalValue = xValue * yValue / zValue / Math.pow(wageAtRetire / (1 + wageIncrease), finalSalaryYears / 2 - 0.5);
       return finalValue;
     };
     this.ComputeXValue = function(ageAtHire, ageAtRetire, wageAtHire, definedContribution, investReturn, wageIncrease) {
       var xValue;
+      wageIncrease = wageIncrease / 100;
+      investReturn = investReturn / 100;
       xValue = wageAtHire * definedContribution / (investReturn - wageIncrease) * (1 - Math.pow((1 + wageIncrease) / (1 + investReturn), ageAtRetire - ageAtHire));
       return xValue;
     };
     this.ComputeYValue = function(ageAtHire, ageAtRetire, wageAtHire, definedContribution, investReturn) {
       var yValue;
+      investReturn = investReturn / 100;
       yValue = Math.pow(1 + investReturn, ageAtRetire - ageAtHire) * (1 + investReturn * 11 / 24);
       return yValue;
     };
@@ -1868,6 +1872,18 @@
       for (x = 0; x < age - 1; x++) {
         interest[x] = 0;
       }
+      //convert values to percentages
+      for (x = 0; x < rates.length; x++) {
+        rates[x] = rates[x] / 100;
+      }
+      if (!Array.isArray(COLApct)) {
+        COLApct = COLApct / 100;
+      } else {
+        for (x = 0; x < COLApct.length; x++) {
+          COLApct[x] = COLApct[x] / 100;
+        }
+      }
+      pctSpouse = pctSpouse / 100;
       console.log('----zValue Params---------');
       console.log('rateStructure = ', rateStructure);
       console.log('mortName = ', mortName);
@@ -2229,14 +2245,19 @@
 
     //Defined benefit functions begin here
     this.ComputeEmployeeContrib = function(ageAtHire, ageAtRetire, startSalary, investReturn, wageIncrease, adjustedTotalWages) {
+      investReturn = investReturn / 100;
+      wageIncrease = wageIncrease / 100;
       var employeeContrib = adjustedTotalWages / ((Math.pow(1 + investReturn, ageAtRetire - ageAtHire) - Math.pow(1 + wageIncrease, ageAtRetire - ageAtHire)) / (investReturn - wageIncrease)) / (startSalary * (1 + (investReturn * 11 / 24)));
       return employeeContrib;
     };
 
-    this.GenerateTotalWages = function(ageAtRetire, spouseAge, wageAtRetire, finalSalaryYears, incomeReplacement, wageIncrease, survivorPct) {
+    this.GenerateTotalWages = function(ageAtRetire, spouseAge, wageAtRetire, finalSalaryYears, incomeReplacement, wageIncrease, interestRate, survivorPct) {
       var outputIncomeTable = [{}];
       var grossWages = 0;
       var adjustedWages = 0;
+      wageIncrease = wageIncrease / 100;
+      interestRate = interestRate / 100;
+      survivorPct = survivorPct / 100;
       spouseAge = ageAtRetire - spouseAge;
       for (var iAge = ageAtRetire; iAge < 120; iAge++, spouseAge++) {
         outputIncomeTable[iAge].age = iAge;
@@ -2244,7 +2265,7 @@
         outputIncomeTable[iAge].cashFlow = wageAtRetire / Math.pow(1 + wageIncrease, finalSalaryYears / 2 - 0.5) * incomeReplacement;
         //The Zeros in this equation are where the table lookup values need to be.
         outputIncomeTable[iAge].mortalityReduction = 0 * outputIncomeTable[iAge].cashFlow + (1 - 0) * 0 * outputIncomeTable[iAge].cashFlow * survivorPct; //Super long look up equation.
-        outputIncomeTable[iAge].cashFlowReduced = outputIncomeTable[iAge].mortalityReduction / Math.pow(1 + annuityIncrease, iAge - ageAtRetire);
+        outputIncomeTable[iAge].cashFlowReduced = outputIncomeTable[iAge].mortalityReduction / Math.pow(1 + interestRate, iAge - ageAtRetire);
         grossWages += outputIncomeTable[iAge].cashFlowReduced;
       }
 

@@ -133,14 +133,16 @@
         scope.wageAtHire = 20000;
         scope.wageAtRetire = 62374;
         scope.finalSalaryYears = 3;
+        scope.COLAStartAge = 55;
         scope.COLAAdjustment = 2;
-        scope.definedContribution = 33.617502;
-        scope.wageIncrease = 0.04;
-        scope.investReturn = 0.06;
+        scope.wageIncrease = 4;
+        scope.interestRate = 4;
+        scope.investReturn = 6;
+        scope.survivor = 50;
         scope.xValue = 0;
         scope.yValue = 0;
         scope.zValue = 0;
-        scope.finalValue = 0;
+        scope.lifeOnly = 0;
         scope.table = [
           [
             0.000447,
@@ -569,25 +571,21 @@
         ];
         scope.calculateOutput = function() {
           console.log('----- yoyo: ', scope.ageAtHire, scope.ageAtRetire, scope.wageAtHire, scope.xValue);
-          scope.xValue = calcService.ComputeXValue(scope.ageAtHire, scope.ageAtRetire, scope.wageAtHire, scope.definedContribution, scope.investReturn, scope.wageIncrease);
-          scope.yValue = calcService.ComputeYValue(scope.ageAtHire, scope.ageAtRetire, scope.wageAtHire, scope.definedContribution, scope.investReturn);
-          //Life Only Calc
-          scope.zValue = calcService.ComputeZValue([0.04], 'spot', 'ownstatic', scope.table, 0, 55, 55, 'm', 0, 0, 52, 1, 1, 0, 0.02, 55);
-          scope.finalValue = calcService.ComputeFinalValue(scope.wageAtRetire, scope.finalSalaryYears, scope.wageIncrease, scope.xValue, scope.yValue, scope.zValue);
-          //Joint 50
-          scope.zValue = calcService.ComputeZValue([0.04], 'spot', 'ownstatic', scope.table, 0, 55, 55, 'm', 0, 0, 52, 1, 1, 0.5, 0.02, 55);
-          scope.finalValueJoint50 = calcService.ComputeFinalValue(scope.wageAtRetire, scope.finalSalaryYears, scope.wageIncrease, scope.xValue, scope.yValue, scope.zValue);
-          //Joint 66.7
-          scope.zValue = calcService.ComputeZValue([0.04], 'spot', 'ownstatic', scope.table, 0, 55, 55, 'm', 0, 0, 52, 1, 1, 0.667, 0.02, 55);
-          scope.finalValueJoint67 = calcService.ComputeFinalValue(scope.wageAtRetire, scope.finalSalaryYears, scope.wageIncrease, scope.xValue, scope.yValue, scope.zValue);
-          //Joint 75
-          scope.zValue = calcService.ComputeZValue([0.04], 'spot', 'ownstatic', scope.table, 0, 55, 55, 'm', 0, 0, 52, 1, 1, 0.75, 0.02, 55);
-          scope.finalValueJoint75 = calcService.ComputeFinalValue(scope.wageAtRetire, scope.finalSalaryYears, scope.wageIncrease, scope.xValue, scope.yValue, scope.zValue);
-          //Joint 100
-          scope.zValue = calcService.ComputeZValue([0.04], 'spot', 'ownstatic', scope.table, 0, 55, 55, 'm', 0, 0, 52, 1, 1, 1, 0.02, 55);
-          scope.finalValueJoint100 = calcService.ComputeFinalValue(scope.wageAtRetire, scope.finalSalaryYears, scope.wageIncrease, scope.xValue, scope.yValue, scope.zValue);
+          if (scope.modeSelected.key == 'dc' || scope.modeSelected.key == 'reduction') {
+            scope.xValue = calcService.ComputeXValue(scope.ageAtHire, scope.ageAtRetire, scope.wageAtHire, scope.definedBenefitPercent, scope.investReturn, scope.wageIncrease);
+            scope.yValue = calcService.ComputeYValue(scope.ageAtHire, scope.ageAtRetire, scope.wageAtHire, scope.definedBenefitPercent, scope.investReturn);
+            scope.zValue = calcService.ComputeZValue([scope.interestRate], 'spot', 'ownstatic', scope.table, 0, 55, 55, 'm', 0, 0, 52, 1, 1, 0, scope.COLAAdjustment, scope.COLAStartAge);
+            scope.lifeOnly = calcService.ComputeFinalValue(scope.wageAtRetire, scope.finalSalaryYears, scope.wageIncrease, scope.xValue, scope.yValue, scope.zValue);
+
+            scope.zValue = calcService.ComputeZValue([scope.interestRate], 'spot', 'ownstatic', scope.table, 0, 55, 55, 'm', 0, 0, 52, 1, 1, scope.survivor, scope.COLAAdjustment, scope.COLAStartAge);
+            scope.jointOutput = calcService.ComputeFinalValue(scope.wageAtRetire, scope.finalSalaryYears, scope.wageIncrease, scope.xValue, scope.yValue, scope.zValue);
+          }
+
+          if (scope.modeSelected.key == 'db' || scope.modeSelected.key == 'reduction') {
+            var adjustedTotalWages = calcService.GenerateTotalWages(scope.ageAtRetire,scope.spouseAge,scope.wageAtRetire,scope.finalSalaryYears,scope.definedContributionPercent,scope.wageIncrease,scope.interestRate,scope.survivor);
+            scope.employeeContrib = calcService.ComputeEmployeeContrib(scope.ageAtHire,scope.ageAtRetire,scope.startSalary,scope.investReturn,scope.wageIncrease,adjustedTotalWages);
+          }
         };
-        scope.doStuff();
       }
     };
   });

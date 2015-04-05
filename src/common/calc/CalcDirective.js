@@ -569,6 +569,11 @@
             0.424782
           ]
         ];
+
+        $('#survivor-slider-dc').on('input', function() {
+          $('#survivor-input-dc').val($('#survivor-slider-dc').val());
+        });
+
         scope.calculateOutput = function() {
           console.log('----- yoyo: ', scope.ageAtHire, scope.ageAtRetire, scope.wageAtHire, scope.xValue);
           if (scope.modeSelected.key == 'dc' || scope.modeSelected.key == 'reduction') {
@@ -582,8 +587,8 @@
           }
 
           if (scope.modeSelected.key == 'db' || scope.modeSelected.key == 'reduction') {
-            var adjustedTotalWages = calcService.GenerateTotalWages(scope.ageAtRetire,scope.spouseAge,scope.wageAtRetire,scope.finalSalaryYears,scope.definedContributionPercent,scope.wageIncrease,scope.interestRate,scope.survivor);
-            scope.employeeContrib = calcService.ComputeEmployeeContrib(scope.ageAtHire,scope.ageAtRetire,scope.startSalary,scope.investReturn,scope.wageIncrease,adjustedTotalWages);
+            var adjustedTotalWages = calcService.GenerateTotalWages(scope.ageAtRetire, scope.spouseAge, scope.wageAtRetire, scope.finalSalaryYears, scope.definedContributionPercent, scope.wageIncrease, scope.interestRate, scope.survivor);
+            scope.employeeContrib = calcService.ComputeEmployeeContrib(scope.ageAtHire, scope.ageAtRetire, scope.startSalary, scope.investReturn, scope.wageIncrease, adjustedTotalWages);
           }
         };
       }

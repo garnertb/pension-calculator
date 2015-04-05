@@ -102,22 +102,22 @@
         scope.isInputsValid = function() {
 
           if (scope.modeSelected.key === 'dc') {
-            if (scope.definedBenefitPercent != null && !isNaN(scope.definedBenefitPercent)) {
+            if (scope.inputData.definedBenefitPercent != null && !isNaN(scope.inputData.definedBenefitPercent)) {
               if (scope.showInputChangedByUser === false) {
                 scope.toggleInput(true);
               }
               return true;
             }
           } else if (scope.modeSelected.key === 'db') {
-            if (scope.definedContributionPercent != null && !isNaN(scope.definedContributionPercent)) {
+            if (scope.inputData.definedContributionPercent != null && !isNaN(scope.inputData.definedContributionPercent)) {
               if (scope.showInputChangedByUser === false) {
                 scope.toggleInput(true);
               }
               return true;
             }
           } else if (scope.modeSelected.key === 'reduction') {
-            if (scope.definedBenefitPercent != null &&
-                scope.definedContributionPercent != null && !isNaN(scope.definedBenefitPercent) && !isNaN(scope.definedContributionPercent)) {
+            if (scope.inputData.definedBenefitPercent != null &&
+                scope.inputData.definedContributionPercent != null && !isNaN(scope.inputData.definedBenefitPercent) && !isNaN(scope.inputData.definedContributionPercent)) {
               if (scope.showInputChangedByUser === false) {
                 scope.toggleInput(true);
               }
@@ -128,28 +128,25 @@
           return false;
         };
 
-        // TODO: put all variables in a single object and do a deep watch on the object to trigger calculateOutput
-        //       to perform a deep watch, the parameter to the $watch function needs to be boolean 'true'
-        //       scope.data = {
-        //           survivor: 0,
-        //           ageAtHire: 25
-        //       }
-        scope.$watch('survivor', function(newValue, oldValue) {
-          console.log('---- trigger');
+        // Deep watch of input data object.
+        scope.$watch('inputData', function(newValue, oldValue) {
           scope.calculateOutput();
-        });
+        }, true);
 
-        scope.ageAtHire = 25;
-        scope.ageAtRetire = 55;
-        scope.wageAtHire = 20000;
-        scope.wageAtRetire = 62374;
-        scope.finalSalaryYears = 3;
-        scope.COLAStartAge = 55;
-        scope.COLAAdjustment = 2;
-        scope.wageIncrease = 4;
-        scope.interestRate = 4;
-        scope.investReturn = 6;
-        scope.survivor = 0;
+        scope.inputData = {
+          survivor: 0,
+          COLAAdjustment: 2,
+          ageAtHire: 25,
+          ageAtRetire: 55,
+          wageAtHire: 20000,
+          wageAtRetire: 62374,
+          finalSalaryYears: 3,
+          COLAStartAge: 55,
+          wageIncrease: 4,
+          interestRate: 4,
+          investReturn: 6
+        };
+
         scope.xValue = 0;
         scope.yValue = 0;
         scope.zValue = 0;
@@ -589,20 +586,20 @@
         */
 
         scope.calculateOutput = function() {
-          console.log('----- yoyo: ', scope.ageAtHire, scope.ageAtRetire, scope.wageAtHire, scope.xValue);
+          console.log('----- yoyo: ', scope.inputData.ageAtHire, scope.inputData.ageAtRetire, scope.inputData.wageAtHire, scope.xValue);
           if (scope.modeSelected.key == 'dc' || scope.modeSelected.key == 'reduction') {
-            scope.xValue = calcService.ComputeXValue(scope.ageAtHire, scope.ageAtRetire, scope.wageAtHire, scope.definedBenefitPercent, scope.investReturn, scope.wageIncrease);
-            scope.yValue = calcService.ComputeYValue(scope.ageAtHire, scope.ageAtRetire, scope.wageAtHire, scope.definedBenefitPercent, scope.investReturn);
-            scope.zValue = calcService.ComputeZValue([scope.interestRate], 'spot', 'ownstatic', scope.table, 0, 55, 55, 'm', 0, 0, 52, 1, 1, 0, scope.COLAAdjustment, scope.COLAStartAge);
-            scope.lifeOnly = calcService.ComputeFinalValue(scope.wageAtRetire, scope.finalSalaryYears, scope.wageIncrease, scope.xValue, scope.yValue, scope.zValue);
+            scope.xValue = calcService.ComputeXValue(scope.inputData.ageAtHire, scope.inputData.ageAtRetire, scope.inputData.wageAtHire, scope.inputData.definedBenefitPercent, scope.inputData.investReturn, scope.inputData.wageIncrease);
+            scope.yValue = calcService.ComputeYValue(scope.inputData.ageAtHire, scope.inputData.ageAtRetire, scope.inputData.wageAtHire, scope.inputData.definedBenefitPercent, scope.inputData.investReturn);
+            scope.zValue = calcService.ComputeZValue([scope.inputData.interestRate], 'spot', 'ownstatic', scope.table, 0, 55, 55, 'm', 0, 0, 52, 1, 1, 0, scope.inputData.COLAAdjustment, scope.inputData.COLAStartAge);
+            scope.lifeOnly = calcService.ComputeFinalValue(scope.inputData.wageAtRetire, scope.inputData.finalSalaryYears, scope.inputData.wageIncrease, scope.xValue, scope.yValue, scope.zValue);
 
-            scope.zValue = calcService.ComputeZValue([scope.interestRate], 'spot', 'ownstatic', scope.table, 0, 55, 55, 'm', 0, 0, 52, 1, 1, scope.survivor, scope.COLAAdjustment, scope.COLAStartAge);
-            scope.jointOutput = calcService.ComputeFinalValue(scope.wageAtRetire, scope.finalSalaryYears, scope.wageIncrease, scope.xValue, scope.yValue, scope.zValue);
+            scope.zValue = calcService.ComputeZValue([scope.inputData.interestRate], 'spot', 'ownstatic', scope.table, 0, 55, 55, 'm', 0, 0, 52, 1, 1, scope.inputData.survivor, scope.inputData.COLAAdjustment, scope.inputData.COLAStartAge);
+            scope.jointOutput = calcService.ComputeFinalValue(scope.inputData.wageAtRetire, scope.inputData.finalSalaryYears, scope.inputData.wageIncrease, scope.xValue, scope.yValue, scope.zValue);
           }
 
           if (scope.modeSelected.key == 'db' || scope.modeSelected.key == 'reduction') {
-            var adjustedTotalWages = calcService.GenerateTotalWages(scope.ageAtRetire, scope.spouseAge, scope.wageAtRetire, scope.finalSalaryYears, scope.definedContributionPercent, scope.wageIncrease, scope.interestRate, scope.survivor);
-            scope.employeeContrib = calcService.ComputeEmployeeContrib(scope.ageAtHire, scope.ageAtRetire, scope.startSalary, scope.investReturn, scope.wageIncrease, adjustedTotalWages);
+            var adjustedTotalWages = calcService.GenerateTotalWages(scope.inputData.ageAtRetire, scope.inputData.spouseAge, scope.inputData.wageAtRetire, scope.inputData.finalSalaryYears, scope.inputData.definedContributionPercent, scope.inputData.wageIncrease, scope.inputData.interestRate, scope.inputData.survivor);
+            scope.employeeContrib = calcService.ComputeEmployeeContrib(scope.inputData.ageAtHire, scope.inputData.ageAtRetire, scope.inputData.wageAtHire, scope.inputData.investReturn, scope.inputData.wageIncrease, adjustedTotalWages);
           }
         };
       }

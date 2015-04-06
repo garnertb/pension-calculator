@@ -20,8 +20,14 @@
                 <div ng-show="modeSelected.key == 'db' || modeSelected.key == 'reduction'">
                     <div class="field-label">Required 401k Contribution %</div>
                     <div class="progress">
-                        <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                            60%
+                        <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{dbLifeOnly}}%;">
+                            {{dbLifeOnly | number:2}}%
+                        </div>
+                    </div>
+                    <div class="field-label  animated fadeInDown" ng-show="inputData.survivor > 0">Required 401k Contribution w/ Survivor %</div>
+                    <div class="progress animated fadeInDown" ng-show="inputData.survivor > 0">
+                        <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{dbJointOutput}}%;">
+                        {{dbJointOutput | number:2}}%
                         </div>
                     </div>
                 </div>
@@ -42,8 +48,8 @@
                 <div ng-show="modeSelected.key == 'reduction'">
                     <div class="field-label">Difference</div>
                     <div class="progress">
-                        <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 21%;">
-                            21%
+                        <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{dbLifeOnly - lifeOnly}};">
+                            {{dbLifeOnly - lifeOnly}}%
                         </div>
                     </div>
                 </div>
@@ -57,6 +63,10 @@
             </label>
         </div>
         <div id="input-panel-content" class="section">
+            <div>
+                <div class="field-label">Sex</div>
+                <select class="form-control-field"  id="sex-selection" ng-model="inputData.sex" ng-options="sex for sex in sexOptions"></select>
+            </div>
             <div>
                 <div class="field-label">Age at Hire</div>
                 <input ng-model="inputData.ageAtHire" id="age-at-hire" class="form-control field" >

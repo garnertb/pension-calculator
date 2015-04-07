@@ -2251,7 +2251,7 @@
       return employeeContrib;
     };
 
-    this.GenerateTotalWages = function(sex, ageAtRetire, spouseAge, wageAtRetire, finalSalaryYears, incomeReplacement, wageIncrease, interestRate, survivorPct) {
+    this.GenerateTotalWages = function(sex, COLApct, ageAtRetire, spouseAge, wageAtRetire, finalSalaryYears, incomeReplacement, wageIncrease, interestRate, survivorPct) {
       console.log('Total Wage Variables:', sex, ageAtRetire, spouseAge, wageAtRetire);
       var outputIncomeTable = [];
       var grossWages = 0;
@@ -2261,9 +2261,28 @@
       wageIncrease = wageIncrease / 100;
       interestRate = interestRate / 100;
       survivorPct = survivorPct / 100;
+      COLApct = COLApct / 100;
       spouseAge = ageAtRetire - spouseAge;
       var spouseAgeAtRetire = spouseAge;
-      for (var iAge = ageAtRetire; iAge < 120; iAge++, spouseAge++) {
+      outputIncomeTable[ageAtRetire] = {
+        age: 0,
+        spouseAge: 0,
+        cashFlow: 0,
+        mortalityReduction: 0,
+        cashFlowReduced: 0
+      };
+      outputIncomeTable[ageAtRetire].age = ageAtRetire;
+      outputIncomeTable[ageAtRetire].spouseAge = spouseAge;
+      outputIncomeTable[ageAtRetire].cashFlow = wageAtRetire / Math.pow(1 + wageIncrease, finalSalaryYears / 2 - 0.5) * incomeReplacement;
+      if (sex == 'male') {
+        outputIncomeTable[ageAtRetire].mortalityReduction = maleMortTable[ageAtRetire][ageAtRetire + 2] * outputIncomeTable[ageAtRetire].cashFlow + (1 - maleMortTable[ageAtRetire][ageAtRetire + 2]) * femaleMortTable[spouseAge][spouseAgeAtRetire] * outputIncomeTable[ageAtRetire].cashFlow * survivorPct;
+      } else {
+        outputIncomeTable[ageAtRetire].mortalityReduction = femaleMortTable[ageAtRetire][ageAtRetire + 2] * outputIncomeTable[ageAtRetire].cashFlow + (1 - femaleMortTable[ageAtRetire][ageAtRetire + 2]) * maleMortTable[spouseAge][spouseAgeAtRetire] * outputIncomeTable[ageAtRetire].cashFlow * survivorPct;
+      }
+      outputIncomeTable[ageAtRetire].cashFlowReduced = outputIncomeTable[ageAtRetire].mortalityReduction / Math.pow(1 + interestRate, ageAtRetire - ageAtRetire);
+      grossWages += outputIncomeTable[ageAtRetire].cashFlowReduced;
+
+      for (var iAge = ageAtRetire + 1; iAge < 120; iAge++, spouseAge++) {
         outputIncomeTable[iAge] = {
           age: 0,
           spouseAge: 0,
@@ -2273,8 +2292,7 @@
         };
         outputIncomeTable[iAge].age = iAge;
         outputIncomeTable[iAge].spouseAge = spouseAge;
-        outputIncomeTable[iAge].cashFlow = wageAtRetire / Math.pow(1 + wageIncrease, finalSalaryYears / 2 - 0.5) * incomeReplacement;
-        //The Zeros in this equation are where the table lookup values need to be.
+        outputIncomeTable[iAge].cashFlow = outputIncomeTable[iAge - 1].cashFlow * (1 + COLApct);
         if (sex == 'male') {
           outputIncomeTable[iAge].mortalityReduction = maleMortTable[iAge][ageAtRetire + 2] * outputIncomeTable[iAge].cashFlow + (1 - maleMortTable[iAge][ageAtRetire + 2]) * femaleMortTable[spouseAge][spouseAgeAtRetire] * outputIncomeTable[iAge].cashFlow * survivorPct;
         } else {

@@ -46,10 +46,16 @@
                     </div>
                 </div>
                 <div ng-show="modeSelected.key == 'reduction'">
-                    <div class="field-label">Difference</div>
+                    <div class="field-label">Difference 401k vs Pension</div>
                     <div class="progress">
-                        <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{dbLifeOnly - lifeOnly}}%;">
-                            {{dbLifeOnly - lifeOnly}}%
+                        <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{dbLifeOnly - lifeOnly | absolute}}%;">
+                            {{dbLifeOnly - lifeOnly | absolute | number:2}}%
+                        </div>
+                    </div>
+                    <div class="field-label  animated fadeInDown" ng-show="inputData.survivor > 0">Difference 401k vs Pension w/ Survivor %</div>
+                    <div class="progress animated fadeInDown" ng-show="inputData.survivor > 0">
+                        <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{dbJointOutput - jointOutput | absolute}}%;">
+                        {{dbJointOutput - jointOutput | absolute | number:2}}%
                         </div>
                     </div>
                 </div>
@@ -82,11 +88,6 @@
             <div>
                 <div class="field-label">Annual Wage at Retirement</div>
                 <input ng-model="inputData.wageAtRetire" id="annual-wage-at-retirement" class="form-control field" >
-            </div>
-            
-            <div>
-                <div class="field-label">COLA Start Age</div>
-                <input ng-model="inputData.COLAStartAge" id="COLAStartAge" class="form-control field" >
             </div>
 
             <div class="animated fadeInRight" ng-show="showAssumptions">

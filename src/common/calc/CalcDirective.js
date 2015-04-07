@@ -1,5 +1,12 @@
 (function() {
   var module = angular.module('calc_directive', []);
+
+  module.filter('absolute', function() {
+    return function(input) {
+      return Math.abs(input);
+    };
+  });
+
   module.directive('calc', function(calcService, $rootScope, $window) {
     return {
       restrict: 'C',
@@ -146,7 +153,6 @@
           wageAtHire: 20000,
           wageAtRetire: 62374,
           finalSalaryYears: 3,
-          COLAStartAge: 55,
           wageIncrease: 4,
           interestRate: 4,
           investReturn: 6
@@ -585,28 +591,21 @@
           ]
         ];
 
-        //TODO: Looks like when input field type is number, we end up needing this? fine as just input field
-        /*
-        $('#survivor-slider-dc').on('input', function() {
-          $('#survivor-input-dc').val($('#survivor-slider-dc').val());
-        });
-        */
-
         scope.calculateOutput = function() {
           console.log('----- yoyo: ', scope.inputData.ageAtHire, scope.inputData.ageAtRetire, scope.inputData.wageAtHire, scope.xValue);
           if (scope.modeSelected.key == 'dc' || scope.modeSelected.key == 'reduction') {
             scope.xValue = calcService.ComputeXValue(scope.inputData.ageAtHire, scope.inputData.ageAtRetire, scope.inputData.wageAtHire, scope.inputData.definedBenefitPercent, scope.inputData.investReturn, scope.inputData.wageIncrease);
             scope.yValue = calcService.ComputeYValue(scope.inputData.ageAtHire, scope.inputData.ageAtRetire, scope.inputData.wageAtHire, scope.inputData.definedBenefitPercent, scope.inputData.investReturn);
-            scope.zValue = calcService.ComputeZValue([scope.inputData.interestRate], 'spot', 'ownstatic', scope.table, 0, 55, 55, scope.inputData.sex, 0, 0, 52, 1, 1, 0, scope.inputData.COLAAdjustment, scope.inputData.COLAStartAge);
+            scope.zValue = calcService.ComputeZValue([scope.inputData.interestRate], 'spot', 'ownstatic', scope.table, 0, 55, 55, scope.inputData.sex, 0, 0, 52, 1, 1, 0, scope.inputData.COLAAdjustment, scope.inputData.ageAtRetire);
             scope.lifeOnly = calcService.ComputeFinalValue(scope.inputData.wageAtRetire, scope.inputData.finalSalaryYears, scope.inputData.wageIncrease, scope.xValue, scope.yValue, scope.zValue);
 
-            scope.zValue = calcService.ComputeZValue([scope.inputData.interestRate], 'spot', 'ownstatic', scope.table, 0, 55, 55, scope.inputData.sex, 0, 0, 52, 1, 1, scope.inputData.survivor, scope.inputData.COLAAdjustment, scope.inputData.COLAStartAge);
+            scope.zValue = calcService.ComputeZValue([scope.inputData.interestRate], 'spot', 'ownstatic', scope.table, 0, 55, 55, scope.inputData.sex, 0, 0, 52, 1, 1, scope.inputData.survivor, scope.inputData.COLAAdjustment, scope.inputData.ageAtRetire);
             scope.jointOutput = calcService.ComputeFinalValue(scope.inputData.wageAtRetire, scope.inputData.finalSalaryYears, scope.inputData.wageIncrease, scope.xValue, scope.yValue, scope.zValue);
           }
 
           if (scope.modeSelected.key == 'db' || scope.modeSelected.key == 'reduction') {
-            var adjustedTotalWages = calcService.GenerateTotalWages(scope.inputData.sex, scope.inputData.ageAtRetire, scope.inputData.spouseAge, scope.inputData.wageAtRetire, scope.inputData.finalSalaryYears, scope.inputData.definedContributionPercent, scope.inputData.wageIncrease, scope.inputData.interestRate, 0);
-            var adjustedTotalWagesJoint = calcService.GenerateTotalWages(scope.inputData.sex, scope.inputData.ageAtRetire, scope.inputData.spouseAge, scope.inputData.wageAtRetire, scope.inputData.finalSalaryYears, scope.inputData.definedContributionPercent, scope.inputData.wageIncrease, scope.inputData.interestRate, scope.inputData.survivor);
+            var adjustedTotalWages = calcService.GenerateTotalWages(scope.inputData.sex, scope.inputData.COLAAdjustment, scope.inputData.ageAtRetire, scope.inputData.spouseAge, scope.inputData.wageAtRetire, scope.inputData.finalSalaryYears, scope.inputData.definedContributionPercent, scope.inputData.wageIncrease, scope.inputData.interestRate, 0);
+            var adjustedTotalWagesJoint = calcService.GenerateTotalWages(scope.inputData.sex, scope.inputData.COLAAdjustment, scope.inputData.ageAtRetire, scope.inputData.spouseAge, scope.inputData.wageAtRetire, scope.inputData.finalSalaryYears, scope.inputData.definedContributionPercent, scope.inputData.wageIncrease, scope.inputData.interestRate, scope.inputData.survivor);
             scope.dbLifeOnly = calcService.ComputeEmployeeContrib(scope.inputData.ageAtHire, scope.inputData.ageAtRetire, scope.inputData.wageAtHire, scope.inputData.investReturn, scope.inputData.wageIncrease, adjustedTotalWages);
             scope.dbJointOutput = calcService.ComputeEmployeeContrib(scope.inputData.ageAtHire, scope.inputData.ageAtRetire, scope.inputData.wageAtHire, scope.inputData.investReturn, scope.inputData.wageIncrease, adjustedTotalWagesJoint);
           }

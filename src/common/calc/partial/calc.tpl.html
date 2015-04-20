@@ -17,7 +17,7 @@
                 </div>
             </div>
             <div class="animated fadeInUp" style="margin-top: 40px" ng-show="isInputsValid()">
-                <div ng-show="modeSelected.key == 'db' || modeSelected.key == 'reduction'">
+                <div ng-show="modeSelected.key == 'db'">
                     <div class="field-label">Required 401k Contribution %</div>
                     <div class="progress">
                         <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{dbLifeOnly}}%;">
@@ -48,14 +48,14 @@
                 <div ng-show="modeSelected.key == 'reduction'">
                     <div class="field-label">Difference 401k vs Pension</div>
                     <div class="progress">
-                        <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{dbLifeOnly - lifeOnly | absolute}}%; background-color: orange;">
-                            {{dbLifeOnly - lifeOnly | absolute | number:2}}%
+                        <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuemin="0" aria-valuemax="100" ng-style="barStyle">
+                            {{reductionOutput | absolute | number:2}}%
                         </div>
                     </div>
                     <div class="field-label  animated fadeInDown" ng-show="inputData.survivor > 0">Difference 401k vs Pension w/ Survivor %</div>
                     <div class="progress animated fadeInDown" ng-show="inputData.survivor > 0">
-                        <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{dbJointOutput - jointOutput | absolute}}%;  background-color: orange;">
-                        {{dbJointOutput - jointOutput | absolute | number:2}}%
+                        <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuemin="0" aria-valuemax="100" ng-style="jointStyle">
+                        {{reductionJointOutput | absolute | number:2}}%
                         </div>
                     </div>
                 </div>

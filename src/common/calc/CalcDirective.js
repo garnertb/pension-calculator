@@ -609,6 +609,21 @@
             scope.dbLifeOnly = calcService.ComputeEmployeeContrib(scope.inputData.ageAtHire, scope.inputData.ageAtRetire, scope.inputData.wageAtHire, scope.inputData.investReturn, scope.inputData.wageIncrease, adjustedTotalWages);
             scope.dbJointOutput = calcService.ComputeEmployeeContrib(scope.inputData.ageAtHire, scope.inputData.ageAtRetire, scope.inputData.wageAtHire, scope.inputData.investReturn, scope.inputData.wageIncrease, adjustedTotalWagesJoint);
           }
+
+          if (scope.modeSelected.key == 'reduction') {
+            scope.reductionOutput = scope.lifeOnly - scope.inputData.definedContributionPercent;
+            scope.reductionJointOutput = scope.jointOutput - scope.inputData.definedContributionPercent;
+            if (scope.reductionOutput > 0.0) {
+              scope.barStyle = { 'width': scope.reductionOutput + '%', 'background-color': 'green'};
+            } else {
+              scope.barStyle = { 'width': Math.abs(scope.reductionOutput) + '%', 'background-color': 'red'};
+            }
+            if (scope.reductionJointOutput > 0.0) {
+              scope.jointStyle = { 'width': scope.reductionJointOutput + '%', 'background-color': 'green'};
+            } else {
+              scope.jointStyle = { 'width': Math.abs(scope.reductionJointOutput) + '%', 'background-color': 'red'};
+            }
+          }
         };
       }
     };

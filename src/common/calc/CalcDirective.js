@@ -110,19 +110,25 @@
 
         scope.toggleInput(false);
 
+        var delayedShowInput = function() {
+          setTimeout(function() {
+            scope.toggleInput(true);
+          }, 1000);
+        };
+
         scope.isInputsValid = function() {
 
           if (scope.modeSelected.key === 'dc') {
             if (scope.inputData.definedBenefitPercent != null && !isNaN(scope.inputData.definedBenefitPercent)) {
               if (scope.showInputChangedByUser === false) {
-                scope.toggleInput(true);
+                delayedShowInput();
               }
               return true;
             }
           } else if (scope.modeSelected.key === 'db') {
             if (scope.inputData.definedContributionPercent != null && !isNaN(scope.inputData.definedContributionPercent)) {
               if (scope.showInputChangedByUser === false) {
-                scope.toggleInput(true);
+                delayedShowInput();
               }
               return true;
             }
@@ -130,7 +136,7 @@
             if (scope.inputData.definedBenefitPercent != null &&
                 scope.inputData.definedContributionPercent != null && !isNaN(scope.inputData.definedBenefitPercent) && !isNaN(scope.inputData.definedContributionPercent)) {
               if (scope.showInputChangedByUser === false) {
-                scope.toggleInput(true);
+                delayedShowInput();
               }
               return true;
             }

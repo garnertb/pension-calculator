@@ -2,7 +2,7 @@
     <div class="output-panel">
         <div class="charts-panel field-fixed-width">
             <div class="field-label">Select A Benefit Computation</div>
-            <select class="animated fadeIn form-control field" id="caclMode" ng-model="modeSelected" ng-options="mode.value for mode in modes" required=""></select>
+            <select class="animated fadeIn form-control field" id="calcMode" ng-model="modeSelected" ng-options="mode.value for mode in modes" required=""></select>
             <div class="animated fadeInUp" ng-show="modeSelected.key == 'db' || modeSelected.key =='reduction'">
                 <div class="field-label">Specify Retirement Pension as % of Final Salary(s)</div>
                 <input id="defined-contribution" ng-model="inputData.definedContributionPercent" class="form-control field">
@@ -70,10 +70,6 @@
         </div>
         <div id="input-panel-content" class="section">
             <div>
-                <div class="field-label">Sex</div>
-                <select class="form-control-field"  id="sex-selection" ng-model="inputData.sex" ng-options="sex for sex in sexOptions"></select>
-            </div>
-            <div>
                 <div class="field-label">Age at Hire</div>
                 <input ng-model="inputData.ageAtHire" id="age-at-hire" class="form-control field" >
             </div>
@@ -116,6 +112,10 @@
                     <div class="field-label">Survivor %</div>
                     <input id="survivor-input-dc" class="form-control field" ng-model="inputData.survivor">
                     <input id="survivor-slider-dc" class="field-slider" type="range" max="100" ng-model="inputData.survivor">
+                </div>
+                <div>
+                    <div class="field-label">Sex</div>
+                    <select class="animated fadeIn form-control field"  id="sex-selection" ng-model="inputData.sex" ng-options="sex for sex in sexOptions"></select>
                 </div>
             </div>
             <div class="advanced-header no-select" ng-click="showAssumptions = !showAssumptions" tooltip="{{showAssumptions?'Show ':'Hide '}} assumptions.">

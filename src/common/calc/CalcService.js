@@ -10,13 +10,11 @@
     };
     this.ComputeFinalValue = function(wageAtRetire, finalSalaryYears, wageIncrease, xValue, yValue, zValue) {
       var finalValue = 0;
-      wageIncrease = wageIncrease / 100;
       finalValue = xValue * yValue / zValue / Math.pow(wageAtRetire / (1 + wageIncrease), finalSalaryYears / 2 - 0.5);
       return finalValue;
     };
     this.ComputeXValue = function(ageAtHire, ageAtRetire, wageAtHire, definedContribution, investReturn, wageIncrease) {
       var xValue;
-      wageIncrease = wageIncrease / 100;
       investReturn = investReturn / 100;
       xValue = wageAtHire * definedContribution / (investReturn - wageIncrease) * (1 - Math.pow((1 + wageIncrease) / (1 + investReturn), ageAtRetire - ageAtHire));
       return xValue;
@@ -2246,7 +2244,6 @@
     //Defined benefit functions begin here
     this.ComputeEmployeeContrib = function(ageAtHire, ageAtRetire, startSalary, investReturn, wageIncrease, adjustedTotalWages) {
       investReturn = investReturn / 100;
-      wageIncrease = wageIncrease / 100;
       var employeeContrib = adjustedTotalWages / ((Math.pow(1 + investReturn, ageAtRetire - ageAtHire) - Math.pow(1 + wageIncrease, ageAtRetire - ageAtHire)) / (investReturn - wageIncrease)) / (startSalary * (1 + (investReturn * 11 / 24)));
       return employeeContrib;
     };
@@ -2258,7 +2255,6 @@
       var adjustedWages = 0;
       var maleMortTable = service_.CreateMaleMortTable();
       var femaleMortTable = service_.CreateFemaleMortTable();
-      wageIncrease = wageIncrease / 100;
       interestRate = interestRate / 100;
       survivorPct = survivorPct / 100;
       COLApct = COLApct / 100;

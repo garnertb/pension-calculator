@@ -1,5 +1,4 @@
 # Pension Calculator [![Build Status](https://travis-ci.org/ProminentEdge/pension-calculator.svg)](https://travis-ci.org/ProminentEdge/pension-calculator)
-An opinionated kickstarter for [AngularJS](http://angularjs.org) projects.
 
 ***
 
@@ -8,15 +7,15 @@ An opinionated kickstarter for [AngularJS](http://angularjs.org) projects.
 Install Node.js and then:
 
 ```sh
-$ git clone git://github.com/joshdmiller/ng-boilerplate
-$ cd ng-boilerplate
+$ git clone https://github.com/ProminentEdge/pension-calculator.git
+$ cd pension-calculator
 $ sudo npm -g install grunt-cli karma bower
 $ npm install
 $ bower install
 $ grunt watch
 ```
 
-Finally, open `file:///path/to/ng-boilerplate/build/index.html` in your browser.
+Finally, open `file:///path/to/pension-calculator/build/index.html` in your browser.
 
 Happy hacking!
 

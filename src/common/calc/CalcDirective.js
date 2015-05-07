@@ -1,5 +1,5 @@
 (function() {
-  var module = angular.module('calc_directive', []);
+  var module = angular.module('calc_directive', ['ui.utils.masks']);
 
   module.filter('absolute', function() {
     return function(input) {
@@ -31,6 +31,7 @@
         ];
         scope.modeSelected = scope.modes[0];
 
+	scope.regEx = /^[0-9]+$/;
         var computeDivSizes = function(animate) {
           var calcPanel = jQuery('.calc');
           var inputPanel = jQuery('.input-panel');

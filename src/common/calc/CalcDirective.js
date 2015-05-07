@@ -1,5 +1,5 @@
 (function() {
-  var module = angular.module('calc_directive', []);
+  var module = angular.module('calc_directive', ['ui.utils.masks']);
 
   module.filter('absolute', function() {
     return function(input) {

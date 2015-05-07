@@ -6,6 +6,7 @@ angular.module('benefitEquivalentCalculator', [
   'benefitEquivalentCalculator.defined-benefit',
   'benefitEquivalentCalculator.benefit-reduction',
   'ui.router',
+  'ui.utils.masks',
   'calc'
 ]).config(function myAppConfig($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/home');

@@ -66,6 +66,7 @@ module.exports = {
       'vendor/angular/angular.js',
       'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
       'vendor/angular-ui-router/release/angular-ui-router.js',
+      'vendor/angular-input-masks/angular-input-masks.min.js',
       'vendor/angular-ui-utils/modules/route/route.js'
       //'vendor/closure-library/closure/goog/base.js',
     ],

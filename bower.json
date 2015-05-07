@@ -11,5 +11,7 @@
     "font-awesome": "4.3.0",
     "animate.css": "3.2.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "angular-input-masks": "~1.4.2"
+  }
 }

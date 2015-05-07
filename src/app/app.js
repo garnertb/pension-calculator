@@ -6,6 +6,7 @@ angular.module('ngBoilerplate', [
   'ngBoilerplate.defined-benefit',
   'ngBoilerplate.benefit-reduction',
   'ui.router',
+  'ui.utils.masks',
   'calc'
 ]).config(function myAppConfig($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/home');

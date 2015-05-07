@@ -2,14 +2,24 @@
     <div class="output-panel">
         <div class="charts-panel field-fixed-width">
             <div class="field-label">Select A Benefit Computation</div>
+            <i class="fa fa-question-circle field-help"
+               tooltip-placement="right"
+               tooltip-html-unsafe="<strong>Pension to 401k equivalent:</strong><br/>
+               Use this option if you have a pension amount and want to
+               see how much 401k contribution will result in equivalent
+               amount of pension<br/><br/><strong>401k to pension equivalent:</strong><br/>
+               Use this option if you want to see how much pension 401k
+               contribution will add up to.<br/><br/><strong>Pension vs 401k:</strong><br/>
+               compare both at the same time."></i>
             <select class="animated fadeIn form-control field" id="calcMode" ng-model="modeSelected" ng-options="mode.value for mode in modes" required=""></select>
-            <div class="animated fadeInUp" ng-show="modeSelected.key == 'db' || modeSelected.key =='reduction'">
-                <div class="field-label">Specify Retirement Pension as % of Final Salary(s)</div>
+            <div class="animation" ng-show="modeSelected.key == 'db' || modeSelected.key =='reduction'">
+                <div class="field-label">Specify Pension at Retirement</div>
+                <i class="fa fa-question-circle field-help"></i>
                 <input id="defined-contribution" ng-model="inputData.definedContributionPercent" class="form-control field">
             </div>
             <div ng-show="modeSelected.key == 'dc' || modeSelected.key =='reduction'">
                 <div class=" animated fadeInUp">
-                    <div class="field-label">Specify 401k Contribution as % of Payroll</div>
+                    <div class="field-label">Specify 401k Contribution</div>
                     <input id="defined-benefit"  ng-model="inputData.definedBenefitPercent" class="form-control field">
                     <!--
                     <input class="field-slider" type="range" max="100" ng-model="inputData.definedBenefitPercent">
@@ -19,6 +29,16 @@
             <div class="animated fadeInUp" style="margin-top: 40px" ng-show="isInputsValid()">
                 <div ng-show="modeSelected.key == 'db'">
                     <div class="field-label">Required 401k Contribution %</div>
+                    <i class="fa fa-question-circle field-help"
+                       tooltip-placement="right"
+                       tooltip-html-unsafe="<strong>Pension to 401k equivalent:</strong><br/>
+               Use this option if you have a pension amount and want to
+               see how much 401k contribution will result in equivalent
+               amount of pension<br/><br/><strong>401k to pension equivalent:</strong><br/>
+               Use this option if you want to see how much pension 401k
+               contribution will add up to.<br/><br/><strong>Pension vs 401k:</strong><br/>
+               compare both at the same time."></i>
+
                     <div class="progress">
                         <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{dbLifeOnly}}%;">
                             {{dbLifeOnly | number:2}}%
@@ -83,6 +103,10 @@
             </div>
             <div>
                 <div class="field-label">Annual Wage at Retirement</div>
+                <i class="fa fa-question-circle field-help"
+                   tooltip-placement="right"
+                   tooltip-html-unsafe="sample tooltip">
+                </i>
                 <input ng-model="inputData.wageAtRetire" id="annual-wage-at-retirement" class="form-control field" >
             </div>
 
@@ -118,7 +142,7 @@
                     <select class="animated fadeIn form-control field"  id="sex-selection" ng-model="inputData.sex" ng-options="sex for sex in sexOptions"></select>
                 </div>
             </div>
-            <div class="advanced-header no-select" ng-click="showAssumptions = !showAssumptions" tooltip="{{showAssumptions?'Show ':'Hide '}} assumptions.">
+            <div class="advanced-header no-select" ng-click="showAssumptions = !showAssumptions">
                 <span>Advanced &nbsp;</span>
                 <i class="fa" ng-class="{'fa-angle-down': !showAssumptions, 'fa-angle-up': showAssumptions}"></i>
             </div>

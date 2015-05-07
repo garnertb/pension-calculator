@@ -1,11 +1,19 @@
 .field-label {
+  float: left;
   padding-top: 14px;
   padding-bottom: 4px;
   padding-left: 2px;
   line-height: 1.5;
   font-weight: 200;
-  min-width: 279px;
-  max-width: 279px;
+  min-width: 265px;
+  max-width: 265px;
+}
+
+.field-help {
+  padding-top: 14px;
+  padding-bottom: 4px;
+  line-height: 1.5;
+  font-weight: 200;
 }
 
 .field {
@@ -121,6 +129,39 @@
 
 .progress-bar-custom {
   font-weight: 600;
+//  min-width: 265px;
+//  max-width: 265px;
   background-color: #54c9dd;
   color: #000000;
+}
+
+/*
+.slide.ng-enter, .slide.ng-leave {
+  -webkit-transition:0.5s linear all;
+  transition:0.5s linear all;
+}
+.slide.ng-enter { }
+.slide.ng-enter.ng-enter-active { }
+.slide.ng-leave { }
+.slide.ng-leave.ng-leave-active { }
+*/
+.animation {
+  -webkit-transition: 5s;
+  background-color: #ffff00;
+}
+.animation.ng-enter {
+  opacity: 0;
+  background-color: green;
+}
+.animation.ng-leave {
+  opacity: 1;
+  background-color: red;
+}
+.animation.ng-enter.ng-enter-active {
+  opacity: 1;
+  background-color: pink;
+}
+.animation.ng-leave.ng-leave-active {
+  opacity: 0;
+  background-color: blue;
 }

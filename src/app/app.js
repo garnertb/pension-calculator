@@ -1,10 +1,10 @@
-angular.module('ngBoilerplate', [
+angular.module('benefitEquivalentCalculator', [
   'templates-app',
   'templates-common',
-  'ngBoilerplate.home',
-  'ngBoilerplate.defined-contribution',
-  'ngBoilerplate.defined-benefit',
-  'ngBoilerplate.benefit-reduction',
+  'benefitEquivalentCalculator.home',
+  'benefitEquivalentCalculator.defined-contribution',
+  'benefitEquivalentCalculator.defined-benefit',
+  'benefitEquivalentCalculator.benefit-reduction',
   'ui.router',
   'calc'
 ]).config(function myAppConfig($stateProvider, $urlRouterProvider) {
@@ -16,7 +16,7 @@ angular.module('ngBoilerplate', [
   console.log('---- AppCtrl');
   $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
     if (angular.isDefined(toState.data.pageTitle)) {
-      $scope.pageTitle = toState.data.pageTitle + ' | ngBoilerplate';
+      $scope.pageTitle = toState.data.pageTitle + ' | Benefit Equivalent Calculator';
     }
   });
 });

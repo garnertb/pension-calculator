@@ -1,4 +1,4 @@
-angular.module('ngBoilerplate.about', [
+angular.module('benefitEquivalentCalculator.about', [
   'ui.router',
   'ui.bootstrap'
 ]).config(function config($stateProvider) {

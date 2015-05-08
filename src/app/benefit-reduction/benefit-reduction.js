@@ -14,7 +14,7 @@
  */
 
 
-angular.module('ngBoilerplate.benefit-reduction', ['ui.router'])
+angular.module('benefitEquivalentCalculator.benefit-reduction', ['ui.router'])
 /**
  * Each section or module of the site can also have its own routes. AngularJS
  * will handle ensuring they are all available at run-time, but splitting it

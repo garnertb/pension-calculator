@@ -12,7 +12,7 @@
  * The dependencies block here is also where component dependencies should be
  * specified, as shown below.
  */
-angular.module('ngBoilerplate.defined-benefit', ['ui.router'])
+angular.module('benefitEquivalentCalculator.defined-benefit', ['ui.router'])
 /**
  * Each section or module of the site can also have its own routes. AngularJS
  * will handle ensuring they are all available at run-time, but splitting it

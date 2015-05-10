@@ -119,7 +119,7 @@
                 </div>
             </div>
             <div class="advanced-header no-select" ng-click="showAssumptions = !showAssumptions" tooltip="{{showAssumptions?'Show ':'Hide '}} assumptions.">
-                <span>Advanced &nbsp;</span>
+                <span>{{showAssumptions? 'Simple':'Advanced'}}</span>
                 <i class="fa" ng-class="{'fa-angle-down': !showAssumptions, 'fa-angle-up': showAssumptions}"></i>
             </div>
         </div>

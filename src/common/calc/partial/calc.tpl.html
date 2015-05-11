@@ -5,14 +5,14 @@
             <select class="animated fadeIn form-control field" id="calcMode" ng-model="modeSelected" ng-options="mode.value for mode in modes" required=""></select>
             <div class="animated fadeInUp" ng-show="modeSelected.key == 'db' || modeSelected.key =='reduction'">
                 <div class="field-label">Specify Retirement Pension as % of Final Salary(s)</div>
-                <input id="defined-contribution" ng-model="inputData.definedContributionPercent" class="form-control field">
+                <input id="defined-contribution" ng-model="definedContributionPercent" class="form-control field">
             </div>
             <div ng-show="modeSelected.key == 'dc' || modeSelected.key =='reduction'">
                 <div class=" animated fadeInUp">
                     <div class="field-label">Specify 401k Contribution as % of Payroll</div>
-                    <input id="defined-benefit"  ng-model="inputData.definedBenefitPercent" class="form-control field">
+                    <input id="defined-benefit"  ng-model="definedBenefitPercent" class="form-control field">
                     <!--
-                    <input class="field-slider" type="range" max="100" ng-model="inputData.definedBenefitPercent">
+                    <input class="field-slider" type="range" max="100" ng-model="definedBenefitPercent">
                     -->
                 </div>
             </div>
@@ -24,8 +24,8 @@
                             {{dbLifeOnly | number:2}}%
                         </div>
                     </div>
-                    <div class="field-label  animated fadeInDown" ng-show="inputData.survivor > 0">Required 401k Contribution w/ Survivor %</div>
-                    <div class="progress animated fadeInDown" ng-show="inputData.survivor > 0">
+                    <div class="field-label  animated fadeInDown" ng-show="_survivor > 0">Required 401k Contribution w/ Survivor %</div>
+                    <div class="progress animated fadeInDown" ng-show="_survivor > 0">
                         <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{dbJointOutput}}%;">
                         {{dbJointOutput | number:2}}%
                         </div>
@@ -38,8 +38,8 @@
                         {{lifeOnly | number:2}}%
                         </div>
                     </div>
-                    <div class="field-label  animated fadeInDown" ng-show="inputData.survivor > 0">Pension Income Replacement w/ Survivor</div>
-                    <div class="progress animated fadeInDown" ng-show="inputData.survivor > 0">
+                    <div class="field-label  animated fadeInDown" ng-show="_survivor > 0">Pension Income Replacement w/ Survivor</div>
+                    <div class="progress animated fadeInDown" ng-show="_survivor > 0">
                         <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{jointOutput}}%;">
                         {{jointOutput | number:2}}%
                         </div>
@@ -52,8 +52,8 @@
                             {{reductionOutput | absolute | number:2}}%
                         </div>
                     </div>
-                    <div class="field-label  animated fadeInDown" ng-show="inputData.survivor > 0">Difference 401k vs Pension w/ Survivor %</div>
-                    <div class="progress animated fadeInDown" ng-show="inputData.survivor > 0">
+                    <div class="field-label  animated fadeInDown" ng-show="_survivor > 0">Difference 401k vs Pension w/ Survivor %</div>
+                    <div class="progress animated fadeInDown" ng-show="_survivor > 0">
                         <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuemin="0" aria-valuemax="100" ng-style="jointStyle">
                         {{reductionJointOutput | absolute | number:2}}%
                         </div>
@@ -71,38 +71,38 @@
         <div id="input-panel-content" class="section">
             <div>
                 <div class="field-label">Age at Hire</div>
-                <input ng-model="inputData.ageAtHire" id="age-at-hire" class="form-control field" >
+                <input ng-model="ageAtHire" type="number" id="age-at-hire" class="form-control field" >
             </div>
             <div>
                 <div class="field-label">Age at Retirement</div>
-                <input ng-model="inputData.ageAtRetire" id="age-at-retirement" class="form-control field" >
+                <input ng-model="ageAtRetire" type="number" id="age-at-retirement" class="form-control field" >
             </div>
             <div>
                 <div class="field-label">Annual Wage at Hire</div>
-                <input ng-model="inputData.wageAtHire" id="annual-wage-at-hire" class="form-control field" >
+                <input ng-model="wageAtHire" type="number" id="annual-wage-at-hire" class="form-control field" >
             </div>
             <div>
                 <div class="field-label">Annual Wage at Retirement</div>
-                <input ng-model="inputData.wageAtRetire" id="annual-wage-at-retirement" class="form-control field" >
+                <input ng-model="wageAtRetire" type="number" id="annual-wage-at-retirement" class="form-control field" >
             </div>
 
             <div class="animated fadeInRight" ng-show="showAssumptions">
                 <div>
                     <div class="field-label">Years of Which Final Average Salary Based</div>
-                    <input ng-model="inputData.finalSalaryYears" id="years-of-which-final-average-salary-based" class="form-control field" >
+                    <input ng-model="finalSalaryYears" type="number" id="years-of-which-final-average-salary-based" class="form-control field" >
                 </div>
                 <div>
                     <div class="field-label">Retiree Cost of Living Adjustment (COLA) %</div>
-                    <input ng-model="inputData.COLAAdjustment" id="retiree-cost-of-living-adjustment" class="form-control field" >
-                    <input class="field-slider" type="range" max="100" ng-model="inputData.COLAAdjustment">
+                    <input ng-model="COLAAdjustment" id="retiree-cost-of-living-adjustment" class="form-control field" ng-model-options="{ getterSetter: true }">
+                    <input class="field-slider" type="range" max="100" ng-model="COLAAdjustment" ng-model-options="{ getterSetter: true }">
                 </div>
                 <div>
                     <div class="field-label">401k Investment Return %</div>
-                    <input id="401k-investment-return" class="form-control field" ng-model="inputData.investReturn">
+                    <input id="401k-investment-return" type="number" class="form-control field" ng-model="investReturn">
                 </div>
                 <div>
                     <div class="field-label">Annuity Interest Rate %</div>
-                    <input id="annuity-interest-rate" class="form-control field" ng-model="inputData.interestRate">
+                    <input id="annuity-interest-rate" type="number" class="form-control field" ng-model="interestRate">
                 </div>
                 <div>
                     <div class="field-label">Wage Increase %</div>
@@ -110,12 +110,12 @@
                 </div>
                 <div>
                     <div class="field-label">Survivor %</div>
-                    <input id="survivor-input-dc" class="form-control field" ng-model="inputData.survivor">
-                    <input id="survivor-slider-dc" class="field-slider" type="range" max="100" ng-model="inputData.survivor">
+                    <input id="survivor-input-dc" class="form-control field" ng-model="survivor" ng-model-options="{ getterSetter: true }">
+                    <input id="survivor-slider-dc" class="field-slider" type="range" max="100" ng-model="survivor" ng-model-options="{ getterSetter: true }">
                 </div>
                 <div>
                     <div class="field-label">Sex</div>
-                    <select class="animated fadeIn form-control field"  id="sex-selection" ng-model="inputData.sex" ng-options="sex for sex in sexOptions"></select>
+                    <select class="animated fadeIn form-control field"  id="sex-selection" ng-model="sex" ng-options="sex for sex in sexOptions"></select>
                 </div>
             </div>
             <div class="advanced-header no-select" ng-click="showAssumptions = !showAssumptions" tooltip="{{showAssumptions?'Show ':'Hide '}} assumptions.">

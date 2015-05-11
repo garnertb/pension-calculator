@@ -31,6 +31,22 @@
         ];
         scope.modeSelected = scope.modes[0];
 
+        scope.spouseAge = 3;
+        scope.ageAtHire = 25;
+        scope.ageAtRetire = 55;
+        scope.wageAtHire = 20000;
+        scope.wageAtRetire = 62374;
+        scope.finalSalaryYears = 3;
+        scope.interestRate = 4;
+        scope.investReturn = 6;
+        scope.definedContributionPercent = null;
+        scope.definedBenefitPercent = null;
+
+        // The client uses a getter/setter to access these because Angular 1.3 treats the HTML input type "range" as a string.
+        // https://github.com/angular/angular.js/pull/9715
+        scope._COLAAdjustment = 2;
+        scope._survivor = 0;
+
         var computeDivSizes = function(animate) {
           var calcPanel = jQuery('.calc');
           var inputPanel = jQuery('.input-panel');
@@ -119,22 +135,22 @@
         scope.isInputsValid = function() {
 
           if (scope.modeSelected.key === 'dc') {
-            if (scope.inputData.definedBenefitPercent != null && !isNaN(scope.inputData.definedBenefitPercent)) {
+            if (scope.definedBenefitPercent != null && !isNaN(scope.definedBenefitPercent)) {
               if (scope.showInputChangedByUser === false) {
                 delayedShowInput();
               }
               return true;
             }
           } else if (scope.modeSelected.key === 'db') {
-            if (scope.inputData.definedContributionPercent != null && !isNaN(scope.inputData.definedContributionPercent)) {
+            if (scope.definedContributionPercent != null && !isNaN(scope.definedContributionPercent)) {
               if (scope.showInputChangedByUser === false) {
                 delayedShowInput();
               }
               return true;
             }
           } else if (scope.modeSelected.key === 'reduction') {
-            if (scope.inputData.definedBenefitPercent != null &&
-                scope.inputData.definedContributionPercent != null && !isNaN(scope.inputData.definedBenefitPercent) && !isNaN(scope.inputData.definedContributionPercent)) {
+            if (scope.definedBenefitPercent != null &&
+                scope.definedContributionPercent != null && !isNaN(scope.definedBenefitPercent) && !isNaN(scope.definedContributionPercent)) {
               if (scope.showInputChangedByUser === false) {
                 delayedShowInput();
               }
@@ -146,29 +162,34 @@
         };
 
         scope.updateWageIncrease = function() {
-          scope.wageIncrease = Math.pow(scope.inputData.wageAtRetire / scope.inputData.wageAtHire, 1 / (scope.inputData.ageAtRetire - scope.inputData.ageAtHire - 1)) - 1;
+          scope.wageIncrease = Math.pow(scope.wageAtRetire / scope.wageAtHire, 1 / (scope.ageAtRetire - scope.ageAtHire - 1)) - 1;
         };
-        // Deep watch of input data object.
-        scope.$watch('inputData', function(newValue, oldValue) {
+
+        // Watch of calculation parameters.
+        scope.$watchGroup(['_survivor', 'spouseAge', 'ageAtHire', 'ageAtRetire', 'wageAtHire', 'wageAtRetire',
+          'finalSalaryYears', 'investRate', 'investReturn', '_COLAAdjustment', 'definedContributionPercent',
+          'definedBenefitPercent'], function(newValues, oldValues) {
           scope.updateWageIncrease();
           scope.calculateOutput();
         }, true);
 
-
-        scope.inputData = {
-          survivor: 0,
-          spouseAge: 3,
-          COLAAdjustment: 2,
-          ageAtHire: 25,
-          ageAtRetire: 55,
-          wageAtHire: 20000,
-          wageAtRetire: 62374,
-          finalSalaryYears: 3,
-          interestRate: 4,
-          investReturn: 6
+        // A getter/setter to access COLAAdjustment because Angular 1.3 treats the HTML input type "range" as a string.
+        scope.COLAAdjustment = function(value) {
+          if (typeof(value) !== 'undefined') {
+            scope._COLAAdjustment = parseInt(value, 10);
+          }
+          return scope._COLAAdjustment.toString();
         };
 
-        scope.inputData.sex = scope.sexOptions[0];
+        // A getter/setter to access survivor because Angular 1.3 treats the HTML input type "range" as a string.
+        scope.survivor = function(value) {
+          if (typeof(value) !== 'undefined') {
+            scope._survivor = parseInt(value, 10);
+          }
+          return scope._survivor.toString();
+        };
+
+        scope.sex = scope.sexOptions[0];
 
         scope.xValue = 0;
         scope.yValue = 0;
@@ -602,27 +623,27 @@
         ];
 
         scope.calculateOutput = function() {
-          console.log('----- yoyo: ', scope.inputData.ageAtHire, scope.inputData.ageAtRetire, scope.inputData.wageAtHire, scope.xValue);
+          console.log('----- yoyo: ', scope.ageAtHire, scope.ageAtRetire, scope.wageAtHire, scope.xValue);
           if (scope.modeSelected.key == 'dc' || scope.modeSelected.key == 'reduction') {
-            scope.xValue = calcService.ComputeXValue(scope.inputData.ageAtHire, scope.inputData.ageAtRetire, scope.inputData.wageAtHire, scope.inputData.definedBenefitPercent, scope.inputData.investReturn, scope.wageIncrease);
-            scope.yValue = calcService.ComputeYValue(scope.inputData.ageAtHire, scope.inputData.ageAtRetire, scope.inputData.wageAtHire, scope.inputData.definedBenefitPercent, scope.inputData.investReturn);
-            scope.zValue = calcService.ComputeZValue([scope.inputData.interestRate], 'spot', 'ownstatic', scope.table, 0, 55, 55, scope.inputData.sex, 0, 0, 52, 1, 1, 0, scope.inputData.COLAAdjustment, scope.inputData.ageAtRetire);
-            scope.lifeOnly = calcService.ComputeFinalValue(scope.inputData.wageAtRetire, scope.inputData.finalSalaryYears, scope.wageIncrease, scope.xValue, scope.yValue, scope.zValue);
+            scope.xValue = calcService.ComputeXValue(scope.ageAtHire, scope.ageAtRetire, scope.wageAtHire, scope.definedBenefitPercent, scope.investReturn, scope.wageIncrease);
+            scope.yValue = calcService.ComputeYValue(scope.ageAtHire, scope.ageAtRetire, scope.wageAtHire, scope.definedBenefitPercent, scope.investReturn);
+            scope.zValue = calcService.ComputeZValue([scope.interestRate], 'spot', 'ownstatic', scope.table, 0, 55, 55, scope.sex, 0, 0, 52, 1, 1, 0, scope._COLAAdjustment, scope.ageAtRetire);
+            scope.lifeOnly = calcService.ComputeFinalValue(scope.wageAtRetire, scope.finalSalaryYears, scope.wageIncrease, scope.xValue, scope.yValue, scope.zValue);
 
-            scope.zValue = calcService.ComputeZValue([scope.inputData.interestRate], 'spot', 'ownstatic', scope.table, 0, 55, 55, scope.inputData.sex, 0, 0, 52, 1, 1, scope.inputData.survivor, scope.inputData.COLAAdjustment, scope.inputData.ageAtRetire);
-            scope.jointOutput = calcService.ComputeFinalValue(scope.inputData.wageAtRetire, scope.inputData.finalSalaryYears, scope.wageIncrease, scope.xValue, scope.yValue, scope.zValue);
+            scope.zValue = calcService.ComputeZValue([scope.interestRate], 'spot', 'ownstatic', scope.table, 0, 55, 55, scope.sex, 0, 0, 52, 1, 1, scope._survivor, scope._COLAAdjustment, scope.ageAtRetire);
+            scope.jointOutput = calcService.ComputeFinalValue(scope.wageAtRetire, scope.finalSalaryYears, scope.wageIncrease, scope.xValue, scope.yValue, scope.zValue);
           }
 
           if (scope.modeSelected.key == 'db' || scope.modeSelected.key == 'reduction') {
-            var adjustedTotalWages = calcService.GenerateTotalWages(scope.inputData.sex, scope.inputData.COLAAdjustment, scope.inputData.ageAtRetire, scope.inputData.spouseAge, scope.inputData.wageAtRetire, scope.inputData.finalSalaryYears, scope.inputData.definedContributionPercent, scope.wageIncrease, scope.inputData.interestRate, 0);
-            var adjustedTotalWagesJoint = calcService.GenerateTotalWages(scope.inputData.sex, scope.inputData.COLAAdjustment, scope.inputData.ageAtRetire, scope.inputData.spouseAge, scope.inputData.wageAtRetire, scope.inputData.finalSalaryYears, scope.inputData.definedContributionPercent, scope.wageIncrease, scope.inputData.interestRate, scope.inputData.survivor);
-            scope.dbLifeOnly = calcService.ComputeEmployeeContrib(scope.inputData.ageAtHire, scope.inputData.ageAtRetire, scope.inputData.wageAtHire, scope.inputData.investReturn, scope.wageIncrease, adjustedTotalWages);
-            scope.dbJointOutput = calcService.ComputeEmployeeContrib(scope.inputData.ageAtHire, scope.inputData.ageAtRetire, scope.inputData.wageAtHire, scope.inputData.investReturn, scope.wageIncrease, adjustedTotalWagesJoint);
+            var adjustedTotalWages = calcService.GenerateTotalWages(scope.sex, scope._COLAAdjustment, scope.ageAtRetire, scope.spouseAge, scope.wageAtRetire, scope.finalSalaryYears, scope.definedContributionPercent, scope.wageIncrease, scope.interestRate, 0);
+            var adjustedTotalWagesJoint = calcService.GenerateTotalWages(scope.sex, scope._COLAAdjustment, scope.ageAtRetire, scope.spouseAge, scope.wageAtRetire, scope.finalSalaryYears, scope.definedContributionPercent, scope.wageIncrease, scope.interestRate, scope._survivor);
+            scope.dbLifeOnly = calcService.ComputeEmployeeContrib(scope.ageAtHire, scope.ageAtRetire, scope.wageAtHire, scope.investReturn, scope.wageIncrease, adjustedTotalWages);
+            scope.dbJointOutput = calcService.ComputeEmployeeContrib(scope.ageAtHire, scope.ageAtRetire, scope.wageAtHire, scope.investReturn, scope.wageIncrease, adjustedTotalWagesJoint);
           }
 
           if (scope.modeSelected.key == 'reduction') {
-            scope.reductionOutput = scope.lifeOnly - scope.inputData.definedContributionPercent;
-            scope.reductionJointOutput = scope.jointOutput - scope.inputData.definedContributionPercent;
+            scope.reductionOutput = scope.lifeOnly - scope.definedContributionPercent;
+            scope.reductionJointOutput = scope.jointOutput - scope.definedContributionPercent;
             if (scope.reductionOutput > 0.0) {
               scope.barStyle = { 'width': scope.reductionOutput + '%', 'background-color': 'green'};
             } else {

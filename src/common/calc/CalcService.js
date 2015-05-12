@@ -8,15 +8,20 @@
       //q_ = $q;
       return service_;
     };
+    this.roundNumber = function(number, precision) {
+      precision = Math.abs(parseInt(precision, 10)) || 0;
+      var multiplier = Math.pow(10, precision);
+      return (Math.round(number * multiplier) / multiplier);
+    };
     this.ComputeFinalValue = function(wageAtRetire, finalSalaryYears, wageIncrease, xValue, yValue, zValue) {
       var finalValue = 0;
-      finalValue = xValue * yValue / zValue / Math.pow(wageAtRetire / (1 + wageIncrease), finalSalaryYears / 2 - 0.5);
+      finalValue = (xValue * yValue / zValue) / Math.pow(wageAtRetire / (1 + wageIncrease), finalSalaryYears / 2 - 0.5);
       return finalValue;
     };
     this.ComputeXValue = function(ageAtHire, ageAtRetire, wageAtHire, definedContribution, investReturn, wageIncrease) {
       var xValue;
       investReturn = investReturn / 100;
-      xValue = wageAtHire * definedContribution / (investReturn - wageIncrease) * (1 - Math.pow((1 + wageIncrease) / (1 + investReturn), ageAtRetire - ageAtHire));
+      xValue = ((wageAtHire * definedContribution) / (investReturn - wageIncrease)) * (1 - Math.pow((1 + wageIncrease) / (1 + investReturn), ageAtRetire - ageAtHire));
       return xValue;
     };
     this.ComputeYValue = function(ageAtHire, ageAtRetire, wageAtHire, definedContribution, investReturn) {
@@ -26,33 +31,29 @@
       return yValue;
     };
     this.FillOwnStaticTable = function(employee_array, spouse_array, mortProjection, mortTable, mortTableLength, ARA, spouseARA, StartAge, EndAge) {
-      StartAge = Math.trunc(StartAge);
-      EndAge = Math.trunc(EndAge);
       for (x = StartAge; x < EndAge; x++) {
         var tableIndex = Math.trunc(x - StartAge);
         if (mortTableLength == 2) {
           employee_array[x] = mortTable[tableIndex][0];
           spouse_array[x] = mortTable[tableIndex][1];
         } else if (mortTableLength == 4) {
-          employee_array[x] = mortTable[tableIndex][0] * Math.pow(1 - mortTable[tableIndex][2], mortProjection);
-          spouse_array[x] = mortTable[tableIndex][1] * Math.pow(1 - mortTable[tableIndex][3], mortProjection);
+          employee_array[x] = service_.roundNumber(mortTable[tableIndex][0] * Math.pow(1 - mortTable[tableIndex][2], mortProjection), 6);
+          spouse_array[x] = service_.roundNumber(mortTable[tableIndex][1] * Math.pow(1 - mortTable[tableIndex][3], mortProjection), 6);
         } else if (mortTableLength == 8) {
           if (x < ARA) {
-            employee_array[x] = mortTable[tableIndex][0] * Math.pow(1 - mortTable[tableIndex][2], mortProjection);
+            employee_array[x] = service_.roundNumber(mortTable[tableIndex][0] * Math.pow(1 - mortTable[tableIndex][2], mortProjection), 6);
           } else {
-            employee_array[x] = mortTable[tableIndex][4] * Math.pow(1 - mortTable[tableIndex][6], mortProjection);
+            employee_array[x] = service_.roundNumber(mortTable[tableIndex][4] * Math.pow(1 - mortTable[tableIndex][6], mortProjection), 6);
           }
           if (x < spouseARA) {
-            spouse_array[x] = mortTable[tableIndex][1] * Math.pow(1 - mortTable[tableIndex][3], mortProjection);
+            spouse_array[x] = service_.roundNumber(mortTable[tableIndex][1] * Math.pow(1 - mortTable[tableIndex][3], mortProjection), 6);
           } else {
-            spouse_array[x] = mortTable[tableIndex][5] * Math.pow(1 - mortTable[tableIndex][8], mortProjection);
+            spouse_array[x] = service_.roundNumber(mortTable[tableIndex][5] * Math.pow(1 - mortTable[tableIndex][8], mortProjection), 6);
           }
         }
       }
     };
     this.FillOwnGenerationalTable = function(employee_array, spouse_array, mortProjection, mortTable, mortTableLength, ARA, spouseARA, age, spouseAge, Startage, EndAge) {
-      StartAge = Math.trunc(StartAge);
-      EndAge = Math.trunc(EndAge);
       for (x = Startage; x < EndAge; x++) {
         var tableIndex = Math.trunc(x - Startage);
         var raisePower = mortProjection;
@@ -1838,9 +1839,8 @@
       }
       //Set mortality table start age and end age
       if (mortName == 'ownstatic' || mortName == 'owngenerational') {
-        //TODO may need to make this a parameter now.
         Startage = 0;
-        EndAge = Math.trunc(Math.min(mortTable.length + Startage - 1, 120));
+        EndAge = Math.min(mortTable.length + Startage, 120);
       } else {
         Startage = 0;
         EndAge = 120;
@@ -2093,7 +2093,7 @@
       //END SWITCH STATEMENT
       //END INDIVIDUAL MORT WORK
       //Joint table
-      minJSq = Math.max(0, 1 - spouseAge + age);
+      minJSq = Math.max(0, 0 - spouseAge + age);
       maxJSq = Math.min(120, 120 - spouseAge + age);
       for (x = minJSq; x < maxJSq; x++) {
         q_eesp[x] = 1 - (1 - q_ee[x]) * (1 - q_sp[x - age + spouseAge]);
@@ -2237,7 +2237,7 @@
         a_eesp = a_eesp + AdjDiscountValue_eesp[x];
       }
       //Final value calculation
-      zValue = pctEE * a_ee + pctSpouse * a_sp - (pctEE + pctSpouse - pctBoth) * a_eesp + pvCertainPeriod;
+      zValue = service_.roundNumber(pctEE * a_ee + pctSpouse * a_sp - (pctEE + pctSpouse - pctBoth) * a_eesp + pvCertainPeriod, 6);
       return zValue;
     };  //Function END
 

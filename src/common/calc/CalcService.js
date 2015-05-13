@@ -32,7 +32,7 @@
     };
     this.FillOwnStaticTable = function(employee_array, spouse_array, mortProjection, mortTable, mortTableLength, ARA, spouseARA, StartAge, EndAge) {
       for (x = StartAge; x < EndAge; x++) {
-        var tableIndex = Math.trunc(x - StartAge);
+        var tableIndex = x - StartAge;
         if (mortTableLength == 2) {
           employee_array[x] = mortTable[tableIndex][0];
           spouse_array[x] = mortTable[tableIndex][1];
@@ -55,7 +55,7 @@
     };
     this.FillOwnGenerationalTable = function(employee_array, spouse_array, mortProjection, mortTable, mortTableLength, ARA, spouseARA, age, spouseAge, Startage, EndAge) {
       for (x = Startage; x < EndAge; x++) {
-        var tableIndex = Math.trunc(x - Startage);
+        var tableIndex = x - Startage;
         var raisePower = mortProjection;
         if (mortTableLength == 4) {
           raisePower = mortProjection + x - age;
@@ -2093,7 +2093,7 @@
       //END SWITCH STATEMENT
       //END INDIVIDUAL MORT WORK
       //Joint table
-      minJSq = Math.max(0, 0 - spouseAge + age);
+      minJSq = Math.max(1, 1 - spouseAge + age);
       maxJSq = Math.min(120, 120 - spouseAge + age);
       for (x = minJSq; x < maxJSq; x++) {
         q_eesp[x] = 1 - (1 - q_ee[x]) * (1 - q_sp[x - age + spouseAge]);
@@ -2137,24 +2137,21 @@
             if (x < ARA) {
               AdjDiscountValue_ee[x] = 0;
             } else {
-              //TODO Possible Integer division issue
-              AdjDiscountValue_ee[x] = (DiscountValue_ee[x] - (11 / 24 * p_ee[x] * Math.pow(1 + interest[x], -(x - age)) - 11 / 24 * p_ee[x + 1] * Math.pow(1 + interest[x], -(x - age + 1)))) * COLAincrease[x];
+              AdjDiscountValue_ee[x] = (DiscountValue_ee[x] - ((11 / 24 * p_ee[x] * Math.pow(1 + interest[x], -(x - age))) - (11 / 24 * p_ee[x + 1] * Math.pow(1 + interest[x], -(x - age + 1))))) * COLAincrease[x];
             }
           }
           for (x = spouseAge; x < EndAge; x++) {
             if (x < spouseARA) {
               AdjDiscountValue_sp[x] = 0;
             } else {
-              //TODO Possible Integer division issue
-              AdjDiscountValue_sp[x] = (DiscountValue_sp[x] - (11 / 24 * p_sp[x] * Math.pow(1 + interest[x - spouseAge + age], -(x - spouseAge)) - 11 / 24 * p_sp[x + 1] * Math.pow(1 + interest[x - spouseAge + age], -(x - spouseAge + 1)))) * COLAincrease[x];
+              AdjDiscountValue_sp[x] = (DiscountValue_sp[x] - ((11 / 24 * p_sp[x] * Math.pow(1 + interest[x - spouseAge + age], -(x - spouseAge))) - (11 / 24 * p_sp[x + 1] * Math.pow(1 + interest[x - spouseAge + age], -(x - spouseAge + 1))))) * COLAincrease[x - spouseAge + age];
             }
           }
           for (x = age; x < EndAge; x++) {
             if (x < ARA) {
               AdjDiscountValue_eesp[x] = 0;
             } else {
-              //TODO Possible Integer division issue
-              AdjDiscountValue_eesp[x] = (DiscountValue_eesp[x] - (11 / 24 * p_eesp[x] * Math.pow(1 + interest[x], -(x - age)) - 11 / 24 * p_eesp[x + 1] * Math.pow(1 + interest[x], -(x - age + 1)))) * COLAincrease[x];
+              AdjDiscountValue_eesp[x] = (DiscountValue_eesp[x] - ((11 / 24 * p_eesp[x] * Math.pow(1 + interest[x], -(x - age))) - (11 / 24 * p_eesp[x + 1] * Math.pow(1 + interest[x], -(x - age + 1))))) * COLAincrease[x];
             }
           }
           //Adjust for certain Period

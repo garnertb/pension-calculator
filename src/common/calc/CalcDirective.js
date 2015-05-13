@@ -318,16 +318,22 @@
           }
 
           if (scope.modeSelected.key == 'reduction') {
-            scope.reductionOutput = 1 - scope.lifeOnly / scope.definedContributionPercent;
-            scope.reductionJointOutput = 1 - scope.jointOutput / scope.definedContributionPercent;
-            if (scope.reductionOutput > 0.0) {
+            if (scope.lifeOnly > scope.definedContributionPercent) {
+              scope.benefitSpan = 'Benefit Gain';
+              scope.reductionOutput = (scope.lifeOnly / scope.definedContributionPercent - 1) * 100;
               scope.barStyle = { 'width': scope.reductionOutput + '%', 'background-color': 'green'};
             } else {
+              scope.benefitSpan = 'Benefit Cut';
+              scope.reductionOutput = (1 - scope.lifeOnly / scope.definedContributionPercent) * 100;
               scope.barStyle = { 'width': Math.abs(scope.reductionOutput) + '%', 'background-color': 'red'};
             }
-            if (scope.reductionJointOutput > 0.0) {
+            if (scope.jointOutput > scope.definedContributionPercent) {
+              scope.benefitSpanJoint = 'Benefit Gain w/ Survivor';
+              scope.reductionJointOutput = (scope.jointOutput / scope.definedContributionPercent - 1) * 100;
               scope.jointStyle = { 'width': scope.reductionJointOutput + '%', 'background-color': 'green'};
             } else {
+              scope.benefitSpanJoint = 'Benefit Cut w/ Survivor';
+              scope.reductionJointOutput = (1 - scope.jointOutput / scope.definedContributionPercent) * 100;
               scope.jointStyle = { 'width': Math.abs(scope.reductionJointOutput) + '%', 'background-color': 'red'};
             }
           }

@@ -5,12 +5,12 @@
             <select class="animated fadeIn form-control field" id="calcMode" ng-model="modeSelected" ng-options="mode.value for mode in modes" required=""></select>
             <div class="animated fadeInUp" ng-show="modeSelected.key == 'db' || modeSelected.key =='reduction'">
                 <div class="field-label">Specify Retirement Pension as % of Final Salary(s)</div>
-                <input id="defined-contribution" ng-model="definedContributionPercent" class="form-control field">
+                <input id="defined-contribution" type="number" ng-model="definedContributionPercent" class="form-control field">
             </div>
             <div ng-show="modeSelected.key == 'dc' || modeSelected.key =='reduction'">
                 <div class=" animated fadeInUp">
                     <div class="field-label">Specify 401k Contribution as % of Payroll</div>
-                    <input id="defined-benefit"  ng-model="definedBenefitPercent" class="form-control field">
+                    <input id="defined-benefit" type="number"  ng-model="definedBenefitPercent" class="form-control field">
                     <!--
                     <input class="field-slider" type="range" max="100" ng-model="definedBenefitPercent">
                     -->

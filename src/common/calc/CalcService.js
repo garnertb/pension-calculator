@@ -1832,6 +1832,11 @@
       } else {
         sex = 'female';
       }
+      for (x = 0; x < 120; x++) {
+        q_ee[x] = 0;
+        q_sp[x] = 0;
+        q_eesp[x] = 0;
+      }
       if (ARA < age) {
         certainPeriod = Math.max(certainPeriod - age + ARA, 0);
         tempPeriod = Math.max(tempPeriod - age + ARA, 0);
@@ -1912,10 +1917,10 @@
               interest[x] = rates[2];
             }
           } else {
-            for (x = age; x < age + numRates - 1; x++) {
-              interest[x] = rates[x - age + 1];
+            for (x = age; x < age + numRates; x++) {
+              interest[x] = rates[x - age];
             }
-            for (x = age + numRates - 1; x < 200; x++) {
+            for (x = age + numRates; x < 200; x++) {
               interest[x] = rates[numRates - 1];
             }
           }
@@ -2093,7 +2098,7 @@
       //END SWITCH STATEMENT
       //END INDIVIDUAL MORT WORK
       //Joint table
-      minJSq = Math.max(1, 1 - spouseAge + age);
+      minJSq = Math.max(0, 0 - spouseAge + age);
       maxJSq = Math.min(120, 120 - spouseAge + age);
       for (x = minJSq; x < maxJSq; x++) {
         q_eesp[x] = 1 - (1 - q_ee[x]) * (1 - q_sp[x - age + spouseAge]);
@@ -2193,7 +2198,6 @@
             if (x < ARA) {
               AdjDiscountValue_ee[x] = 0;
             } else {
-              //TODO Possible Integer division issue
               AdjDiscountValue_ee[x] = (DiscountValue_ee[x] - (11 / 24 * p_ee[x] * v[x] - 11 / 24 * p_ee[x + 1] * v[x])) * COLAincrease[x];
             }
           }
@@ -2201,7 +2205,6 @@
             if (x < spouseARA) {
               AdjDiscountValue_sp[x] = 0;
             } else {
-              //TODO Possible Integer division issue
               AdjDiscountValue_sp[x] = (DiscountValue_sp[x] - (11 / 24 * p_sp[x] * v[x - spouseAge + age] - 11 / 24 * p_sp[x + 1] * v[x - spouseAge + age])) * COLAincrease[x];
             }
           }
@@ -2209,7 +2212,6 @@
             if (x < ARA) {
               AdjDiscountValue_eesp[x] = 0;
             } else {
-              //TODO Possible Integer division issue
               AdjDiscountValue_eesp[x] = (DiscountValue_eesp[x] - (11 / 24 * p_eesp[x] * v[x] - 11 / 24 * p_eesp[x + 1] * v[x])) * COLAincrease[x];
             }
           }

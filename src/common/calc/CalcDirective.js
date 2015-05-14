@@ -306,6 +306,9 @@
             scope.zValue = calcService.ComputeZValue([scope.interestRate], 'spot', 'ownstatic', scope.table, 0, 55, 55, scope.sex, 0, 0, 52, 1, 1, 0, scope._COLAAdjustment, scope.ageAtRetire);
             scope.lifeOnly = calcService.ComputeFinalValue(scope.wageAtRetire, scope.finalSalaryYears, scope.wageIncrease, scope.xValue, scope.yValue, scope.zValue);
 
+            scope.zValue = calcService.ComputeZValue([scope.interestRate], 'spot', 'ownstatic', scope.table, 0, 55, 55, scope.sex, 0, 0, 52, 1, 1, 50, scope._COLAAdjustment, scope.ageAtRetire);
+            scope.halfSurvivor = calcService.ComputeFinalValue(scope.wageAtRetire, scope.finalSalaryYears, scope.wageIncrease, scope.xValue, scope.yValue, scope.zValue);
+
             scope.zValue = calcService.ComputeZValue([scope.interestRate], 'spot', 'ownstatic', scope.table, 0, 55, 55, scope.sex, 0, 0, 52, 1, 1, scope._survivor, scope._COLAAdjustment, scope.ageAtRetire);
             scope.jointOutput = calcService.ComputeFinalValue(scope.wageAtRetire, scope.finalSalaryYears, scope.wageIncrease, scope.xValue, scope.yValue, scope.zValue);
           }
@@ -327,13 +330,15 @@
               scope.reductionOutput = (1 - scope.lifeOnly / scope.definedContributionPercent) * 100;
               scope.barStyle = { 'width': Math.abs(scope.reductionOutput) + '%', 'background-color': 'red'};
             }
-            if (scope.jointOutput > scope.definedContributionPercent) {
+            var halfExpected = (scope.halfSurvivor / scope.lifeOnly) * scope.definedContributionPercent;
+            var jointExpected = scope.jointOutput / scope.halfSurvivor * halfExpected;
+            if (scope.jointOutput > jointExpected) {
               scope.benefitSpanJoint = 'Benefit Gain w/ Survivor';
-              scope.reductionJointOutput = (scope.jointOutput / scope.definedContributionPercent - 1) * 100;
+              scope.reductionJointOutput = (scope.jointOutput / jointExpected - 1) * 100;
               scope.jointStyle = { 'width': scope.reductionJointOutput + '%', 'background-color': 'green'};
             } else {
               scope.benefitSpanJoint = 'Benefit Cut w/ Survivor';
-              scope.reductionJointOutput = (1 - scope.jointOutput / scope.definedContributionPercent) * 100;
+              scope.reductionJointOutput = (1 - scope.jointOutput / jointExpected) * 100;
               scope.jointStyle = { 'width': Math.abs(scope.reductionJointOutput) + '%', 'background-color': 'red'};
             }
           }

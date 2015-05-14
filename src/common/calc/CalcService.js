@@ -1971,7 +1971,7 @@
         doCOLAWork = false;
       }
       if (doCOLAWork) {
-        for (x = 0; x < COLAStartAge; x++) {
+        for (x = 0; x <= COLAStartAge; x++) {
           COLAincrease[x] = 1;
         }
         if (COLApct === 0) {
@@ -1980,7 +1980,7 @@
           }
         } else {
           if (!Array.isArray(COLApct)) {
-            for (x = COLAStartAge; x < 500; x++) {
+            for (x = COLAStartAge + 1; x < 500; x++) {
               COLAincrease[x] = COLAincrease[x - 1] * (1 + COLApct);
             }
           } else {
@@ -2104,14 +2104,14 @@
         q_eesp[x] = 1 - (1 - q_ee[x]) * (1 - q_sp[x - age + spouseAge]);
       }
       //PV Calculation
-      for (x = age + 1; x < 121; x++) {
-        p_ee[x] = p_ee[x - 1] * (1 - q_ee[x - 1]);
+      for (x = age; x < 121; x++) {
+        p_ee[x + 1] = p_ee[x] * (1 - q_ee[x - 1]);
       }
-      for (x = spouseAge + 1; x < 121; x++) {
-        p_sp[x] = p_sp[x - 1] * (1 - q_sp[x - 1]);
+      for (x = spouseAge; x < 121; x++) {
+        p_sp[x + 1] = p_sp[x] * (1 - q_sp[x - 1]);
       }
-      for (x = age + 1; x < 121; x++) {
-        p_eesp[x] = p_eesp[x - 1] * (1 - q_eesp[x - 1]);
+      for (x = age; x < 121; x++) {
+        p_eesp[x + 1] = p_eesp[x] * (1 - q_eesp[x - 1]);
       }
       switch (rateStructure) {
         case 'spot':

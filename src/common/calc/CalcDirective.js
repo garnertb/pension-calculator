@@ -316,8 +316,8 @@
           if (scope.modeSelected.key == 'db' || scope.modeSelected.key == 'reduction') {
             var adjustedTotalWages = calcService.GenerateTotalWages(scope.sex, scope._COLAAdjustment, scope.ageAtRetire, scope.spouseAge, scope.wageAtRetire, scope.finalSalaryYears, scope.definedContributionPercent, scope.wageIncrease, scope.interestRate, 0);
             var adjustedTotalWagesJoint = calcService.GenerateTotalWages(scope.sex, scope._COLAAdjustment, scope.ageAtRetire, scope.spouseAge, scope.wageAtRetire, scope.finalSalaryYears, scope.definedContributionPercent, scope.wageIncrease, scope.interestRate, scope._survivor);
-            scope.dbLifeOnly = calcService.ComputeEmployeeContrib(scope.ageAtHire, scope.ageAtRetire, scope.wageAtHire, scope.investReturn, scope.wageIncrease, adjustedTotalWages);
-            scope.dbJointOutput = calcService.ComputeEmployeeContrib(scope.ageAtHire, scope.ageAtRetire, scope.wageAtHire, scope.investReturn, scope.wageIncrease, adjustedTotalWagesJoint);
+            scope.dbLifeOnly = calcService.ComputeEmployeeContrib(scope.ageAtHire, scope.ageAtRetire, scope.wageAtHire, scope.investReturn, scope.wageIncrease, adjustedTotalWages) * 100;
+            scope.dbJointOutput = calcService.ComputeEmployeeContrib(scope.ageAtHire, scope.ageAtRetire, scope.wageAtHire, scope.investReturn, scope.wageIncrease, adjustedTotalWagesJoint) * 100;
           }
 
           if (scope.modeSelected.key == 'reduction') {

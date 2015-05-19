@@ -118,9 +118,15 @@
                     <select class="animated fadeIn form-control field"  id="sex-selection" ng-model="sex" ng-options="sex for sex in sexOptions"></select>
                 </div>
             </div>
-            <div class="advanced-header no-select" ng-click="showAssumptions = !showAssumptions" tooltip="{{showAssumptions?'Show ':'Hide '}} assumptions.">
-                <span>{{showAssumptions? 'Simple':'Advanced'}}</span>
-                <i class="fa" ng-class="{'fa-angle-down': !showAssumptions, 'fa-angle-up': showAssumptions}"></i>
+            <div class="no-select" tooltip="{{showAssumptions?'Show ':'Hide '}} assumptions.">
+                <span class="advanced-header" ng-click="showAssumptions = !showAssumptions">
+                    <i class="fa" ng-class="{'fa-angle-down': !showAssumptions, 'fa-angle-up': showAssumptions}"></i>
+                    <span>{{showAssumptions? 'Simple':'Advanced'}}</span>
+                </span>
+                <span class="reset-button advanced-header">
+                    <i class="fa fa-refresh"></i>
+                    <span ng-click="setDefaults(true)">Reset</span>
+                </span>
             </div>
         </div>
     </div>

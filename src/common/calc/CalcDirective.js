@@ -31,21 +31,31 @@
         ];
         scope.modeSelected = scope.modes[0];
 
-        scope.spouseAge = 3;
-        scope.ageAtHire = 25;
-        scope.ageAtRetire = 55;
-        scope.wageAtHire = 20000;
-        scope.wageAtRetire = 62374;
-        scope.finalSalaryYears = 3;
-        scope.interestRate = 4;
-        scope.investReturn = 6;
-        scope.definedContributionPercent = null;
-        scope.definedBenefitPercent = null;
+        scope.setDefaults = function(only_options) {
+          // only_options: Boolean.  Controls whether all values are reset to their defaults or just the user options.
 
-        // The client uses a getter/setter to access these because Angular 1.3 treats the HTML input type "range" as a string.
-        // https://github.com/angular/angular.js/pull/9715
-        scope._COLAAdjustment = 2;
-        scope._survivor = 0;
+          scope.spouseAge = 3;
+          scope.ageAtHire = 25;
+          scope.ageAtRetire = 55;
+          scope.wageAtHire = 20000;
+          scope.wageAtRetire = 62374;
+          scope.finalSalaryYears = 3;
+          scope.interestRate = 4;
+          scope.investReturn = 6;
+          scope.sex = scope.sexOptions[0];
+
+          // The client uses a getter/setter to access these because Angular 1.3 treats the HTML input type "range" as a string.
+          // https://github.com/angular/angular.js/pull/9715
+          scope._COLAAdjustment = 2;
+          scope._survivor = 0;
+
+          if (!only_options) {
+            scope.definedContributionPercent = null;
+            scope.definedBenefitPercent = null;
+          }
+        };
+
+        scope.setDefaults();
 
         var computeDivSizes = function(animate) {
           var calcPanel = jQuery('.calc');
@@ -188,8 +198,6 @@
           }
           return scope._survivor.toString();
         };
-
-        scope.sex = scope.sexOptions[0];
 
         scope.xValue = 0;
         scope.yValue = 0;

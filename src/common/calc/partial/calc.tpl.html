@@ -5,12 +5,12 @@
             <select class="animated fadeIn form-control field" id="calcMode" ng-model="modeSelected" ng-options="mode.value for mode in modes" required=""></select>
             <div class="animated fadeInUp" ng-show="modeSelected.key == 'db' || modeSelected.key =='reduction'">
                 <div class="field-label">Specify Retirement Pension as % of Final Salary(s)</div>
-                <input id="defined-contribution" type="number" ng-model="definedContributionPercent" class="form-control field" ui-percentage-mask="0">
+                <input id="defined-contribution" type="text" ng-model="definedContributionPercent" class="form-control field" ui-number-mask="0" min="0" max="100">
             </div>
             <div ng-show="modeSelected.key == 'dc' || modeSelected.key =='reduction'">
                 <div class=" animated fadeInUp">
                     <div class="field-label">Specify 401k Contribution as % of Payroll</div>
-                    <input id="defined-benefit" type="number"  ng-model="definedBenefitPercent" class="form-control field" ui-percentage-mask="0">
+                    <input id="defined-benefit" type="text"  ng-model="definedBenefitPercent" class="form-control field" ui-number-mask="0" min="0" max="100">
                     <!--
                     <input class="field-slider" type="range" max="100" ng-model="definedBenefitPercent">
                     -->
@@ -71,46 +71,46 @@
         <div id="input-panel-content" class="section">
             <div>
                 <div class="field-label">Age at Hire</div>
-                <input ng-model="ageAtHire" type="number" id="age-at-hire" class="form-control field" >
+                <input ng-model="ageAtHire" type="text" id="age-at-hire" class="form-control field" ui-number-mask="0" min="16" max="100">
             </div>
             <div>
                 <div class="field-label">Age at Retirement</div>
-                <input ng-model="ageAtRetire" type="number" id="age-at-retirement" class="form-control field" ui-number-mask="0">
+                <input ng-model="ageAtRetire" type="text" id="age-at-retirement" class="form-control field" ui-number-mask="0" min="16" max="120">
             </div>
             <div>
                 <div class="field-label">Annual Wage at Hire</div>
-                <input ng-model="wageAtHire" type="number" id="annual-wage-at-hire" class="form-control field" ui-number-mask="0">
+                <input ng-model="wageAtHire" type="text" id="annual-wage-at-hire" class="form-control field" ui-number-mask="0" min="16" max="10000000">
             </div>
             <div>
                 <div class="field-label">Annual Wage at Retirement</div>
-                <input ng-model="wageAtRetire" type="number" id="annual-wage-at-retirement" class="form-control field" ui-number-mask="0">
+                <input ng-model="wageAtRetire" type="text" id="annual-wage-at-retirement" class="form-control field" ui-number-mask="0" min="16" max="10000000">
             </div>
 
             <div class="animated fadeInRight" ng-show="showAssumptions">
                 <div>
                     <div class="field-label">Years of Which Final Average Salary Based</div>
-                    <input ng-model="finalSalaryYears" type="number" id="years-of-which-final-average-salary-based" class="form-control field" ui-number-mask="0">
+                    <input ng-model="finalSalaryYears" type="text" id="years-of-which-final-average-salary-based" class="form-control field" ui-number-mask="0" min="0" max="100">
                 </div>
                 <div>
                     <div class="field-label">Retiree Cost of Living Adjustment (COLA) %</div>
-                    <input ng-model="COLAAdjustment" id="retiree-cost-of-living-adjustment" class="form-control field" ng-model-options="{ getterSetter: true }" ui-percentage-mask="0">
+                    <input ng-model="COLAAdjustment" id="retiree-cost-of-living-adjustment" class="form-control field" ng-model-options="{ getterSetter: true }" ui-number-mask="0" min="0" max="500">
                     <input class="field-slider" type="range" max="100" ng-model="COLAAdjustment" ng-model-options="{ getterSetter: true }">
                 </div>
                 <div>
                     <div class="field-label">401k Investment Return %</div>
-                    <input id="401k-investment-return" type="number" class="form-control field" ng-model="investReturn" ui-percentage-mask="0">
+                    <input id="401k-investment-return" type="text" class="form-control field" ng-model="investReturn" ui-number-mask="2" min="0" max="1000">
                 </div>
                 <div>
                     <div class="field-label">Annuity Interest Rate %</div>
-                    <input id="annuity-interest-rate" type="number" class="form-control field" ng-model="interestRate" ui-percentage-mask="2">
+                    <input id="annuity-interest-rate" type="text" class="form-control field" ng-model="interestRate" ui-number-mask="2" min="0" max="1000">
                 </div>
                 <div>
                     <div class="field-label">Wage Increase %</div>
-                    <input ng-disabled="true" id="wage-increase" class="form-control field" ng-model="wageIncrease" ui-percentage-mask="0">
+                    <input ng-disabled="true" id="wage-increase" class="form-control field" ng-model="wageIncrease" ui-number-mask="2" min="0" max="1000">
                 </div>
                 <div>
                     <div class="field-label">Survivor %</div>
-                    <input id="survivor-input-dc" class="form-control field" ng-model="survivor" ng-model-options="{ getterSetter: true }" ui-number-mask="0">
+                    <input id="survivor-input-dc" class="form-control field" ng-model="survivor" ng-model-options="{ getterSetter: true }" ui-number-mask="0" min="2" max="1000">
                     <input id="survivor-slider-dc" class="field-slider" type="range" max="100" ng-model="survivor" ng-model-options="{ getterSetter: true }">
                 </div>
                 <div>

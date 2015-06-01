@@ -5,15 +5,16 @@
             <select class="animated fadeIn form-control field" id="calcMode" ng-model="modeSelected" ng-options="mode.value for mode in modes" required=""></select>
             <div class="animated fadeInUp" ng-show="modeSelected.key == 'db' || modeSelected.key =='reduction'">
                 <div class="field-label">Specify Retirement Pension as % of Final Salary(s)</div>
-                <input id="defined-contribution" type="text" ng-model="definedContributionPercent" class="form-control field" ui-number-mask="0" min="0" max="100">
+                <div class="input-symbol percent">
+                    <input id="defined-contribution" type="text" ng-model="definedContributionPercent" class="form-control field" ui-number-mask="0" min="0" max="100">
+                </div>
             </div>
             <div ng-show="modeSelected.key == 'dc' || modeSelected.key =='reduction'">
                 <div class=" animated fadeInUp">
                     <div class="field-label">Specify 401k Contribution as % of Payroll</div>
-                    <input id="defined-benefit" type="text"  ng-model="definedBenefitPercent" class="form-control field" ui-number-mask="0" min="0" max="100">
-                    <!--
-                    <input class="field-slider" type="range" max="100" ng-model="definedBenefitPercent">
-                    -->
+                    <div class="input-symbol percent">
+                        <input id="defined-benefit" type="text"  ng-model="definedBenefitPercent" class="form-control field" ui-number-mask="0" min="0" max="100">
+                    </div>
                 </div>
             </div>
             <div class="animated fadeInUp" style="margin-top: 40px" ng-show="isInputsValid()">
@@ -79,11 +80,15 @@
             </div>
             <div>
                 <div class="field-label">Annual Wage at Hire</div>
-                <input ng-model="wageAtHire" type="text" id="annual-wage-at-hire" class="form-control field" ui-number-mask="0" min="16" max="10000000">
+                <div class="input-symbol dollar">
+                    <input ng-model="wageAtHire" type="text" id="annual-wage-at-hire" class="form-control field" ui-number-mask="0" min="16" max="10000000">
+                </div>
             </div>
             <div>
                 <div class="field-label">Annual Wage at Retirement</div>
-                <input ng-model="wageAtRetire" type="text" id="annual-wage-at-retirement" class="form-control field" ui-number-mask="0" min="16" max="10000000">
+                <div class="input-symbol dollar">
+                    <input ng-model="wageAtRetire" type="text" id="annual-wage-at-retirement" class="form-control field" ui-number-mask="0" min="16" max="10000000">
+                </div>
             </div>
 
             <div class="animated fadeInRight" ng-show="showAssumptions">
@@ -93,24 +98,34 @@
                 </div>
                 <div>
                     <div class="field-label">Retiree Cost of Living Adjustment (COLA) %</div>
-                    <input ng-model="COLAAdjustment" id="retiree-cost-of-living-adjustment" class="form-control field" ng-model-options="{ getterSetter: true }" ui-number-mask="1" min="0" max="500">
+                    <div class="input-symbol percent">
+                        <input ng-model="COLAAdjustment" id="retiree-cost-of-living-adjustment" class="form-control field" ng-model-options="{ getterSetter: true }" ui-number-mask="1" min="0" max="500">
+                    </div>
                     <input class="field-slider" type="range" max="100" ng-model="COLAAdjustment" ng-model-options="{ getterSetter: true }">
                 </div>
                 <div>
                     <div class="field-label">401k Investment Return %</div>
-                    <input id="401k-investment-return" type="text" class="form-control field" ng-model="investReturn" ui-number-mask="0" min="0" max="1000">
+                    <div class="input-symbol percent">
+                        <input id="401k-investment-return" type="text" class="form-control field" ng-model="investReturn" ui-number-mask="0" min="0" max="1000">
+                    </div>
                 </div>
                 <div>
                     <div class="field-label">Annuity Interest Rate %</div>
-                    <input id="annuity-interest-rate" type="text" class="form-control field" ng-model="interestRate" ui-number-mask="0" min="0" max="1000">
+                    <div class="input-symbol percent">
+                        <input id="annuity-interest-rate" type="text" class="form-control field" ng-model="interestRate" ui-number-mask="0" min="0" max="1000">
+                    </div>
                 </div>
                 <div>
                     <div class="field-label">Wage Increase %</div>
-		    <input ng-disabled="true" id="wage-increase" class="form-control field" ng-model="wageIncrease" ui-number-mask="2" min="0" max="1000">
+                    <div class="input-symbol percent">
+                        <input ng-disabled="true" id="wage-increase" class="form-control field" ng-model="wageIncrease" ui-number-mask="2" min="0" max="1000">
+                    </div>
                 </div>
                 <div>
                     <div class="field-label">Survivor %</div>
-                    <input id="survivor-input-dc" type="text" class="form-control field" ng-model="survivor" ng-model-options="{ getterSetter: true }" ui-number-mask="1" max="1000">
+                    <div class="input-symbol percent">
+                        <input id="survivor-input-dc" type="text" class="form-control field" ng-model="survivor" ng-model-options="{ getterSetter: true }" ui-number-mask="1" max="1000">
+                    </div>
                     <input id="survivor-slider-dc" class="field-slider" type="range" max="100" ng-model="survivor" ng-model-options="{ getterSetter: true }">
                 </div>
                 <div>

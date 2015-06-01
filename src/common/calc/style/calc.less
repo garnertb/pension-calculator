@@ -128,3 +128,30 @@
 .reset-button {
   margin-left: 10px;
 }
+
+.input-symbol {
+  position: relative;
+}
+.input-symbol:before {
+  opacity: 0.5;
+  position: absolute;
+  top: 4px;
+  content: "$";
+  left: 5px;
+}
+
+.input-symbol input {
+  padding-left:18px;
+}
+
+.input-symbol.dollar:before {
+  content: "$";
+}
+
+
+.input-symbol.percent input {
+  padding-left:22px;
+}
+.input-symbol.percent:before {
+  content: "%";
+}

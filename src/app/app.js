@@ -5,6 +5,7 @@ angular.module('benefitEquivalentCalculator', [
   'benefitEquivalentCalculator.defined-contribution',
   'benefitEquivalentCalculator.defined-benefit',
   'benefitEquivalentCalculator.benefit-reduction',
+  'ui.bootstrap',
   'ui.router',
   'ui.utils.masks',
   'calc'

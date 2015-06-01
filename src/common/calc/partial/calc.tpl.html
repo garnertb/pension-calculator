@@ -2,16 +2,19 @@
     <div class="output-panel">
         <div class="charts-panel field-fixed-width">
             <div class="field-label">Select A Benefit Computation</div>
+            <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></a>
             <select class="animated fadeIn form-control field" id="calcMode" ng-model="modeSelected" ng-options="mode.value for mode in modes" required=""></select>
             <div class="animated fadeInUp" ng-show="modeSelected.key == 'db' || modeSelected.key =='reduction'">
                 <div class="field-label">Specify Retirement Pension as % of Final Salary(s)</div>
+                <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></a>
                 <div class="input-symbol percent">
                     <input id="defined-contribution" type="text" ng-model="definedContributionPercent" class="form-control field" ui-number-mask="0" min="0" max="100">
                 </div>
             </div>
             <div ng-show="modeSelected.key == 'dc' || modeSelected.key =='reduction'">
-                <div class=" animated fadeInUp">
+                <div class="animated fadeInUp">
                     <div class="field-label">Specify 401k Contribution as % of Payroll</div>
+                    <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></a>
                     <div class="input-symbol percent">
                         <input id="defined-benefit" type="text"  ng-model="definedBenefitPercent" class="form-control field" ui-number-mask="0" min="0" max="100">
                     </div>
@@ -20,12 +23,14 @@
             <div class="animated fadeInUp" style="margin-top: 40px" ng-show="isInputsValid()">
                 <div ng-show="modeSelected.key == 'db'">
                     <div class="field-label">Required 401k Contribution %</div>
+                    <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></a>
                     <div class="progress">
                         <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="{{(dbLifeOnly / dbLifeCap) * 100}}" aria-valuemin="0" aria-valuemax="{{dbLifeCap}}" ng-attr-style="width: {{(dbLifeOnly / dbLifeCap) * 100}}%;">
                             {{dbLifeOnly | number:2}}%
                         </div>
                     </div>
                     <div class="field-label  animated fadeInDown" ng-show="_survivor > 0">Required 401k Contribution w/ Survivor %</div>
+                    <a role="button" class="fa fa-question-circle field-help" ng-show="_survivor > 0" data-trigger="click hover focus manual" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></a>
                     <div class="progress animated fadeInDown" ng-show="_survivor > 0">
                         <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuemin="0" aria-valuemax="{{dbJointCap}}" ng-attr-style="width: {{(dbJointOutput / dbJointCap) * 100}}%;">
                         {{dbJointOutput | number:2}}%
@@ -34,12 +39,14 @@
                 </div>
                 <div ng-show="modeSelected.key == 'dc' || modeSelected.key == 'reduction'">
                     <div class="field-label">Pension Income Replacement</div>
+                    <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></a>
                     <div class="progress">
                         <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuemin="0" aria-valuemax="{{lifeCap}}" ng-attr-style="width: {{(lifeOnly /  lifeCap) * 100}}%;">
                         {{lifeOnly | number:2}}%
                         </div>
                     </div>
                     <div class="field-label  animated fadeInDown" ng-show="_survivor > 0">Pension Income Replacement w/ Survivor</div>
+                    <a role="button" class="fa fa-question-circle field-help" ng-show="_survivor > 0" data-trigger="click hover focus manual" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></a>
                     <div class="progress animated fadeInDown" ng-show="_survivor > 0">
                         <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuemin="0" aria-valuemax="{{jointCap}}" ng-attr-style="width: {{(jointOutput / jointCap) * 100}}%;">
                         {{jointOutput | number:2}}%
@@ -48,12 +55,14 @@
                 </div>
                 <div ng-show="modeSelected.key == 'reduction'">
                     <div class="field-label">{{benefitSpan}}</div>
+                    <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></a>
                     <div class="progress">
                         <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuemin="0" aria-valuemax="{{reductionCap}}" ng-style="barStyle">
                             {{reductionOutput | absolute | number:2}}%
                         </div>
                     </div>
                     <div class="field-label  animated fadeInDown" ng-show="_survivor > 0">{{benefitSpanJoint}}</div>
+                    <a role="button" class="fa fa-question-circle field-help" ng-show="_survivor > 0" data-trigger="click hover focus manual" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></a>
                     <div class="progress animated fadeInDown" ng-show="_survivor > 0">
                         <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuemin="0" aria-valuemax="{{reductionJointCap}}" ng-style="jointStyle">
                         {{reductionJointOutput | absolute | number:2}}%
@@ -72,20 +81,24 @@
         <div id="input-panel-content" class="section">
             <div>
                 <div class="field-label">Age at Hire</div>
+                <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></a>
                 <input ng-model="ageAtHire" type="text" id="age-at-hire" class="form-control field" ui-number-mask="0" min="16" max="100">
             </div>
             <div>
                 <div class="field-label">Age at Retirement</div>
+                <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></a>
                 <input ng-model="ageAtRetire" type="text" id="age-at-retirement" class="form-control field" ui-number-mask="0" min="16" max="120">
             </div>
             <div>
                 <div class="field-label">Annual Wage at Hire</div>
+                <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></a>
                 <div class="input-symbol dollar">
                     <input ng-model="wageAtHire" type="text" id="annual-wage-at-hire" class="form-control field" ui-number-mask="0" min="16" max="10000000">
                 </div>
             </div>
             <div>
                 <div class="field-label">Annual Wage at Retirement</div>
+                <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></a>
                 <div class="input-symbol dollar">
                     <input ng-model="wageAtRetire" type="text" id="annual-wage-at-retirement" class="form-control field" ui-number-mask="0" min="16" max="10000000">
                 </div>
@@ -94,10 +107,12 @@
             <div class="animated fadeInRight" ng-show="showAssumptions">
                 <div>
                     <div class="field-label">Years of Which Final Average Salary Based</div>
+                    <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></a>
                     <input ng-model="finalSalaryYears" type="text" id="years-of-which-final-average-salary-based" class="form-control field" ui-number-mask="0" min="0" max="100">
                 </div>
                 <div>
                     <div class="field-label">Retiree Cost of Living Adjustment (COLA) %</div>
+                    <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></a>
                     <div class="input-symbol percent">
                         <input ng-model="COLAAdjustment" id="retiree-cost-of-living-adjustment" class="form-control field" ng-model-options="{ getterSetter: true }" ui-number-mask="1" min="0" max="500">
                     </div>
@@ -105,24 +120,29 @@
                 </div>
                 <div>
                     <div class="field-label">401k Investment Return %</div>
+                    <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></a>
+<<<<<<< HEAD
                     <div class="input-symbol percent">
                         <input id="401k-investment-return" type="text" class="form-control field" ng-model="investReturn" ui-number-mask="0" min="0" max="1000">
                     </div>
                 </div>
                 <div>
                     <div class="field-label">Annuity Interest Rate %</div>
+                    <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></a>
                     <div class="input-symbol percent">
                         <input id="annuity-interest-rate" type="text" class="form-control field" ng-model="interestRate" ui-number-mask="0" min="0" max="1000">
                     </div>
                 </div>
                 <div>
                     <div class="field-label">Wage Increase %</div>
+                    <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></a>
                     <div class="input-symbol percent">
                         <input ng-disabled="true" id="wage-increase" class="form-control field" ng-model="wageIncrease" ui-number-mask="2" min="0" max="1000">
                     </div>
                 </div>
                 <div>
                     <div class="field-label">Survivor %</div>
+                    <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></a>
                     <div class="input-symbol percent">
                         <input id="survivor-input-dc" type="text" class="form-control field" ng-model="survivor" ng-model-options="{ getterSetter: true }" ui-number-mask="1" max="1000">
                     </div>
@@ -130,6 +150,7 @@
                 </div>
                 <div>
                     <div class="field-label">Sex</div>
+                    <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></a>
                     <select class="animated fadeIn form-control field"  id="sex-selection" ng-model="sex" ng-options="sex for sex in sexOptions"></select>
                 </div>
             </div>
@@ -139,10 +160,18 @@
                     <span>{{showAssumptions? 'Simple':'Advanced'}}</span>
                 </span>
                 <span class="reset-button advanced-header">
-                    <i class="fa fa-refresh"></i>
+                    <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></a>
                     <span ng-click="setDefaults(true)">Reset</span>
                 </span>
             </div>
         </div>
     </div>
 </div>
+<script>
+$(function () {
+  $('[data-toggle="popover"]').popover()
+});
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+});
+</script>

@@ -64,6 +64,8 @@ module.exports = {
     js: [
       'vendor/jquery/jquery.min.js',
       'vendor/angular/angular.js',
+      'vendor/bootstrap/dist/js/bootstrap.min.js',
+      'vendor/angular-bootstrap/ui-bootstrap.min.js',
       'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
       'vendor/angular-ui-router/release/angular-ui-router.js',
       'vendor/angular-input-masks/angular-input-masks.min.js',
@@ -74,6 +76,7 @@ module.exports = {
       // Note: these get added to index.html as vendor/... which don't resolve. had to 'concat:build_css' to build
       //       so that they get it concat/collapsed in app's -*.css. seems like a ng-boiler plate bug.
       //       at this point only get a benign 404 for these files from index.html.
+      'vendor/bootstrap/dist/css/bootstrap.min.css',
       'vendor/animate.css/animate.min.css'
     ],
     assets: [

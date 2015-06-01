@@ -305,48 +305,65 @@
           [0.353765, 0.299455]
         ];
 
+        scope.ComputeNextCap = function(number) {
+          var nextCap = 100;
+          if (number > nextCap) {
+            nextCap = calcService.roundNumber(number, 2) + 100;
+          }
+          return nextCap;
+        };
+
         scope.calculateOutput = function() {
           console.log('----- yoyo: ', scope.ageAtHire, scope.ageAtRetire, scope.wageAtHire, scope.xValue);
           if (scope.modeSelected.key == 'dc' || scope.modeSelected.key == 'reduction') {
             scope.xValue = calcService.ComputeXValue(scope.ageAtHire, scope.ageAtRetire, scope.wageAtHire, scope.definedBenefitPercent, scope.investReturn, scope.wageIncrease);
             scope.yValue = calcService.ComputeYValue(scope.ageAtHire, scope.ageAtRetire, scope.wageAtHire, scope.definedBenefitPercent, scope.investReturn);
             scope.zValue = calcService.ComputeZValue([scope.interestRate], 'spot', 'ownstatic', scope.table, 0, 55, 55, scope.sex, 0, 0, 52, 1, 1, 0, scope._COLAAdjustment, scope.ageAtRetire);
-            scope.lifeOnly = calcService.ComputeFinalValue(scope.wageAtRetire, scope.finalSalaryYears, scope.wageIncrease, scope.xValue, scope.yValue, scope.zValue);
+            scope.lifeOnly = Math.max(calcService.ComputeFinalValue(scope.wageAtRetire, scope.finalSalaryYears, scope.wageIncrease, scope.xValue, scope.yValue, scope.zValue), 0);
+            scope.lifeCap = scope.ComputeNextCap(scope.lifeOnly);
 
             scope.zValue = calcService.ComputeZValue([scope.interestRate], 'spot', 'ownstatic', scope.table, 0, 55, 55, scope.sex, 0, 0, 52, 1, 1, 50, scope._COLAAdjustment, scope.ageAtRetire);
             scope.halfSurvivor = calcService.ComputeFinalValue(scope.wageAtRetire, scope.finalSalaryYears, scope.wageIncrease, scope.xValue, scope.yValue, scope.zValue);
 
             scope.zValue = calcService.ComputeZValue([scope.interestRate], 'spot', 'ownstatic', scope.table, 0, 55, 55, scope.sex, 0, 0, 52, 1, 1, scope._survivor, scope._COLAAdjustment, scope.ageAtRetire);
-            scope.jointOutput = calcService.ComputeFinalValue(scope.wageAtRetire, scope.finalSalaryYears, scope.wageIncrease, scope.xValue, scope.yValue, scope.zValue);
+            scope.jointOutput = Math.max(calcService.ComputeFinalValue(scope.wageAtRetire, scope.finalSalaryYears, scope.wageIncrease, scope.xValue, scope.yValue, scope.zValue), 0);
+            scope.jointCap = scope.ComputeNextCap(scope.jointOutput);
           }
 
           if (scope.modeSelected.key == 'db' || scope.modeSelected.key == 'reduction') {
             var adjustedTotalWages = calcService.GenerateTotalWages(scope.sex, scope._COLAAdjustment, scope.ageAtRetire, scope.spouseAge, scope.wageAtRetire, scope.finalSalaryYears, scope.definedContributionPercent, scope.wageIncrease, scope.interestRate, 0);
             var adjustedTotalWagesJoint = calcService.GenerateTotalWages(scope.sex, scope._COLAAdjustment, scope.ageAtRetire, scope.spouseAge, scope.wageAtRetire, scope.finalSalaryYears, scope.definedContributionPercent, scope.wageIncrease, scope.interestRate, scope._survivor);
-            scope.dbLifeOnly = calcService.ComputeEmployeeContrib(scope.ageAtHire, scope.ageAtRetire, scope.wageAtHire, scope.investReturn, scope.wageIncrease, adjustedTotalWages) * 100;
-            scope.dbJointOutput = calcService.ComputeEmployeeContrib(scope.ageAtHire, scope.ageAtRetire, scope.wageAtHire, scope.investReturn, scope.wageIncrease, adjustedTotalWagesJoint) * 100;
+            scope.dbLifeOnly = Math.max(calcService.ComputeEmployeeContrib(scope.ageAtHire, scope.ageAtRetire, scope.wageAtHire, scope.investReturn, scope.wageIncrease, adjustedTotalWages) * 100, 0);
+            scope.dbJointOutput = Math.max(calcService.ComputeEmployeeContrib(scope.ageAtHire, scope.ageAtRetire, scope.wageAtHire, scope.investReturn, scope.wageIncrease, adjustedTotalWagesJoint) * 100, 0);
+            scope.dbLifeCap = scope.ComputeNextCap(scope.dbLifeOnly);
+            scope.dbJointCap = scope.ComputeNextCap(scope.dbJointOutput);
+
           }
 
           if (scope.modeSelected.key == 'reduction') {
             if (scope.lifeOnly > scope.definedContributionPercent) {
               scope.benefitSpan = 'Benefit Gain';
               scope.reductionOutput = (scope.lifeOnly / scope.definedContributionPercent - 1) * 100;
-              scope.barStyle = { 'width': scope.reductionOutput + '%', 'background-color': 'green'};
+              scope.reductionCap = scope.ComputeNextCap(scope.reductionOutput);
+              scope.barStyle = { 'width': (scope.reductionOutput / scope.reductionCap * 100) + '%', 'background-color': 'green'};
             } else {
               scope.benefitSpan = 'Benefit Cut';
               scope.reductionOutput = (1 - scope.lifeOnly / scope.definedContributionPercent) * 100;
-              scope.barStyle = { 'width': Math.abs(scope.reductionOutput) + '%', 'background-color': 'red'};
+              scope.reductionCap = scope.ComputeNextCap(scope.reductionOutput);
+              scope.barStyle = { 'width': Math.abs(scope.reductionOutput / scope.reductionCap * 100) + '%', 'background-color': 'red'};
             }
             var halfExpected = (scope.halfSurvivor / scope.lifeOnly) * scope.definedContributionPercent;
             var jointExpected = scope.jointOutput / scope.halfSurvivor * halfExpected;
             if (scope.jointOutput > jointExpected) {
               scope.benefitSpanJoint = 'Benefit Gain w/ Survivor';
               scope.reductionJointOutput = (scope.jointOutput / jointExpected - 1) * 100;
-              scope.jointStyle = { 'width': scope.reductionJointOutput + '%', 'background-color': 'green'};
+              scope.reductionJointCap = scope.ComputeNextCap(scope.reductionJointOutput);
+              scope.jointStyle = { 'width': (scope.reductionJointOutput / scope.reductionJointCap * 100) + '%', 'background-color': 'green'};
             } else {
               scope.benefitSpanJoint = 'Benefit Cut w/ Survivor';
               scope.reductionJointOutput = (1 - scope.jointOutput / jointExpected) * 100;
-              scope.jointStyle = { 'width': Math.abs(scope.reductionJointOutput) + '%', 'background-color': 'red'};
+              scope.reductionJointCap = scope.ComputeNextCap(scope.reductionJointOutput);
+              scope.jointStyle = { 'width': Math.abs(scope.reductionJointOutput / scope.reductionJointCap * 100) + '%', 'background-color': 'red'};
             }
           }
         };

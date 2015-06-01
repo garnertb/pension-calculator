@@ -14,6 +14,9 @@
       templateUrl: 'calc/partial/calc.tpl.html',
       // The linking function will add behavior to the template
       link: function(scope, element, window) {
+        // activate help popovers
+        $('[data-toggle="popover"]').popover();
+
         scope.definedContributionPercent = null;
         scope.definedBenefitPercent = null;
         scope.showInput = false;

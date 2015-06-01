@@ -21,13 +21,13 @@
                 <div ng-show="modeSelected.key == 'db'">
                     <div class="field-label">Required 401k Contribution %</div>
                     <div class="progress">
-                        <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuemin="0" aria-valuemax="{{dbLifeCap}}" style="width: {{(dbLifeOnly / dbLifeCap) * 100}}%;">
+                        <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="{{(dbLifeOnly / dbLifeCap) * 100}}" aria-valuemin="0" aria-valuemax="{{dbLifeCap}}" ng-attr-style="width: {{(dbLifeOnly / dbLifeCap) * 100}}%;">
                             {{dbLifeOnly | number:2}}%
                         </div>
                     </div>
                     <div class="field-label  animated fadeInDown" ng-show="_survivor > 0">Required 401k Contribution w/ Survivor %</div>
                     <div class="progress animated fadeInDown" ng-show="_survivor > 0">
-                        <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuemin="0" aria-valuemax="{{dbJointCap}}" style="width: {{(dbJointOutput / dbJointCap) * 100}}%;">
+                        <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuemin="0" aria-valuemax="{{dbJointCap}}" ng-attr-style="width: {{(dbJointOutput / dbJointCap) * 100}}%;">
                         {{dbJointOutput | number:2}}%
                         </div>
                     </div>
@@ -35,13 +35,13 @@
                 <div ng-show="modeSelected.key == 'dc' || modeSelected.key == 'reduction'">
                     <div class="field-label">Pension Income Replacement</div>
                     <div class="progress">
-                        <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuemin="0" aria-valuemax="{{lifeCap}}" style="width: {{(lifeOnly /  lifeCap) * 100}}%;">
+                        <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuemin="0" aria-valuemax="{{lifeCap}}" ng-attr-style="width: {{(lifeOnly /  lifeCap) * 100}}%;">
                         {{lifeOnly | number:2}}%
                         </div>
                     </div>
                     <div class="field-label  animated fadeInDown" ng-show="_survivor > 0">Pension Income Replacement w/ Survivor</div>
                     <div class="progress animated fadeInDown" ng-show="_survivor > 0">
-                        <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuemin="0" aria-valuemax="{{jointCap}}" style="width: {{(jointOutput / jointCap) * 100}}%;">
+                        <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuemin="0" aria-valuemax="{{jointCap}}" ng-attr-style="width: {{(jointOutput / jointCap) * 100}}%;">
                         {{jointOutput | number:2}}%
                         </div>
                     </div>

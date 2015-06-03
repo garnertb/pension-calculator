@@ -10,7 +10,12 @@
  * project should be imported as the rest are just wasting space.
  */
 
-@import '../../vendor/bootstrap/less/bootstrap.less';
+.mag {
+  @import '../../vendor/bootstrap/less/bootstrap.less';
+  @import '../app/home/home.less';
+  @import '../common/calc/style/calc.less';
+}
+
 @import '../../vendor/font-awesome/less/font-awesome.less';
 
 
@@ -21,6 +26,9 @@
 
 @import 'variables.less';
 
+/* This can be removed in production. */
+/* It is just a hack to load the appropriate web fonts. */
+@import 'open-sans.less';
 
 /**
  * Typography
@@ -77,40 +85,6 @@ h2 {
 }
 
 
-/**
- * Footer
- */
-
-.footer {
-  margin-top: 80px;
-
-  .footer-inner {
-    padding: 40px 0;
-    border-top: 1px solid #DDD;
-  }
-
-  .social {
-    float: right;
-    margin: 0;
-    list-style: none;
-
-    li {
-      float: left;
-      margin-left: 20px;
-
-      a, a:visited {
-        color: @gray-light;
-        text-decoration: none;
-        font-size: 40px;
-        .transition( 250ms ease-in-out );
-
-        &:hover {
-          color: @gray;
-        }
-      }
-    }
-  }
-}
 
 
 /**
@@ -120,6 +94,5 @@ h2 {
  * TODO: In a later version of this boilerplate, I'd like to automate this.
  */
 
-@import '../app/home/home.less';
-@import '../common/calc/style/calc.less';
+
 

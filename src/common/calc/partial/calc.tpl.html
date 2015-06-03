@@ -6,12 +6,12 @@
         <div class="charts-panel field-fixed-width">
             <div class="field-label">Select A Benefit Computation</div>
             <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-html="true" data-placement="bottom" data-content=
-               "<strong>Pension to 401k equivalent</strong><br/>
-                Specify percent pension amount to compute how much 401k contribution will result in equivalent amount of pension<br/><br/>
+               "<strong>Pension to 401k Equivalent</strong><br/>
+                Specify a pension percentage and compute the 401k contribution that would result in the equivalent amount.<br/><br/>
                 <strong>401k to pension equivalent</strong><br/>
-                Specify 401k contribution to compute how much pensionit will add up to<br/><br/>
+                Specify a 401k contribution and compute how much pension it will add up to.<br/><br/>
                 <strong>Pension vs 401k</strong><br/>
-                Specify current percent pension as well as proposed 401k contribution to compute whether how much benefit cut or gain it is. Pensions are increasingly under fire from cities and municipalities. Some local members don't quite realize magnitude of the benefit cut switching from a pension defined benefit plan to a 401k defined contribution plan. The purpose of this calculator is to tell you how much your retirement income would be cut by switching from a pension plan to a 401(k) plan."></a>
+                Compare a pension percentage to a 401k contribution to compute the difference in benefits. Pensions are increasingly under fire from cities and municipalities. Some local members may not fully realize the magnitude of a benefit cut when switching from a pension defined benefit plan to a 401k defined contribution plan. The purpose of this calculator is to tell you how much your retirement income would be cut by switching from a pension plan to a 401(k) plan."></a>
             <select class="animated fadeIn form-control field" id="calcMode" ng-model="modeSelected" ng-options="mode.value for mode in modes" required=""></select>
             <div class="animated fadeInUp" ng-show="modeSelected.key == 'db' || modeSelected.key =='reduction'">
                 <div class="field-label">Input Pension Multiplier</div>
@@ -90,7 +90,7 @@
         <div id="input-panel-content" class="section">
             <div>
                 <div class="field-fixed-width">
-                    <div class="field-label">Age at Hire</div>
+                    <div class="field-label">Age at Hire.</div>
                     <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-placement="left" data-content="Age of individual when hired. Must be whole number and 18 or higher."></a>
                 </div>
                 <input ng-model="ageAtHire" type="text" id="age-at-hire" class="form-control field" ui-number-mask="2" min="16" max="100">
@@ -137,7 +137,7 @@
                 </div>
                 <div class="field-fixed-width">
                     <div class="field-label">401k Investment Return %</div>
-                    <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-placement="left" data-content="Percent of return on 401k investments"></a>
+                    <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-placement="left" data-content="Percent of return on 401k investments."></a>
                     <div class="input-symbol percent">
                         <input id="401k-investment-return" type="text" class="form-control field" ng-model="investReturn" ui-number-mask="2" min="0" max="1000">
                     </div>
@@ -166,7 +166,7 @@
                 </div>
                 <div class="field-fixed-width">
                     <div class="field-label">Sex</div>
-                    <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-placement="left" data-content="Is the individual male of female. Different mortality rates will be used to compute the results."></a>
+                    <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-placement="left" data-content="Is the individual male or female. Different mortality rates are be used to compute the results."></a>
                     <select class="animated fadeIn form-control field"  id="sex-selection" ng-model="sex" ng-options="sex for sex in sexOptions"></select>
                 </div>
             </div>
@@ -183,7 +183,7 @@
                 <span class="reset-button advanced-header">
                     <span ng-click="setDefaults(true)">Reset</span>
                 </span>
-                <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-placement="left" data-content="Reset all data in this panel to default values"></a>
+                <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-placement="left" data-content="Reset all data in this panel to default values."></a>
             </div>
         </div>
     </div>

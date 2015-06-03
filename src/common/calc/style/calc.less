@@ -7,6 +7,7 @@
   font-weight: 200;
   min-width: 265px;
   max-width: 265px;
+  font-size: 16px;
 }
 
 .field {
@@ -16,6 +17,7 @@
   border-radius: 2px;
   min-width: 279px;
   max-width: 279px;
+  font-size: 16px;
 }
 
 .field-slider {
@@ -37,6 +39,8 @@
   padding-bottom: 4px;
   line-height: 1.5;
   font-weight: 200;
+  font-size: 14px;
+  cursor: default;
 }
 
 a.field-help:hover {
@@ -139,7 +143,6 @@ a.field-help {
 
 .progress-bar-custom {
   font-weight: 600;
-  background-color: #54c9dd;
   color: #000000;
 }
 
@@ -166,16 +169,29 @@ a.field-help {
 
 .input-symbol.dollar:before {
   content: "$";
+  font-size: 14px;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
-
 .input-symbol.percent input {
-  padding-left:22px;
+  padding-left: 22px;
 }
 .input-symbol.percent:before {
   content: "%";
+  font-size: 14px;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
 .popover {
-  min-width: 200px;
+  min-width: 220px;
+  width: 100%;
+  color: #555;
+}
+
+.calc {
+  background-color: white;
+}
+
+.progress {
+  width: 100%;
 }

@@ -3,6 +3,7 @@
   <head>
     <title ng-bind="pageTitle"></title>
 
+    <meta charset="UTF-8">
     <meta property="og:title" content="Pension Calculator" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="http://www.prominentedge.com/pension-calculator" />
@@ -16,51 +17,114 @@
     <!-- compiled CSS --><% styles.forEach( function ( file ) { %>
     <link rel="stylesheet" type="text/css" href="<%= file %>" /><% }); %>
 
+    <!-- IAFF production assets -->
+    <link href="iaff.css" rel="stylesheet">
+    <!-- End IAFF production assets -->
+
+    <!-- Share with functionality -->
+    <script type="text/javascript">var switchTo5x = true;</script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <!-- End share-with functionality -->
+
     <!-- compiled JavaScript --><% scripts.forEach( function ( file ) { %>
     <script type="text/javascript" src="<%= file %>"></script><% }); %>
 
   </head>
-  <body>
-    <div class="">
-      <div class="navbar navbar-default">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" ng-init="menuCollapsed = true"
-            ng-click="menuCollapsed = ! menuCollapsed">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <div class="navbar-brand">
-            Pension Calculator
+  <body class="iaff-body">
+
+  <!-- IAFF Header -->
+  <div class="container-fluid" id="topNav">
+    <div class="hoverbar" id="hoverBarContainer">
+            <span class="pull-right">
+                <a id="logout-link" href="http://client.prod.iaff.org/Auth/Logout" style="display: none;">Logout</a>
+                <a id="login-link" href="http://client.prod.iaff.org/Auth/Index?ReturnUrl=http%3A%2F%2Fclient.prod.iaff.org%2F%23page%3Dpensionresources">Login</a>
+                | <a id="contact-us-link" href="#contentid=588">Contact Us</a>
+            </span>
+    </div>
+    <div class="navbar navbar-default" id="topNavBarContainer">
+
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar" id="navButton">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a href="/" class="extra-bold">
+                    <span style="white-space: nowrap;">
+                        <img src="http://client.prod.iaff.org/assets/images/iafflogo-sm.png" class="navbar-brand pull-left navbar-logo">
+                        <span style="line-height: 50px;" class="navbar-brand pull-left iaff-header-text">IAFF FireFighters</span>
+                    </span>
+        </a>
+      </div>
+
+      <div class="collapse navbar-collapse md-right" id="topNavBar" style="overflow-y:visible;"><ul class="nav navbar-nav"><li><a title="About Us" href="http://client.prod.iaff.org/#page=AboutUs">About Us</a></li><li><a title="IAFF in Action" href="http://client.prod.iaff.org/#menuid=2">IAFF in Action</a></li></ul></div>
+    </div>
+
+    <div class="submenubar" id="subNavBar">
+      <span id="subNavbarContainer" class="collapse navbar-collapse"><ul class="nav navbar-nav sub-nav"><li><a title="Programs &amp; Services" href="http://client.prod.iaff.org/#page=ProgramsAndServices">Programs &amp; Services</a></li><li><a title="IAFF Store" href="http://www.iaffonlinestore.com/">IAFF Store</a></li><li><a title="Donate" href="https://member.iaff.org/IAFF_iMIS_Prod_Casual/iDonate/Giving/ifundContainer.aspx">Donate</a></li></ul></span>
+
+      <form action="http://www.iaff.org/searchresults.asp" id="navSearchForm" class="navbar-form">
+        <input type="hidden" name="cx" value="007805093613072635228:_pvjlo-ajwy">
+        <input type="hidden" name="cof" value="FORID:9">
+        <input type="hidden" name="ie" value="ISO-8859-1">
+        <input type="text" name="q" id="searchBox" autocomplete="off" class="form-control" placeholder="Search">
+      </form>
+    </div>
+  </div>
+
+  <div id="shareThisWidget" class="clearfix" style="margin:0 15px;padding:5px">
+    <div class="pull-right" style="max-height:32px;">
+      <span class="st_sharethis_large" displaytext="ShareThis" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span class="stLarge" style="background-image: url(http://w.sharethis.com/images/sharethis_32.png);"></span></span></span>
+      <span class="st_facebook_large" displaytext="Facebook" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span class="stLarge" style="background-image: url(http://w.sharethis.com/images/facebook_32.png);"></span></span></span>
+      <span class="st_twitter_large" displaytext="Tweet" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span class="stLarge" style="background-image: url(http://w.sharethis.com/images/twitter_32.png);"></span></span></span>
+      <span class="st_pinterest_large" displaytext="Pinterest" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span class="stLarge" style="background-image: url(http://w.sharethis.com/images/pinterest_32.png);"></span></span></span>
+      <span class="st_email_large" displaytext="Email" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span class="stLarge" style="background-image: url(http://w.sharethis.com/images/email_32.png);"></span></span></span>
+    </div>
+  </div>
+
+  <!-- End IAFF Header -->
+
+  <div class="container-fluid body-content" id="bodyContent" role="main">
+    <div class="content-container" style="margin-top:20px;" id="top-container">
+      <div class="row">
+        <div class="col-xs-12 col-sm-4 col-md-3 content-container" id="left-container">
+
+          <div class="ruled-content-group clearfix"> <div class="contentHeader font-scale clearfix">Pension Resources Programs and Assistance</div>
+            <div class="ruled-content-section clearfix">
+              <div class="col-xs-12 contentItem">
+                <ul class="MenuBarActive" style="box-sizing: border-box; margin-top: 0px; margin-bottom: 10px; z-index: 1000; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: medium; line-height: normal;">
+                  <li style="box-sizing: border-box; line-height: 14px; padding-bottom: 5px; vertical-align: baseline;"><font size="2" style="box-sizing: border-box;">Plan funding analysis</font></li>
+                  <li style="box-sizing: border-box; line-height: 14px; padding-bottom: 5px; vertical-align: baseline;"><font size="2" style="box-sizing: border-box;">Overall plan evaluation</font></li>
+                  <li style="box-sizing: border-box; line-height: 14px; padding-bottom: 5px; vertical-align: baseline;"><font size="2" style="box-sizing: border-box;">Plan comparison</font></li>
+                  <li style="box-sizing: border-box; line-height: 14px; padding-bottom: 5px; vertical-align: baseline;"><font size="2" style="box-sizing: border-box;">Exhibits for negotiation, arbitration, or other meetings with public officials</font></li>
+                  <li style="box-sizing: border-box; line-height: 14px; padding-bottom: 5px; vertical-align: baseline;"><font size="2" style="box-sizing: border-box;">Exhibits and talking points regarding specifics of plan for local leaders</font></li>
+                  <li style="box-sizing: border-box; line-height: 14px; padding-bottom: 5px; vertical-align: baseline;"><font size="2" style="box-sizing: border-box;">List of pension related experts</font></li>
+                  <li style="box-sizing: border-box; line-height: 14px; padding-bottom: 5px; vertical-align: baseline;"><font size="2" style="box-sizing: border-box;">Database of pension plan data elements used for comparison</font></li>
+                  <li style="box-sizing: border-box; line-height: 14px; padding-bottom: 5px; vertical-align: baseline;"><font size="2" style="box-sizing: border-box;">Rebuttals to public comment or negative media coverage regarding fire fighter pensions</font></li>
+                  <li style="box-sizing: border-box; line-height: 14px; padding-bottom: 5px; vertical-align: baseline;"><font size="2" style="box-sizing: border-box;">Customized brochures or other handouts for individual locals or state/provincial associations fighting pension related attacks</font></li>
+                </ul>
+                </div>
+            </div>
           </div>
-        </div>
-        <div class="collapse navbar-collapse" collapse="menuCollapsed">
-          <ul class="nav navbar-nav">
-            <li ui-sref-active="active">
-              <a href ui-sref="home">
-                <i class="fa fa-home"></i>
-                Home
-              </a>
-            </li>
-            <li>
-            <a href="https://github.com/prominentedge/pension-calculator">
-              <i class="fa fa-github-alt"></i>
-              Github
-            </a>
-            </li>
-            <li>
-              <a href="https://github.com/prominentedge/pension-calculator/issues">
-                <i class="fa fa-comments"></i>
-                Support
-              </a>
-            </li>
+          <div class="ruled-content-group clearfix"> <div class="contentHeader font-scale clearfix">Pension News and Resources</div>  <div class="ruled-content-section clearfix">   <div class="col-xs-12 contentItem"> <ul>
+            <li><a href="http://www.iaff.org/pensions/education.htm?">Pension Handbook</a></li>
+            <li><a href="http://www.iaff.org/pensions/documents/LICB_Pension_Survey.pdf">Pension Manual</a></li>
+            <li><a href="http://www.iaff.org/pensions/glossary.htm">Pension Glossary</a></li>
           </ul>
+
+          <p>&nbsp;</p>
+        </div></div></div><!--</div>--></div>
+
+        <div class="content-container col-xs-12 col-sm-4 col-md-3">
+          <div class="container mag" ui-view="main">
+        </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="container" ui-view="main"></div>
+
+
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

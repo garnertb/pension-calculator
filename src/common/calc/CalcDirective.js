@@ -350,12 +350,12 @@
               scope.benefitSpan = 'Benefit Gain';
               scope.reductionOutput = (scope.lifeOnly / totalDefinedContribution - 1) * 100;
               scope.reductionCap = scope.ComputeNextCap(scope.reductionOutput);
-              scope.barStyle = { 'width': (scope.reductionOutput / scope.reductionCap * 100) + '%', 'background-color': 'green'};
+              scope.barStyle = { 'width': (scope.reductionOutput / scope.reductionCap * 100) + '%', 'background-color': '#3D9970'};
             } else {
               scope.benefitSpan = 'Benefit Cut';
               scope.reductionOutput = (1 - scope.lifeOnly / totalDefinedContribution) * 100;
               scope.reductionCap = scope.ComputeNextCap(scope.reductionOutput);
-              scope.barStyle = { 'width': Math.abs(scope.reductionOutput / scope.reductionCap * 100) + '%', 'background-color': 'red'};
+              scope.barStyle = { 'width': Math.abs(scope.reductionOutput / scope.reductionCap * 100) + '%', 'background-color': '#FF4136'};
             }
             var halfExpected = (scope.halfSurvivor / scope.lifeOnly) * totalDefinedContribution;
             var jointExpected = scope.jointOutput / scope.halfSurvivor * halfExpected;
@@ -363,12 +363,12 @@
               scope.benefitSpanJoint = 'Benefit Gain w/ Survivor';
               scope.reductionJointOutput = (scope.jointOutput / jointExpected - 1) * 100;
               scope.reductionJointCap = scope.ComputeNextCap(scope.reductionJointOutput);
-              scope.jointStyle = { 'width': (scope.reductionJointOutput / scope.reductionJointCap * 100) + '%', 'background-color': 'green'};
+              scope.jointStyle = { 'width': (scope.reductionJointOutput / scope.reductionJointCap * 100) + '%', 'background-color': '#3D9970'};
             } else {
               scope.benefitSpanJoint = 'Benefit Cut w/ Survivor';
               scope.reductionJointOutput = (1 - scope.jointOutput / jointExpected) * 100;
               scope.reductionJointCap = scope.ComputeNextCap(scope.reductionJointOutput);
-              scope.jointStyle = { 'width': Math.abs(scope.reductionJointOutput / scope.reductionJointCap * 100) + '%', 'background-color': 'red'};
+              scope.jointStyle = { 'width': Math.abs(scope.reductionJointOutput / scope.reductionJointCap * 100) + '%', 'background-color': '#FF4136'};
             }
           }
         };

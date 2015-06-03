@@ -2,19 +2,25 @@
     <div class="output-panel">
         <div class="charts-panel field-fixed-width">
             <div class="field-label">Select A Benefit Computation</div>
-            <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></a>
+            <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-html="true" data-content=
+               "<strong>Pension to 401k equivalent</strong><br/>
+                Specify percent pension amount to compute how much 401k contribution will result in equivalent amount of pension<br/><br/>
+                <strong>401k to pension equivalent</strong><br/>
+                Specify 401k contribution to compute how much pensionit will add up to<br/><br/>
+                <strong>Pension vs 401k</strong><br/>
+                Specify current percent pension as well as proposed 401k contribution to compute whether how much benefit cut or gain it is. Pensions are increasingly under fire from cities and municipalities. Some local members don't quite realize magnitude of the benefit cut switching from a pension defined benefit plan to a 401k defined contribution plan. The purpose of this calculator is to tell you how much your retirement income would be cut by switching from a pension plan to a 401(k) plan."></a>
             <select class="animated fadeIn form-control field" id="calcMode" ng-model="modeSelected" ng-options="mode.value for mode in modes" required=""></select>
             <div class="animated fadeInUp" ng-show="modeSelected.key == 'db' || modeSelected.key =='reduction'">
-                <div class="field-label">Specify Retirement Pension as % of Final Salary(s)</div>
-                <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></a>
+                <div class="field-label">Specify Pension</div>
+                <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-content="Specify pension at retirement as percent of final salary. Your income replacement is determined by your pension formula which is defined in your pension SPD.  (e.g. retiree with a 2.5% multiplier and 30 years service receives a 75% income replacement.)"></a>
                 <div class="input-symbol percent">
                     <input id="defined-contribution" type="text" ng-model="definedContributionPercent" class="form-control field" ui-number-mask="0" min="0" max="100">
                 </div>
             </div>
             <div ng-show="modeSelected.key == 'dc' || modeSelected.key =='reduction'">
                 <div class="animated fadeInUp">
-                    <div class="field-label">Specify 401k Contribution as % of Payroll</div>
-                    <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></a>
+                    <div class="field-label">Specify 401k Contribution</div>
+                    <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-content="Specify 401k contribution made by individual as percent of their payroll. If you want to see your income replacement based purely on city contributions, then only enter that amount. If you want to see your total income replace, include city and employee defined contributions.)"></a>
                     <div class="input-symbol percent">
                         <input id="defined-benefit" type="text"  ng-model="definedBenefitPercent" class="form-control field" ui-number-mask="0" min="0" max="100">
                     </div>
@@ -23,30 +29,30 @@
             <div class="animated fadeInUp" style="margin-top: 40px" ng-show="isInputsValid()">
                 <div ng-show="modeSelected.key == 'db'">
                     <div class="field-label">Required 401k Contribution %</div>
-                    <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></a>
+                    <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-content="Amount of 401k contribution required to meet the specified pension."></a>
                     <div class="progress">
                         <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="{{(dbLifeOnly / dbLifeCap) * 100}}" aria-valuemin="0" aria-valuemax="{{dbLifeCap}}" ng-attr-style="width: {{(dbLifeOnly / dbLifeCap) * 100}}%;">
                             {{dbLifeOnly | number:2}}%
                         </div>
                     </div>
                     <div class="field-label  animated fadeInDown" ng-show="_survivor > 0">Required 401k Contribution w/ Survivor %</div>
-                    <a role="button" class="fa fa-question-circle field-help" ng-show="_survivor > 0" data-trigger="click hover focus manual" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></a>
+                    <a role="button" class="fa fa-question-circle field-help" ng-show="_survivor > 0" data-trigger="click hover focus manual" data-toggle="popover" data-content="Amount of 401k contribution required to meet the specified pension for the individual and his spouse at the percent specified in Advanced settings under 'Survivor %'."></a>
                     <div class="progress animated fadeInDown" ng-show="_survivor > 0">
                         <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuemin="0" aria-valuemax="{{dbJointCap}}" ng-attr-style="width: {{(dbJointOutput / dbJointCap) * 100}}%;">
                         {{dbJointOutput | number:2}}%
                         </div>
                     </div>
                 </div>
-                <div ng-show="modeSelected.key == 'dc' || modeSelected.key == 'reduction'">
+                <div ng-show="modeSelected.key == 'dc'">
                     <div class="field-label">Pension Income Replacement</div>
-                    <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></a>
+                    <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-content="Amount of pension the 401k contribution adds up to."></a>
                     <div class="progress">
                         <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuemin="0" aria-valuemax="{{lifeCap}}" ng-attr-style="width: {{(lifeOnly /  lifeCap) * 100}}%;">
                         {{lifeOnly | number:2}}%
                         </div>
                     </div>
                     <div class="field-label  animated fadeInDown" ng-show="_survivor > 0">Pension Income Replacement w/ Survivor</div>
-                    <a role="button" class="fa fa-question-circle field-help" ng-show="_survivor > 0" data-trigger="click hover focus manual" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></a>
+                    <a role="button" class="fa fa-question-circle field-help" ng-show="_survivor > 0" data-trigger="click hover focus manual" data-toggle="popover" data-content="Amount of pension the 401k contribution adds up to for the individual and his spouse at the percent specified in Advanced settings under 'Survivor %'."></a>
                     <div class="progress animated fadeInDown" ng-show="_survivor > 0">
                         <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuemin="0" aria-valuemax="{{jointCap}}" ng-attr-style="width: {{(jointOutput / jointCap) * 100}}%;">
                         {{jointOutput | number:2}}%
@@ -55,14 +61,14 @@
                 </div>
                 <div ng-show="modeSelected.key == 'reduction'">
                     <div class="field-label">{{benefitSpan}}</div>
-                    <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></a>
+                    <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-content="The amount of benefit gain (or loss) between lifetime income with proposed 401k contributions vs the current pension benefit"></a>
                     <div class="progress">
                         <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuemin="0" aria-valuemax="{{reductionCap}}" ng-style="barStyle">
                             {{reductionOutput | absolute | number:2}}%
                         </div>
                     </div>
                     <div class="field-label  animated fadeInDown" ng-show="_survivor > 0">{{benefitSpanJoint}}</div>
-                    <a role="button" class="fa fa-question-circle field-help" ng-show="_survivor > 0" data-trigger="click hover focus manual" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></a>
+                    <a role="button" class="fa fa-question-circle field-help" ng-show="_survivor > 0" data-trigger="click hover focus manual" data-toggle="popover" data-content="The amount of benefit gain (or loss) between lifetime income with proposed 401k contributions vs the current pension benefit taking into account the 'Survivor %' under Advanced settings."></a>
                     <div class="progress animated fadeInDown" ng-show="_survivor > 0">
                         <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuemin="0" aria-valuemax="{{reductionJointCap}}" ng-style="jointStyle">
                         {{reductionJointOutput | absolute | number:2}}%
@@ -81,24 +87,24 @@
         <div id="input-panel-content" class="section">
             <div>
                 <div class="field-label">Age at Hire</div>
-                <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></a>
+                <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-content="Age of individual when hired. Must be whole number and 18 or higher."></a>
                 <input ng-model="ageAtHire" type="text" id="age-at-hire" class="form-control field" ui-number-mask="0" min="16" max="100">
             </div>
             <div>
                 <div class="field-label">Age at Retirement</div>
-                <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></a>
+                <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-content="Age of individual at retirement. Must be whole number, greater than age at hire, and less than or equal to 65."></a>
                 <input ng-model="ageAtRetire" type="text" id="age-at-retirement" class="form-control field" ui-number-mask="0" min="16" max="120">
             </div>
             <div>
                 <div class="field-label">Annual Wage at Hire</div>
-                <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></a>
+                <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-content="Salary of individual at hire"></a>
                 <div class="input-symbol dollar">
                     <input ng-model="wageAtHire" type="text" id="annual-wage-at-hire" class="form-control field" ui-number-mask="0" min="16" max="10000000">
                 </div>
             </div>
             <div>
                 <div class="field-label">Annual Wage at Retirement</div>
-                <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></a>
+                <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-content="Salary of individual at retirement. Must be higher than wage at hire."></a>
                 <div class="input-symbol dollar">
                     <input ng-model="wageAtRetire" type="text" id="annual-wage-at-retirement" class="form-control field" ui-number-mask="0" min="16" max="10000000">
                 </div>
@@ -107,12 +113,12 @@
             <div class="animated fadeInRight" ng-show="showAssumptions">
                 <div>
                     <div class="field-label">Years of Which Final Average Salary Based</div>
-                    <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></a>
+                    <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-content='If your final average salary is highest three years out of last ten years, the answer would still be "3." You can find your years of final average salary in your pension summary plan document. Must be whole number.'></a>
                     <input ng-model="finalSalaryYears" type="text" id="years-of-which-final-average-salary-based" class="form-control field" ui-number-mask="0" min="0" max="100">
                 </div>
                 <div>
-                    <div class="field-label">Retiree Cost of Living Adjustment (COLA) %</div>
-                    <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></a>
+                    <div class="field-label">Retiree Cost of Living Adjustment (COLA)</div>
+                    <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-content="You can find your COLA definition in your pension SPD. If your COLA fluctuates year-to-year, make your best estimate as to what is typical."></a>
                     <div class="input-symbol percent">
                         <input ng-model="COLAAdjustment" id="retiree-cost-of-living-adjustment" class="form-control field" ng-model-options="{ getterSetter: true }" ui-number-mask="1" min="0" max="500">
                     </div>
@@ -120,28 +126,28 @@
                 </div>
                 <div>
                     <div class="field-label">401k Investment Return %</div>
-                    <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></a>
+                    <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-content="Percent of return on 401k investments"></a>
                     <div class="input-symbol percent">
                         <input id="401k-investment-return" type="text" class="form-control field" ng-model="investReturn" ui-number-mask="0" min="0" max="1000">
                     </div>
                 </div>
                 <div>
                     <div class="field-label">Annuity Interest Rate %</div>
-                    <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></a>
+                    <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-content="Annuity interest rate."></a>
                     <div class="input-symbol percent">
                         <input id="annuity-interest-rate" type="text" class="form-control field" ng-model="interestRate" ui-number-mask="0" min="0" max="1000">
                     </div>
                 </div>
                 <div>
                     <div class="field-label">Wage Increase %</div>
-                    <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></a>
+                    <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-content="This is computed from the salaries and age at hire/retirement entered."></a>
                     <div class="input-symbol percent">
                         <input ng-disabled="true" id="wage-increase" class="form-control field" ng-model="wageIncrease" ui-number-mask="2" min="0" max="1000">
                     </div>
                 </div>
                 <div>
                     <div class="field-label">Survivor %</div>
-                    <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></a>
+                    <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-content="Percent of the survivor/spouse should be covered. When 100%, the investments will cover the individual and another person. To only compute retirement for one person, 'Survivor %' should be set to 0."></a>
                     <div class="input-symbol percent">
                         <input id="survivor-input-dc" type="text" class="form-control field" ng-model="survivor" ng-model-options="{ getterSetter: true }" ui-number-mask="1" max="1000">
                     </div>
@@ -149,7 +155,7 @@
                 </div>
                 <div>
                     <div class="field-label">Sex</div>
-                    <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></a>
+                    <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-content="Is the individual male of female. Different mortality rates will be used to compute the results."></a>
                     <select class="animated fadeIn form-control field"  id="sex-selection" ng-model="sex" ng-options="sex for sex in sexOptions"></select>
                 </div>
             </div>

@@ -170,11 +170,17 @@
             <div  class="field-fixed-width no-select">
                 <span class="advanced-header" ng-click="showAssumptions = !showAssumptions">
                     <i class="fa" ng-class="{'fa-angle-down': !showAssumptions, 'fa-angle-up': showAssumptions}"></i>
+                    <span>Advanced</span>
+                    <!--
+                    when text to simple, margin needs to adjust to keep reset on the right. fix this. 
                     <span>{{showAssumptions? 'Simple':'Advanced'}}</span>
+                    <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-content="Show/hide additional fields"></a>
+                    -->
                 </span>
                 <span class="reset-button advanced-header">
                     <span ng-click="setDefaults(true)">Reset</span>
                 </span>
+                <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-content="Reset all data in this panel to default values"></a>
             </div>
         </div>
     </div>

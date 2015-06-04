@@ -131,9 +131,9 @@
                     <div class="field-label">Retiree Cost of Living Adjustment (COLA)</div>
                     <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-placement="left" data-content="You can find your COLA definition in your pension SPD. If your COLA fluctuates year-to-year, make your best estimate as to what is typical."></a>
                     <div class="input-symbol percent">
-                        <input ng-model="COLAAdjustment" id="retiree-cost-of-living-adjustment" class="form-control field" ng-model-options="{ getterSetter: true }" ui-number-mask="2" min="0" max="500">
+                        <input ng-model="COLAAdjustment" id="retiree-cost-of-living-adjustment" class="form-control field" ng-model-options="{ getterSetter: true }" ui-number-mask="1" min="0" max="10">
                     </div>
-                    <input class="field-slider" type="range" max="100" ng-model="COLAAdjustment" ng-model-options="{ getterSetter: true }">
+                    <input class="field-slider" type="range" max="10" ng-model="COLAAdjustment" ng-model-options="{ getterSetter: true }">
                 </div>
                 <div class="field-fixed-width">
                     <div class="field-label">401k Investment Return %</div>

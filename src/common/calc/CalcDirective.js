@@ -42,7 +42,8 @@
       link: function(scope, element, window) {
         // activate help popovers
         $('[data-toggle="popover"]').popover();
-
+        var colaString = '';
+        var survivorString = '';
         scope.definedContributionPercent = null;
         scope.definedBenefitPercent = null;
         scope.showInput = false;
@@ -77,6 +78,9 @@
           // https://github.com/angular/angular.js/pull/9715
           scope._COLAAdjustment = 2;
           scope._survivor = 0;
+
+          colaString = scope._COLAAdjustment.toString();
+          survivorString = scope._survivor.toString();
 
           if (!only_options) {
             scope.definedContributionPercent = null;
@@ -214,27 +218,39 @@
         // A getter/setter to access COLAAdjustment because Angular 1.3 treats the HTML input type "range" as a string.
         scope.COLAAdjustment = function(value) {
 
-          if (value === '') {
-            value = 0;
+          if (typeof(value) === 'undefined') {
+            return colaString;
           }
 
-          if (typeof(value) !== 'undefined') {
-            scope._COLAAdjustment = parseFloat(value, 10).toFixed(2);
+          if (value === '') {
+            value = 0;
+            colaString = '';
+          } else {
+            scope._COLAAdjustment = parseFloat(value, 10);
+            colaString = value;
           }
-          return scope._COLAAdjustment.toString();
+
+          return colaString;
+
         };
 
         // A getter/setter to access survivor because Angular 1.3 treats the HTML input type "range" as a string.
         scope.survivor = function(value) {
 
-          if (value === '') {
-            value = 0;
+          if (typeof(value) === 'undefined') {
+            return survivorString;
           }
 
-          if (typeof(value) !== 'undefined') {
+          if (value === '') {
+            value = 0;
+            survivorString = '';
+          } else {
             scope._survivor = parseFloat(value, 10).toFixed(2);
+            survivorString = value;
           }
-          return scope._survivor.toString();
+
+          return survivorString;
+
         };
 
         scope.xValue = 0;

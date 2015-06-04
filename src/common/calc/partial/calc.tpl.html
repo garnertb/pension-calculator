@@ -17,7 +17,7 @@
                 <div class="field-label">Input Pension Multiplier</div>
                 <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-placement="left" data-content="Specify pension at retirement as percent of final salary. Your income replacement is determined by your pension formula which is defined in your pension SPD.  (e.g. retiree with a 2.5% multiplier and 30 years service receives a 75% income replacement.)"></a>
                 <div class="input-symbol percent">
-                    <input id="defined-contribution" type="text" ng-model="definedContributionPercent" class="form-control field" ui-number-mask="2" min="0" max="100">
+                    <input  id="defined-contribution" type="text" ng-model="definedContributionPercent" class="number-only-input form-control field" min="0" max="100">
                 </div>
             </div>
             <div ng-show="modeSelected.key == 'dc' || modeSelected.key =='reduction'">
@@ -25,7 +25,7 @@
                     <div class="field-label">Specify 401k Contribution</div>
                     <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-placement="left" data-content="Specify 401k contribution made by individual as percent of their payroll. If you want to see your income replacement based purely on city contributions, then only enter that amount. If you want to see your total income replace, include city and employee defined contributions.)"></a>
                     <div class="input-symbol percent">
-                        <input id="defined-benefit" type="text"  ng-model="definedBenefitPercent" class="form-control field" ui-number-mask="2" min="0" max="100">
+                        <input id="defined-benefit" type="text"  ng-model="definedBenefitPercent" class="number-only-input form-control field" min="0" max="100">
                     </div>
                 </div>
             </div>
@@ -93,14 +93,14 @@
                     <div class="field-label">Age at Hire.</div>
                     <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-placement="left" data-content="Age of individual when hired. Must be whole number and 18 or higher."></a>
                 </div>
-                <input ng-model="ageAtHire" type="text" id="age-at-hire" class="form-control field" ui-number-mask="2" min="16" max="100">
+                <input ng-model="ageAtHire" type="text" id="age-at-hire" class="form-control field" ui-number-mask="0" min="16" max="100">
             </div>
             <div>
                 <div class="field-fixed-width">
                     <div class="field-label">Age at Retirement</div>
                     <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-placement="left" data-content="Age of individual at retirement. Must be whole number, greater than age at hire, and less than or equal to 65."></a>
                 </div>
-                <input ng-model="ageAtRetire" type="text" id="age-at-retirement" class="form-control field" ui-number-mask="2" min="16" max="120">
+                <input ng-model="ageAtRetire" type="text" id="age-at-retirement" class="form-control field" ui-number-mask="0" min="16" max="65">
             </div>
             <div>
                 <div class="field-fixed-width">
@@ -125,28 +125,28 @@
                 <div class="field-fixed-width">
                     <div class="field-label">Years of Which Final Average Salary Based</div>
                     <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-placement="left" data-content='If your final average salary is highest three years out of last ten years, the answer would still be "3." You can find your years of final average salary in your pension summary plan document. Must be whole number.'></a>
-                    <input ng-model="finalSalaryYears" type="text" id="years-of-which-final-average-salary-based" class="form-control field" ui-number-mask="2" min="0" max="100">
+                    <input ng-model="finalSalaryYears" type="text" id="years-of-which-final-average-salary-based" class="form-control field" ui-number-mask="0" min="0" max="100">
                 </div>
                 <div class="field-fixed-width">
                     <div class="field-label">Retiree Cost of Living Adjustment (COLA)</div>
                     <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-placement="left" data-content="You can find your COLA definition in your pension SPD. If your COLA fluctuates year-to-year, make your best estimate as to what is typical."></a>
                     <div class="input-symbol percent">
-                        <input ng-model="COLAAdjustment" id="retiree-cost-of-living-adjustment" class="form-control field" ng-model-options="{ getterSetter: true }" ui-number-mask="2" min="0" max="10">
+                        <input ng-model="COLAAdjustment" type="text" id="retiree-cost-of-living-adjustment" class="number-only-input form-control field" ng-model-options="{ getterSetter: true, debounce: 500 }" min="0" max="10">
                     </div>
-                    <input class="field-slider" type="range" max="10" ng-model="COLAAdjustment" ng-model-options="{ getterSetter: true }">
+                    <input class="field-slider" type="range" max="10" step=".1" ng-model="COLAAdjustment" ng-model-options="{ getterSetter: true }">
                 </div>
                 <div class="field-fixed-width">
                     <div class="field-label">401k Investment Return %</div>
                     <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-placement="left" data-content="Percent of return on 401k investments."></a>
                     <div class="input-symbol percent">
-                        <input id="401k-investment-return" type="text" class="form-control field" ng-model="investReturn" ui-number-mask="2" min="0" max="1000">
+                        <input id="401k-investment-return" type="text" class="number-only-input form-control field" ng-model="investReturn" min="0" max="1000">
                     </div>
                 </div>
                 <div class="field-fixed-width">
                     <div class="field-label">Annuity Interest Rate %</div>
                     <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-placement="left" data-content="Annuity interest rate."></a>
                     <div class="input-symbol percent">
-                        <input id="annuity-interest-rate" type="text" class="form-control field" ng-model="interestRate" ui-number-mask="2" min="0" max="1000">
+                        <input id="annuity-interest-rate" type="text" class="number-only-input form-control field" ng-model="interestRate" min="0" max="1000">
                     </div>
                 </div>
                 <div class="field-fixed-width">
@@ -160,9 +160,9 @@
                     <div class="field-label">Survivor %</div>
                     <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-placement="left" data-content="Percent of the survivor/spouse should be covered. When 100%, the investments will cover the individual and another person. To only compute retirement for one person, 'Survivor %' should be set to 0."></a>
                     <div class="input-symbol percent">
-                        <input id="survivor-input-dc" type="text" class="form-control field" ng-model="survivor" ng-model-options="{ getterSetter: true }" ui-number-mask="2" max="1000">
+                        <input id="survivor-input-dc" type="text" class="number-only-input form-control field" ng-model="survivor" ng-model-options="{ getterSetter: true, debounce: 500 }" max="1000">
                     </div>
-                    <input id="survivor-slider-dc" class="field-slider" type="range" max="100" ng-model="survivor" ng-model-options="{ getterSetter: true }">
+                    <input id="survivor-slider-dc" class="field-slider" type="range" max="100" ng-model="survivor" step=".1" ng-model-options="{ getterSetter: true }">
                 </div>
                 <div class="field-fixed-width">
                     <div class="field-label">Sex</div>

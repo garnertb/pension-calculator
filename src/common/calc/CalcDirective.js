@@ -7,6 +7,32 @@
     };
   });
 
+  module.directive('numberOnlyInput', function() {
+    return {
+      restrict: 'EC',
+      replace: false,
+      require: '?ngModel',
+      link: function(scope, element, attrs, ngModel) {
+        scope.$watch(function() {
+          //use the $render method because the model may be retrieved and set using gettrs/setters
+          return ngModel.$viewValue;
+        }, function(newValue, oldValue) {
+
+          if (newValue == null) {
+            return;
+          }
+
+          if (typeof(newValue) === 'number') {
+            newValue = newValue.toString();
+          }
+          //use the $setViewValue method because the model may be retrieved and set using gettrs/setters
+          ngModel.$setViewValue(newValue.replace(/[^\d.-]/g, ''));
+          ngModel.$render();
+        });
+      }
+    };
+  });
+
   module.directive('calc', function(calcService, $rootScope, $window) {
     return {
       restrict: 'C',
@@ -187,16 +213,26 @@
 
         // A getter/setter to access COLAAdjustment because Angular 1.3 treats the HTML input type "range" as a string.
         scope.COLAAdjustment = function(value) {
+
+          if (value === '') {
+            value = 0;
+          }
+
           if (typeof(value) !== 'undefined') {
-            scope._COLAAdjustment = parseInt(value, 10);
+            scope._COLAAdjustment = parseFloat(value, 10).toFixed(2);
           }
           return scope._COLAAdjustment.toString();
         };
 
         // A getter/setter to access survivor because Angular 1.3 treats the HTML input type "range" as a string.
         scope.survivor = function(value) {
+
+          if (value === '') {
+            value = 0;
+          }
+
           if (typeof(value) !== 'undefined') {
-            scope._survivor = parseInt(value, 10);
+            scope._survivor = parseFloat(value, 10).toFixed(2);
           }
           return scope._survivor.toString();
         };

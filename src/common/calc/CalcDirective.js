@@ -77,7 +77,7 @@
           // The client uses a getter/setter to access these because Angular 1.3 treats the HTML input type "range" as a string.
           // https://github.com/angular/angular.js/pull/9715
           scope._COLAAdjustment = 2;
-          scope._survivor = 0;
+          scope._survivor = 50;
 
           colaString = scope._COLAAdjustment.toString();
           survivorString = scope._survivor.toString();

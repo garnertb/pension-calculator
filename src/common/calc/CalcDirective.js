@@ -210,7 +210,7 @@
         // Watch of calculation parameters.
         scope.$watchGroup(['_survivor', 'spouseAge', 'ageAtHire', 'ageAtRetire', 'wageAtHire', 'wageAtRetire',
           'finalSalaryYears', 'investRate', 'investReturn', '_COLAAdjustment', 'definedContributionPercent',
-          'definedBenefitPercent'], function(newValues, oldValues) {
+          'definedBenefitPercent', 'sex'], function(newValues, oldValues) {
           scope.updateWageIncrease();
           scope.calculateOutput();
         }, true);

@@ -168,11 +168,9 @@
           // Because we use absolute positioning for the input-panel divs we need to programmatically update the
           // output-area height or the advanced options will not be visible (even when setting height to 100%).
           if (scope.showAssumptions) {
-            var height = '846px';
-            console.log('setting height to:', height);
-            $('#output-area').height(height);
+            $('#output-area').height('878px');
           } else {
-            $('#output-area').height('351px');
+            $('#output-area').height('463px');
           }
         };
 

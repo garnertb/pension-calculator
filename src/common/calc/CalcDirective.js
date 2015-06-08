@@ -93,9 +93,11 @@
           var calcPanel = jQuery('.calc');
           var inputPanel = jQuery('.input-panel');
           var outputPanel = jQuery('.output-panel');
+          var inputButton = jQuery('.input-toggle-button');
 
           var outputPanelVal = null;
           var inputPanelVal = null;
+          var inputButtonVal = null;
           var calcPanelWidth = 500;
 
           if (calcPanel.width() > 500) {
@@ -104,19 +106,30 @@
 
           if (scope.showInput) {
             outputPanelVal = {
-              width: (calcPanelWidth - 400).toString().concat('px')
+              width: (calcPanelWidth - $('.input-panel').outerWidth(true))
             };
 
             inputPanelVal = {
-              width: (334).toString().concat('px')
+              left: '0px',
+              'margin-right': '15px'
             };
+
+            inputButtonVal = {
+              left: '316px'
+            };
+
           } else {
             outputPanelVal = {
               width: (calcPanelWidth - 36).toString().concat('px')
             };
 
             inputPanelVal = {
-              width: (14).toString().concat('px')
+              left: '-316px',
+              'margin-right': '0px'
+            };
+
+            inputButtonVal = {
+              left: '-1px'
             };
           }
 
@@ -125,9 +138,11 @@
           if (animate) {
             outputPanel.animate(outputPanelVal);
             inputPanel.animate(inputPanelVal);
+            inputButton.animate(inputButtonVal);
           } else {
             outputPanel.css(outputPanelVal);
             inputPanel.css(inputPanelVal);
+            inputButton.css(inputButtonVal);
           }
         };
 
@@ -137,6 +152,18 @@
         w.bind('resize', function() {
           computeDivSizes(false);
         });
+
+        scope.setAssumptionsHeight = function() {
+          // Because we use absolute positioning for the input-panel divs we need to programmatically update the
+          // output-area height or the advanced options will not be visible (even when setting height to 100%).
+          if (scope.showAssumptions) {
+            var height = '846px';
+            console.log('setting height to:', height);
+            $('#output-area').height(height);
+          } else {
+            $('#output-area').height('351px');
+          }
+        };
 
         scope.toggleInput = function(show) {
           if (scope.showInput === show) {

@@ -81,12 +81,7 @@
             </div>
         </div>
     </div>
-    <div class="input-panel">
-        <div class="input-toggle" ng-click="toggleInputByUser()">
-            <label class="input-toggle-button">
-                <i class="fa" ng-class="{'fa-angle-left': !showInput, 'fa-angle-right': showInput}"></i>
-            </label>
-        </div>
+    <div class="input-panel pull-left">
         <div id="input-panel-content" class="section">
             <div>
                 <div class="field-fixed-width">
@@ -121,7 +116,7 @@
                 </div>
             </div>
 
-            <div class="animated fadeInRight" ng-show="showAssumptions">
+            <div class="animated fadeInLeft" ng-show="showAssumptions">
                 <div class="field-fixed-width">
                     <div class="field-label">Years of Which Final Average Salary Based</div>
                     <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-placement="left" data-content='If your final average salary is highest three years out of last ten years, the answer would still be "3." You can find your years of final average salary in your pension summary plan document. Must be whole number.'></a>
@@ -171,7 +166,7 @@
                 </div>
             </div>
             <div  class="field-fixed-width no-select">
-                <span class="advanced-header" ng-click="showAssumptions = !showAssumptions">
+                <span class="advanced-header" ng-click="showAssumptions = !showAssumptions; setAssumptionsHeight()">
                     <i class="fa" ng-class="{'fa-angle-down': !showAssumptions, 'fa-angle-up': showAssumptions}"></i>
                     <span>Advanced</span>
                     <!--
@@ -186,5 +181,10 @@
                 <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-placement="left" data-content="Reset all data in this panel to default values."></a>
             </div>
         </div>
+    </div>
+    <div class="input-toggle" ng-click="toggleInputByUser()">
+        <label class="input-toggle-button">
+            <i class="fa" ng-class="{'fa-angle-left': showInput, 'fa-angle-right': !showInput}"></i>
+        </label>
     </div>
 </div>

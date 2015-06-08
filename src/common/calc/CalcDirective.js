@@ -170,7 +170,7 @@
           if (scope.showAssumptions) {
             $('#output-area').height('878px');
           } else {
-            $('#output-area').height('463px');
+            $('#output-area').height('100%');
           }
         };
 

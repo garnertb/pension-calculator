@@ -221,8 +221,11 @@ a.field-help {
   position: relative;
   width: 100%;
   height: 100%;
-  height: 463px;
   margin-bottom: 50px;
+
+  // if the height of the input-panel is greater than the output-area
+  // set the min-height of the output area to the height of the input-panel
+  min-height: 434px;
 }
 
 #introduction {
@@ -230,6 +233,26 @@ a.field-help {
   padding: 30px 30px 0px 30px;
 }
 
+#summary {
+  font-size: 16px;
+  width: 75%;
+  margin: auto;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+.summary-stat {
+  font-size: 18px;
+  font-weight: 900;
+}
+
+#summary-title {
+  font-size: 20px;
+  border-bottom: 1px solid #eeeeee;
+  margin-bottom: 10px;
+}
+
 .introduction-hr {
   margin-bottom: 0px;
 }
+

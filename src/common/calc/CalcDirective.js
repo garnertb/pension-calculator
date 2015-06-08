@@ -205,9 +205,11 @@
         scope.toggleInput(scope.showInputOnLoad);
 
         var delayedShowInput = function() {
-          setTimeout(function() {
-            scope.toggleInput(true);
-          }, 1000);
+          if (scope.showInput === false) {
+            setTimeout(function() {
+              scope.toggleInput(true);
+            }, 1000);
+          }
         };
 
         scope.isInputsValid = function() {

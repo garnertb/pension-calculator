@@ -84,6 +84,18 @@
                 </div>
             </div>
         </div>
+        <div id="summary" class="animated fadeInUp" ng-show="isInputsValid()">
+            <div id="summary-title">Summary</div>
+            <div ng-show="modeSelected.key == 'db'">
+                To recreate a <span class="summary-stat">{{definedContributionPercent}}%</span> pension income replacement with a <span class="summary-stat">{{COLAAdjustment()}}%</span> cost of living adjustment, you would have to contribute <span class="summary-stat">{{dbLifeOnly | number:2}}%</span> of your salary through the entirety of your career.
+            </div>
+            <div ng-show="modeSelected.key == 'dc'">
+                If you were to contribute <span class="summary-stat">{{definedBenefitPercent}}%</span> of your salary to a 401k through the entirety of your career, it would be the equivalent of a pension income replacement of <span class="summary-stat">{{lifeOnly | number:2}}%</span> with a <span class="summary-stat">{{COLAAdjustment()}}%</span> cost of living adjustment.
+            </div>
+            <div ng-show="modeSelected.key == 'reduction'">
+                If you had a <span class="summary-stat">{{definedContributionPercent}}%</span> pension income replacement with a <span class="summary-stat">{{COLAAdjustment()}}%</span> COLA replaced with a 401k plan with a <span class="summary-stat">{{definedBenefitPercent}}%</span> contribution, you’d be looking at a <span class="summary-stat">{{reductionOutput | absolute | number:2}}%</span> <span ng-if="lifeOnly > definedContributionPercent">gain</span><span ng-if="!(lifeOnly > definedContributionPercent)">cut</span> in benefit.
+            </div>
+        </div>
     </div>
     <div class="input-panel pull-left">
         <div id="input-panel-content" class="section">

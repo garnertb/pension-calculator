@@ -47,6 +47,7 @@
         scope.definedContributionPercent = null;
         scope.definedBenefitPercent = null;
         scope.showInput = false;
+        scope.showInputOnLoad = true;
         scope.showAssumptions = false;
         scope.showInputChangedByUser = false;
         scope.sexOptions = [
@@ -193,7 +194,7 @@
           scope.toggleInput(show);
         };
 
-        scope.toggleInput(false);
+        scope.toggleInput(scope.showInputOnLoad);
 
         var delayedShowInput = function() {
           setTimeout(function() {

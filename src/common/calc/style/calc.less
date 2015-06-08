@@ -168,7 +168,14 @@ a.field-help {
   position: absolute;
   top: 4px;
   content: "$";
+}
+
+.input-symbol-left {
   left: 5px;
+}
+
+.input-symbol-right {
+  right: 5px;
 }
 
 .input-symbol input {
@@ -179,15 +186,18 @@ a.field-help {
   content: "$";
   font-size: 14px;
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  .input-symbol-left
 }
 
 .input-symbol.percent input {
-  padding-left: 22px;
+  padding-right: 22px;
+  padding-left: 6px;
 }
 .input-symbol.percent:before {
   content: "%";
   font-size: 14px;
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  .input-symbol-right
 }
 
 .popover {

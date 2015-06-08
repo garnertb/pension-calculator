@@ -33,6 +33,16 @@
     };
   });
 
+  module.filter('removeCharacters', function() {
+    return function(str, subStr) {
+      if (str != null && subStr != null) {
+        return str.replace(subStr, '');
+      } else {
+        return str;
+      }
+    };
+  });
+
   module.directive('calc', function(calcService, $rootScope, $window) {
     return {
       restrict: 'C',

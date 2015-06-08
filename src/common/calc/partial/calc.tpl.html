@@ -148,7 +148,7 @@
                     <div class="field-label">Wage Increase %</div>
                     <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-placement="right" data-content="This is computed from the salaries and age at hire/retirement entered."></a>
                     <div class="input-symbol percent">
-                        <input ng-disabled="true" id="wage-increase" class="form-control field" ng-model="wageIncrease" ui-number-mask="2" min="0" max="1000">
+                        <input ng-disabled="true" id="wage-increase" class="form-control field" value="{{ wageIncrease*100|number: 2|removeCharacters: '.00' }}" min="0" max="1000">
                     </div>
                 </div>
                 <div class="field-fixed-width">

@@ -333,9 +333,11 @@
             scope.jointCap = scope.ComputeNextCap(scope.jointOutput);
           }
 
+          var yearsOfService = scope.ageAtRetire - scope.ageAtHire;
+          var totalDefinedContribution = yearsOfService * scope.definedContributionPercent;
           if (scope.modeSelected.key == 'db' || scope.modeSelected.key == 'reduction') {
-            var adjustedTotalWages = calcService.GenerateTotalWages(scope.sex, scope._COLAAdjustment, scope.ageAtRetire, scope.spouseAge, scope.wageAtRetire, scope.finalSalaryYears, scope.definedContributionPercent, scope.wageIncrease, scope.interestRate, 0);
-            var adjustedTotalWagesJoint = calcService.GenerateTotalWages(scope.sex, scope._COLAAdjustment, scope.ageAtRetire, scope.spouseAge, scope.wageAtRetire, scope.finalSalaryYears, scope.definedContributionPercent, scope.wageIncrease, scope.interestRate, scope._survivor);
+            var adjustedTotalWages = calcService.GenerateTotalWages(scope.sex, scope._COLAAdjustment, scope.ageAtRetire, scope.spouseAge, scope.wageAtRetire, scope.finalSalaryYears, totalDefinedContribution, scope.wageIncrease, scope.interestRate, 0);
+            var adjustedTotalWagesJoint = calcService.GenerateTotalWages(scope.sex, scope._COLAAdjustment, scope.ageAtRetire, scope.spouseAge, scope.wageAtRetire, scope.finalSalaryYears, totalDefinedContribution, scope.wageIncrease, scope.interestRate, scope._survivor);
             scope.dbLifeOnly = Math.max(calcService.ComputeEmployeeContrib(scope.ageAtHire, scope.ageAtRetire, scope.wageAtHire, scope.investReturn, scope.wageIncrease, adjustedTotalWages) * 100, 0);
             scope.dbJointOutput = Math.max(calcService.ComputeEmployeeContrib(scope.ageAtHire, scope.ageAtRetire, scope.wageAtHire, scope.investReturn, scope.wageIncrease, adjustedTotalWagesJoint) * 100, 0);
             scope.dbLifeCap = scope.ComputeNextCap(scope.dbLifeOnly);
@@ -344,18 +346,18 @@
           }
 
           if (scope.modeSelected.key == 'reduction') {
-            if (scope.lifeOnly > scope.definedContributionPercent) {
+            if (scope.lifeOnly > totalDefinedContribution) {
               scope.benefitSpan = 'Benefit Gain';
-              scope.reductionOutput = (scope.lifeOnly / scope.definedContributionPercent - 1) * 100;
+              scope.reductionOutput = (scope.lifeOnly / totalDefinedContribution - 1) * 100;
               scope.reductionCap = scope.ComputeNextCap(scope.reductionOutput);
               scope.barStyle = { 'width': (scope.reductionOutput / scope.reductionCap * 100) + '%', 'background-color': 'green'};
             } else {
               scope.benefitSpan = 'Benefit Cut';
-              scope.reductionOutput = (1 - scope.lifeOnly / scope.definedContributionPercent) * 100;
+              scope.reductionOutput = (1 - scope.lifeOnly / totalDefinedContribution) * 100;
               scope.reductionCap = scope.ComputeNextCap(scope.reductionOutput);
               scope.barStyle = { 'width': Math.abs(scope.reductionOutput / scope.reductionCap * 100) + '%', 'background-color': 'red'};
             }
-            var halfExpected = (scope.halfSurvivor / scope.lifeOnly) * scope.definedContributionPercent;
+            var halfExpected = (scope.halfSurvivor / scope.lifeOnly) * totalDefinedContribution;
             var jointExpected = scope.jointOutput / scope.halfSurvivor * halfExpected;
             if (scope.jointOutput > jointExpected) {
               scope.benefitSpanJoint = 'Benefit Gain w/ Survivor';

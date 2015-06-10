@@ -15,7 +15,7 @@
     };
     this.ComputeFinalValue = function(wageAtRetire, finalSalaryYears, wageIncrease, xValue, yValue, zValue) {
       var finalValue = 0;
-      finalValue = (xValue * yValue / zValue) / Math.pow(wageAtRetire / (1 + wageIncrease), finalSalaryYears / 2 - 0.5);
+      finalValue = (xValue * yValue / zValue) / (wageAtRetire / Math.pow((1 + wageIncrease), finalSalaryYears / 2 - 0.5));
       return finalValue;
     };
     this.ComputeXValue = function(ageAtHire, ageAtRetire, wageAtHire, definedContribution, investReturn, wageIncrease) {

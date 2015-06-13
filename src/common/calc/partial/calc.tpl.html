@@ -19,7 +19,7 @@
             <select class="animated fadeIn form-control field" id="calcMode" ng-model="modeSelected" ng-options="mode.value for mode in modes" required=""></select>
             <div class="animated fadeInUp" ng-show="modeSelected.key == 'db' || modeSelected.key =='reduction'">
                 <div class="field-label">Input Pension Multiplier</div>
-                <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-placement="left" data-content="Specify pension at retirement as percent of final salary. Your income replacement is determined by your pension formula which is defined in your pension SPD.  (e.g. retiree with a 2.5% multiplier and 30 years service receives a 75% income replacement.)"></a>
+                <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-placement="left" data-content="Specify your pension multiplier."></a>
                 <div class="input-symbol percent">
                     <input  id="defined-contribution" type="text" ng-model="definedContributionPercent" class="number-only-input form-control field" min="0" max="100">
                 </div>
@@ -87,13 +87,13 @@
         <div id="summary" class="animated fadeInUp" ng-show="isInputsValid()">
             <div id="summary-title">Summary</div>
             <div ng-show="modeSelected.key == 'db'">
-                To recreate a <span class="summary-stat">{{definedContributionPercent}}%</span> pension income replacement with a <span class="summary-stat">{{COLAAdjustment()}}%</span> cost of living adjustment, you would have to contribute <span class="summary-stat">{{dbLifeOnly | number:2}}%</span> of your salary through the entirety of your career.
+                To recreate a pension with a <span class="summary-stat">{{definedContributionPercent}}%</span> multiplier and a <span class="summary-stat">{{COLAAdjustment()}}%</span> cost of living adjustment, you would have to contribute <span class="summary-stat">{{dbLifeOnly | number:2}}%</span> of your salary through the entirety of your career.
             </div>
             <div ng-show="modeSelected.key == 'dc'">
                 If you were to contribute <span class="summary-stat">{{definedBenefitPercent}}%</span> of your salary to a 401k through the entirety of your career, it would be the equivalent of a pension income replacement of <span class="summary-stat">{{lifeOnly | number:2}}%</span> with a <span class="summary-stat">{{COLAAdjustment()}}%</span> cost of living adjustment.
             </div>
             <div ng-show="modeSelected.key == 'reduction'">
-                If you had a <span class="summary-stat">{{definedContributionPercent}}%</span> pension income replacement with a <span class="summary-stat">{{COLAAdjustment()}}%</span> COLA replaced with a 401k plan with a <span class="summary-stat">{{definedBenefitPercent}}%</span> contribution, you’d be looking at a <span class="summary-stat">{{reductionOutput | absolute | number:2}}%</span> <span ng-if="lifeOnly > definedContributionPercent">gain</span><span ng-if="!(lifeOnly > definedContributionPercent)">cut</span> in benefit.
+                If you had a <span class="summary-stat">{{definedContributionPercent}}%</span> pension multiplier with a <span class="summary-stat">{{COLAAdjustment()}}%</span> COLA and replaced it with a 401k plan with a <span class="summary-stat">{{definedBenefitPercent}}%</span> contribution, you’d be looking at a <span class="summary-stat">{{reductionOutput | absolute | number:2}}%</span> <span ng-if="lifeOnly > (ageAtRetire - ageAtHire) * definedContributionPercent">gain</span><span ng-if="!(lifeOnly > (ageAtRetire - ageAtHire) * definedContributionPercent)">cut</span> in benefit.
             </div>
         </div>
     </div>

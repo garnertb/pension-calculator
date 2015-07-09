@@ -66,9 +66,9 @@
         ];
         scope.modes = [
           {key: 'none', value: '( None Selected )'},
-          {key: 'db', value: 'Pension to 401k Equivalent'},
-          {key: 'dc', value: '401k to Pension Equivalent'},
-          {key: 'reduction', value: 'Pension vs 401k'}
+          {key: 'db', value: 'DB to DC Equivalent Conversion'},
+          {key: 'dc', value: 'DC to DB Equivalent Conversion'},
+          {key: 'reduction', value: 'DB vs DC Comparison'}
         ];
         scope.modeSelected = scope.modes[0];
 

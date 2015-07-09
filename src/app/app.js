@@ -1,21 +1,15 @@
 angular.module('benefitEquivalentCalculator', [
   'templates-app',
   'templates-common',
-  'benefitEquivalentCalculator.home',
   'ui.bootstrap',
-  'ui.router',
   'ui.utils.masks',
   'calc'
-]).config(function myAppConfig($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise('/home');
+]).config(function myAppConfig() {
   console.log('---- AppCtrl.config');
 }).run(function run() {
   console.log('---- AppCtrl.run');
-}).controller('AppCtrl', function AppCtrl($scope, $location) {
+}).controller('AppCtrl', function AppCtrl($scope, $location, calcService) {
   console.log('---- AppCtrl');
-  $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
-    if (angular.isDefined(toState.data.pageTitle)) {
-      $scope.pageTitle = toState.data.pageTitle + ' | Benefit Equivalent Calculator';
-    }
-  });
+  $scope.pageTitle = 'Benefit Equivalent Calculator';
+  calcService.ComputeXValue();
 });

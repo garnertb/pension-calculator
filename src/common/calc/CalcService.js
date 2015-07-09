@@ -1,10 +1,13 @@
 (function() {
   var module = angular.module('calc_service', []);
   var service_ = null;
+  var log_ = null;
+
   //var q_ = null;
   module.provider('calcService', function() {
-    this.$get = function($rootScope, $q) {
+    this.$get = function($rootScope, $q, $log) {
       service_ = this;
+      log_ = $log;
       //q_ = $q;
       return service_;
     };
@@ -1824,7 +1827,7 @@
       } else if (rateStructure.localeCompare('pbgcls', { ignorePunctuation: true }) === 0) {
         rateStructure = 'pbgcls';
       } else {
-        console.log('incorrect rateStructure');
+        log_.debug('incorrect rateStructure');
         return zValue;
       }
       if (sex.localeCompare('male', { ignorePunctuation: true }) === 0 || sex.localeCompare('male', { ignorePunctuation: true }) === 0) {
@@ -1851,7 +1854,7 @@
         EndAge = 120;
       }
       if (!Array.isArray(rates)) {
-        console.log('ERROR: Rates must be array');
+        log_.debug('ERROR: Rates must be array');
         return -1;
       }
       //Figure out size of mortTable
@@ -1887,22 +1890,22 @@
         }
       }
       pctSpouse = pctSpouse / 100;
-      console.log('----zValue Params---------');
-      console.log('rateStructure = ', rateStructure);
-      console.log('mortName = ', mortName);
-      console.log('mortProjection = ', mortProjection);
-      console.log('age = ', age);
-      console.log('ARA = ', ARA);
-      console.log('sex = ', sex);
-      console.log('certainPeriod = ', certainPeriod);
-      console.log('tempPeriod = ', tempPeriod);
-      console.log('spouseAge = ', spouseAge);
-      console.log('pctEE = ', pctEE);
-      console.log('pctBoth = ', pctBoth);
-      console.log('pctSpouse = ', pctSpouse);
-      console.log('COLApct = ', COLApct);
-      console.log('COLAStartAge = ', COLAStartAge);
-      console.log('----zValue Params End---------');
+      log_.debug('----zValue Params---------');
+      log_.debug('rateStructure = ', rateStructure);
+      log_.debug('mortName = ', mortName);
+      log_.debug('mortProjection = ', mortProjection);
+      log_.debug('age = ', age);
+      log_.debug('ARA = ', ARA);
+      log_.debug('sex = ', sex);
+      log_.debug('certainPeriod = ', certainPeriod);
+      log_.debug('tempPeriod = ', tempPeriod);
+      log_.debug('spouseAge = ', spouseAge);
+      log_.debug('pctEE = ', pctEE);
+      log_.debug('pctBoth = ', pctBoth);
+      log_.debug('pctSpouse = ', pctSpouse);
+      log_.debug('COLApct = ', COLApct);
+      log_.debug('COLAStartAge = ', COLAStartAge);
+      log_.debug('----zValue Params End---------');
       switch (rateStructure) {
         case 'spot':
           numRates = rates.length;
@@ -2248,7 +2251,7 @@
     };
 
     this.GenerateTotalWages = function(sex, COLApct, ageAtRetire, spouseAge, wageAtRetire, finalSalaryYears, incomeReplacement, wageIncrease, interestRate, survivorPct) {
-      console.log('Total Wage Variables:', sex, ageAtRetire, spouseAge, wageAtRetire);
+      log_.debug('Total Wage Variables:', sex, ageAtRetire, spouseAge, wageAtRetire);
       var outputIncomeTable = [];
       var grossWages = 0;
       var adjustedWages = 0;
@@ -2300,7 +2303,7 @@
       }
 
       adjustedWages = (grossWages / outputIncomeTable[ageAtRetire].cashFlow - 13 / 24) * outputIncomeTable[ageAtRetire].cashFlow;
-      console.log('Adjusted Wages = ', adjustedWages);
+      log_.debug('Adjusted Wages = ', adjustedWages);
       return adjustedWages;
     };
 

@@ -43,7 +43,7 @@
     };
   });
 
-  module.directive('calc', function(calcService, $rootScope, $window) {
+  module.directive('calc', function(calcService, $rootScope, $window, $log) {
     return {
       restrict: 'C',
       replace: false,
@@ -144,7 +144,7 @@
             };
           }
 
-          console.log('computeDivSizes: ', inputPanelVal, outputPanelVal);
+          $log.debug('computeDivSizes: ', inputPanelVal, outputPanelVal);
 
           if (animate) {
             outputPanel.animate(outputPanelVal);
@@ -186,7 +186,7 @@
           } else {
             scope.showInput = !scope.showInput;
           }
-          console.log('----- toggleInput: ', scope.showInput);
+          $log.debug('----- toggleInput: ', scope.showInput);
           computeDivSizes(true);
           /*
           if (scope.showInput) {
@@ -407,7 +407,7 @@
         };
 
         scope.calculateOutput = function() {
-          console.log('----- yoyo: ', scope.ageAtHire, scope.ageAtRetire, scope.wageAtHire, scope.xValue);
+          $log.debug('----- yoyo: ', scope.ageAtHire, scope.ageAtRetire, scope.wageAtHire, scope.xValue);
           if (scope.modeSelected.key == 'dc' || scope.modeSelected.key == 'reduction') {
             scope.xValue = calcService.ComputeXValue(scope.ageAtHire, scope.ageAtRetire, scope.wageAtHire, scope.definedBenefitPercent, scope.investReturn, scope.wageIncrease);
             scope.yValue = calcService.ComputeYValue(scope.ageAtHire, scope.ageAtRetire, scope.wageAtHire, scope.definedBenefitPercent, scope.investReturn);

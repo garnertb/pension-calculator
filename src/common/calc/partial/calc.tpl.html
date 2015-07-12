@@ -153,28 +153,28 @@
                     <input ng-model="finalSalaryYears" type="text" id="years-of-which-final-average-salary-based" class="form-control field" ui-number-mask="0" min="0" max="100">
                 </div>
                 <div class="field-fixed-width">
-                    <div class="field-label">DC Investment Return %</div>
+                    <div class="field-label">DC Investment Return</div>
                     <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-placement="right" data-content="Percent of return on 401k investments."></a>
                     <div class="input-symbol percent">
                         <input id="401k-investment-return" type="text" class="number-only-input form-control field" ng-model="investReturn" min="0" max="1000">
                     </div>
                 </div>
                 <div class="field-fixed-width">
-                    <div class="field-label">Annuity Interest Rate %</div>
+                    <div class="field-label">Annuity Interest Rate</div>
                     <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-placement="right" data-content="Annuity interest rate."></a>
                     <div class="input-symbol percent">
                         <input id="annuity-interest-rate" type="text" class="number-only-input form-control field" ng-model="interestRate" min="0" max="1000">
                     </div>
                 </div>
                 <div class="field-fixed-width">
-                    <div class="field-label">Wage Increase %</div>
+                    <div class="field-label">Wage Increase</div>
                     <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-placement="right" data-content="This is computed from the salaries and age at hire/retirement entered."></a>
                     <div class="input-symbol percent">
                         <input ng-disabled="true" id="wage-increase" class="form-control field" value="{{ wageIncrease*100|number: 2|removeCharacters: '.00' }}" min="0" max="1000">
                     </div>
                 </div>
                 <div class="field-fixed-width">
-                    <div class="field-label">Survivor %</div>
+                    <div class="field-label">Survivor</div>
                     <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-placement="right" data-content="Percent of the survivor/spouse should be covered. When 100%, the investments will cover the individual and another person. To only compute retirement for one person, 'Survivor %' should be set to 0."></a>
                     <div class="input-symbol percent">
                         <input id="survivor-input-dc" type="text" class="number-only-input form-control field" ng-model="survivor" ng-model-options="{ getterSetter: true }" max="1000">

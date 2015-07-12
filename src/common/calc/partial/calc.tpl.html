@@ -18,8 +18,13 @@
                 Compare a pension percentage to a DC contribution to compute the difference in benefits. Pensions are increasingly under fire from cities and municipalities. Some local members may not fully realize the magnitude of a benefit cut when switching from a pension defined benefit plan to a 401k defined contribution plan. The purpose of this calculator is to tell you how much your retirement income would be cut by switching from a pension plan to a 401(k) plan."></a>
             <select class="animated fadeIn form-control field" id="calcMode" ng-model="modeSelected" ng-options="mode.value for mode in modes" required=""></select>
             <div class="animated fadeInUp" ng-show="modeSelected.key == 'db' || modeSelected.key =='reduction'">
-                <div class="field-label">Input DB Multiplier</div>
-                <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-placement="left" data-content="Specify your pension multiplier."></a>
+                <div style="display:inline-block" ng-init="multiplier='multiplier'">
+                <input type="radio" ng-model="multiplier" value="multiplier" ng-click="">Multiplier
+                <input type="radio" ng-model="multiplier" value="total" ng-click="">Total Contribution
+                </div>
+                <div class="field-label" ng-show="multiplier == 'multiplier'">Input DB Multiplier</div>
+                <div class="field-label" ng-show="multiplier == 'total'">Input Total DB Contribution</div>
+                <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-placement="left" data-content="Specify your pension multiplier or total plan contribution."></a>
                 <div class="input-symbol percent">
                     <input  id="defined-contribution" type="text" ng-model="definedContributionPercent" class="number-only-input form-control field" min="0" max="100">
                 </div>
@@ -116,7 +121,7 @@
             <div>
                 <div class="field-fixed-width">
                     <div class="field-label">Annual Wage at Hire</div>
-                    <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-placement="right" data-content="Salary of individual at hire"></a>
+                    <a role="button" class="fa fa-question-circle field-help" data-trigger="click hover focus manual" data-toggle="popover" data-placement="right" data-content="Salary of individual at hire."></a>
                 </div>
                 <div class="input-symbol dollar">
                     <input ng-model="wageAtHire" type="text"  id="annual-wage-at-hire" class="number-only-input form-control field" min="16" max="10000000">
